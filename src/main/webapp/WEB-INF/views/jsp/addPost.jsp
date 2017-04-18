@@ -57,7 +57,7 @@ Categories:
 </c:if>
   !-->
 <c:if test="${sessionScope.username ==null }">
-<%session.setAttribute("url", "addPost.jsp"); %>
+<%session.setAttribute("url", "addPost"); %>
 <c:redirect url= "login"></c:redirect>
 </c:if>
 

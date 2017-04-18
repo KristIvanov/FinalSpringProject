@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,10 +31,26 @@ public class UploadImageController {
 	
 	
 
+	
 	@RequestMapping(value="/image", method=RequestMethod.GET)
 	@ResponseBody
 	public void viewPicture(HttpServletResponse resp, Model model,HttpSession session) throws IOException {
 		String username = (String) session.getAttribute("username");
+		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
+		File file;
+		if(u.getPhotoURL()!=null) {
+			 file = new File(u.getPhotoURL());
+		}
+		else {
+
+			file = new File("C:\\travelBook\\usersProfilePics\\No_person.jpg");
+		}
+		Files.copy(file.toPath(), resp.getOutputStream());
+	}
+	
+	@RequestMapping(value="/image/{username:.+}", method=RequestMethod.GET)
+	@ResponseBody
+	public void viewUsersPicture( @PathVariable("username") String username,HttpServletResponse resp, Model model,HttpSession session) throws IOException {
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		File file;
 		if(u.getPhotoURL()!=null) {
@@ -51,14 +68,15 @@ public class UploadImageController {
 	public String receiveUpload(@RequestParam("picture") MultipartFile multiPartFile,HttpServletResponse response, Model model,HttpServletRequest request, HttpSession session) throws IOException{
 		String username = (String) session.getAttribute("username");
 		String extension = request.getParameter("extension");
-	//	if(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL()!=null) {
-		//	File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
-		//	usersPicture.delete();
-		//}
+		System.out.println(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
+	if(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL()!=null) {
+			File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
+			System.out.println("da be ");
+			usersPicture.delete();
+	}
 		File fileOnDisk = new File(FILE_LOCATION + username+"-profile-pic."+extension);
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		model.addAttribute("profilePic", fileOnDisk.getAbsolutePath());
-		System.out.println(fileOnDisk.getAbsolutePath());
 		response.setStatus(200);
 		response.getWriter().append("Picture successfully uploaded!");
 		//TODO figure out why the ajax is not working as it supposed to be?!?!?

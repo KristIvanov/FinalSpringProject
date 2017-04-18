@@ -53,25 +53,22 @@
 <!-- check if !userexists ? return user not found.jsp -->
 <!-- view picture -->
 
-<img src="PictureServlet?username=${usersprofile}">
+<img src="image/<c:url value="${ usersprofile.username }"></c:url>" height=300 width="300"/> <br>
 
 <!-- print username, first, last, email -->
 <table border="1" id="userInfo">
 				<tr>
-					<c:out value="${ usersprofile.username }"></c:out>
-                    <p>username</p>
+				 <p>username: <c:out value="${ usersprofile.username }"></c:out> </p>
+					
 				</tr>
                 <tr>
-					<c:out value="${ usersprofile.first_name }"></c:out>
-                    <p>first name</p>
+                <p>first name: <c:out value="${ usersprofile.first_name }"></c:out></p>		
 				</tr>
                 <tr>
-					<c:out value="${ usersprofile.last_name }"></c:out>
-                    <p>last name</p>
+                 <p>last name: <c:out value="${ usersprofile.last_name }"></c:out></p>
 				</tr>
                 <tr>
-					<c:out value="${ usersprofile.email }"></c:out>
-                    <p>email</p>
+                 <p>email: <c:out value="${ usersprofile.email }"></c:out></p>
                 </tr>
 		</table>
 <!-- nqkyde vsqsno butoni POSTS FOLLOWING FOLLOWERS -->

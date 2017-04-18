@@ -1,5 +1,6 @@
 package com.example.model.managers;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +10,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.example.model.dbModel.DBManager;
 import com.example.model.dbModel.UserDAO;
 import com.example.model.InvalidInputException;
 import com.example.model.Post;
@@ -19,7 +22,6 @@ public class UsersManager {
 	  private ConcurrentHashMap<String, User> registeredUsers; //username--> user
 	  private static UsersManager instance=new UsersManager();
 	  private UsersManager() {
-		  System.out.println("users manager constructed");
 		registeredUsers = new ConcurrentHashMap<>();
 	   try {
 		   Set<User> users = UserDAO.getInstance().getAllUsers();
@@ -83,14 +85,34 @@ public class UsersManager {
 		}
 	  }
 	  
-	  public void delete(User u) {
-		  registeredUsers.remove(u);
-		  UserDAO.getInstance().deleteUser(u);
-		  if(!u.getPosts().isEmpty()) {
-			  for(Post p: u.getPosts()) {
-				  PostManager.getInstance().deletePost(p);
-			  }
+	  public void delete(User u)  {
+		  Connection con = DBManager.getInstance().getConnection();
+		  try {
+			con.setAutoCommit(false);
+			registeredUsers.remove(u);
+			UserDAO.getInstance().deleteUser(u);
+			if(!u.getPosts().isEmpty()) {
+				for(Post p: u.getPosts()) {
+					PostManager.getInstance().deletePost(p);
+				}
+			}
+			con.commit();
+		} catch (SQLException e) {
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} 
+		  finally {
+			  try {
+				con.setAutoCommit(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		  }
+		 
 	  }
 	  
 	  //update user's information by given parameters.. 
@@ -143,7 +165,6 @@ public class UsersManager {
 			}
 	      String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 	      java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-	      System.out.println(email);
 	      java.util.regex.Matcher m = p.matcher(email);
 	      return m.matches();
 		}

@@ -42,20 +42,20 @@ $(document).ready(function(){
 	<c:forEach var="post" items="${sessionScope.resultsByTag}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "/user/<c:out value="${post.author.username}"/> " >${ post.author.username }</a><br>
+				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
 				
 				
-				<c:out value="${ post.author.first_name }"></c:out>
-			    <c:out value="${ post.author.last_name }"></c:out>
+				<c:out value="${ post.author.first_name }"></c:out> <br>
+			    <c:out value="${ post.author.last_name }"></c:out> <br>
 	             
-				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category }"></c:out>
+				<c:out value="${ post.date }"></c:out> <br>
+				<c:out value="${ post.category.name }"></c:out> <br>
 		
-				<c:out value="${ post.postName }"></c:out>
-	             <p>postname</p><br>
+				<c:out value="${ post.postName }"></c:out> <br>
+	             <p>postname</p>
 		
-				<c:out value="${ post.description }"></c:out>
-	             <p>desc</p><br>
+				<c:out value="${ post.description }"></c:out> <br>
+	             <p>desc</p>
 	            
 				<!-- TODO ADD LIKES -->
 	             <p>likes</p><br>
@@ -76,22 +76,21 @@ $(document).ready(function(){
 	<c:forEach var="post" items="${sessionScope.resultsByDestination}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "/user/<c:out value="${post.author.username}"/> " >${ post.author.username }</a><br>
+				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
 				
-				
-				<c:out value="${ post.author.first_name }"></c:out>
-			    <c:out value="${ post.author.last_name }"></c:out>
+				<c:out value="${ post.author.first_name }"></c:out> <br>
+			    <c:out value="${ post.author.last_name }"></c:out><br>
 	             
-				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category }"></c:out>
+				<c:out value="${ post.date }"></c:out><br>
+				<c:out value="${ post.category.name }"></c:out><br>
 		
-				<c:out value="${ post.postName }"></c:out>
+				<c:out value="${ post.postName }"></c:out><br>
 		
-				<c:out value="${ post.description }"></c:out>
-	             <p>desc</p><br>
+				<c:out value="${ post.description }"></c:out><br>
+	             <p>desc</p>
 	            
 				<!-- TODO add likes -->
-	             <p>likes</p><br>
+	             <p>likes</p>
 	           
 	             <c:forEach var="Comment" items="${post.comments}"> 
 						<c:out value="${ comment }"></c:out><br>
@@ -111,7 +110,7 @@ $(document).ready(function(){
 				<!-- show small Picture -->
 				
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "/user/<c:out value="${user.username}"/> " >${ post.author.username }</a><br>
+				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
 				
 				<c:out value="${ user.first_name }"></c:out>
 			    <c:out value="${ user.last_name }"></c:out>

@@ -64,7 +64,6 @@ public class UsersController {
 	
 	@RequestMapping(value="/logout", method=RequestMethod.POST)
 	public String sayBye(Model viewModel, HttpSession session) {
-		session.setAttribute("logged", false);
 		session.invalidate();
 		return fileName;
 		
@@ -201,10 +200,13 @@ public class UsersController {
 		} 
 	
 	//view user's profile
-	@RequestMapping(value="/user/{username}",method = RequestMethod.GET)
-	public String viewProfile(Model model, @PathVariable("username") String username) {
+	@RequestMapping(value="/{username:.+} ",method = RequestMethod.GET)
+	public String viewProfile(Model model, @PathVariable("username") String username, HttpServletResponse response) {
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		model.addAttribute("usersprofile",u);
+		response.setHeader("Pragma", "No-cache");
+		response.setDateHeader("Expires", 0);
+		response.setHeader("Cache-control", "no-cache");
 		return "profile";
 	}
 	

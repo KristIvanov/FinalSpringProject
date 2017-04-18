@@ -168,6 +168,7 @@ public class PostsController {
 	@RequestMapping(value="/quickSearch",method = RequestMethod.GET)
 	public String products(Model model, HttpSession session, HttpServletRequest request) {
 		String words = request.getParameter("searchFor").trim();
+		session.setAttribute("searchFor", words);
 		String[] keywords = words.split(" ");
 		List<Post> resultsByTag = PostManager.getInstance().searchByTags(keywords);
 		List<Post> resultsByDestination = PostManager.getInstance().searchByDestination(words);

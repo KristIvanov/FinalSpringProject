@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import com.example.model.managers.PostManager;
 import com.example.model.managers.UsersManager;
 import com.example.model.Comment;
@@ -42,11 +44,27 @@ private static CommentDAO instance;
 		  		Comment comment = new Comment(author, rs.getString("text"), post,rs.getTimestamp("date").toLocalDateTime());
 				comments.put(rs.getLong("comment_id"), comment);
 				comment.setComment_id(rs.getLong("comment_id"));
+				PreparedStatement likersST = con.prepareStatement("SELECT liker_id FROM comments_has_likers WHERE comment_id=?");
+				likersST.setLong(1, comment.getComment_id());
+				ResultSet likersRS = likersST.executeQuery();
+				while(likersRS.next()) {
+					PreparedStatement usernamePS = con.prepareStatement("SELECT username FROM users WHERE user_id = ?");
+					usernamePS.setLong(1, likersRS.getLong("liker_id"));
+					ResultSet usernameRS = usernamePS.executeQuery();
+					usernameRS.next();
+					User u = UsersManager.getInstance().getRegisteredUsers().get(usernameRS.getString("username"));
+					comment.like(u);
+					usernamePS.close();
+					usernameRS.close();
+				}
+				
 				
 				rs.close();
 				ps.close();
 				authorRS.close();
 				authorST.close();
+				likersRS.close();
+				likersST.close();
 			}
 		} catch (SQLException e) {
 			
@@ -71,13 +89,15 @@ private static CommentDAO instance;
 
 	public synchronized void deleteComment(Comment com){
 		PreparedStatement prepSt;
+		Connection con = DBManager.getInstance().getConnection();
 		  try {
-			prepSt = DBManager.getInstance().getConnection().prepareStatement("DELETE FROM comments WHERE comment_id=?");
+			prepSt = con.prepareStatement("DELETE FROM comments WHERE comment_id=?");
 			prepSt.setLong(1, com.getComment_id());
 			prepSt.executeUpdate();
 			prepSt.close();
 			this.comments.remove(com);
-			System.out.println("Post successfully deleted!");
+			System.out.println("Comment successfully deleted!");
+			
 		  } catch (Exception e) {
 			 System.out.println(e.getMessage());
 		  }

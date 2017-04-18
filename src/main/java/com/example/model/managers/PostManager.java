@@ -1,5 +1,6 @@
 package com.example.model.managers;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.example.model.dbModel.CommentDAO;
+import com.example.model.dbModel.DBManager;
 import com.example.model.dbModel.PostDAO;
 import com.example.model.Category;
 import com.example.model.Comment;
@@ -86,12 +88,40 @@ public class PostManager {
 		PostDAO.getInstance().dislikePost(p, u);
 	}
 	
-	public void deletePost(Post p){
-		allPosts.remove(p);
-		PostDAO.getInstance().deletePost(p);
-		if(!p.getComments().isEmpty()) {
-			for(Comment c : p.getComments()) {
-				CommentDAO.getInstance().deleteComment(c);
+	public void deletePost(Post p) {
+		Connection con = DBManager.getInstance().getConnection();
+		boolean newTransaction = false;
+
+		try {
+			if(con.getAutoCommit()) {
+				newTransaction = true;
+				con.setAutoCommit(false);
+			}
+			allPosts.remove(p);
+			PostDAO.getInstance().deletePost(p);
+			if(!p.getComments().isEmpty()) {
+				for(Comment c : p.getComments()) {
+					CommentDAO.getInstance().deleteComment(c);
+				}
+			}
+			if (newTransaction) {
+				con.commit();
+			}
+		} catch (SQLException e) {
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				if(newTransaction) {
+					con.setAutoCommit(true);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -99,7 +129,6 @@ public class PostManager {
 	public List<Post> searchByDestination(String name){
 		ArrayList<Post> searchResults = new ArrayList<>();
 		for (Post post : allPosts.values()) {
-			System.out.println(post.getDestination());
 			if (post.getDestination().contains(name)) {
 				searchResults.add(post);
 			}
