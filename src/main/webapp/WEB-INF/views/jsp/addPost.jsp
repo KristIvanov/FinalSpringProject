@@ -63,7 +63,7 @@ Categories:
 
 <h2>Please add a new post</h2>
 <h5 id = "error">${ errorMsg}</h5>
-<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+<input id="pac-input" class="controls" type="text" placeholder="Search Box" >
 
 <div id="map" height="460px" width="100%"></div>
     <div id="form">
@@ -72,8 +72,8 @@ Categories:
 				Post name: <input type="text" value="${ postname }" name="postname" required></br>
 				Post description:<textarea name="postdescription" value="${postdescription }" cols="50" rows="8" placeholder="Add description"  required></textarea></br>
 				Destination name: <input type="text" value="${ destinationname }" name="destinationname" required></br>
-				Longitude: <input type="text" value="${ longitude }" name="longitude" required></br>
-				latitude: <input type="text" value="${latitude}" name="latitude" required></br>
+				<input id="longitude" hidden type="text" value="${ longitude }" name="longitude" required>
+				<input id="latitude" hidden type="text" value="${latitude}" name="latitude" required>
 				Enter key words separated by spaces: <input type="text" value="${ hashtags }" name="hashtags" ></br>
 				Categories: 
 				<select name = "category">
@@ -82,6 +82,7 @@ Categories:
 		       		 </c:forEach>
 		        </select> <br>
 				<label for="photo"> Select picture:  </label> <br>
+				
 			
 				<input type="file" name="picture" size="50" placeholder="Upload Your Image" ><br><br>
 			 	<label for="video"> Select video:  </label> <br>
@@ -137,11 +138,18 @@ Categories:
                 position: event.latLng,
                 map: map
               });
+              
+
 
 
               google.maps.event.addListener(marker, 'click', function() {
-                infowindow.open(map, marker);
+            	  document.getElementById('latitude').value = event.latLng.lat();
+                  document.getElementById('longitude').value = event.latLng.lng();
+            	  infowindow.open(map, marker);
+                
               });
+              
+              
             });
 
           var markers = [];
