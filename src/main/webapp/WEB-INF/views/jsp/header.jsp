@@ -15,9 +15,7 @@
 	String link1 = "register";
 	String link2 = "login";%>
 	<div align = "right">
-	<% if(session.getAttribute("logged")!= null){
-		logged = (Boolean) session.getAttribute("logged");
-		if(logged){
+	<% if(session.getAttribute("username")!= null){
 			button0 = "Home";
 			button1 = "Settings";
 			button2 = "Log out";
@@ -25,7 +23,14 @@
 			link1 = "settings";
 			link2 = "logout";
 		}
-	}
+		else {
+			button0 = "Home";
+			button1 = "Register";
+			button2 = "Log in";
+			link0 = "index";
+			link1 = "register";
+			link2 = "login";
+		}
 	%>
 		<a href = "<%= link0%>" ><%= button0%></a>
 		<a href = "<%= link1%>" ><%= button1%></a>

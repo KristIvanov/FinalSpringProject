@@ -51,7 +51,6 @@ public class PostDAO {
 				  		authorST.setLong(1, postRS.getLong("author_id"));
 				  		ResultSet authorRS = authorST.executeQuery();
 				  		authorRS.next();
-				  		System.out.println("posts dao working");
 				  		User author = UsersManager.getInstance().getRegisteredUsers().get(authorRS.getString("username"));
 				  	
 				  		//get the hashtags
@@ -77,7 +76,6 @@ public class PostDAO {
 				  								hashtags);
 				  		posts.add(post);
 				    	post.setPostId(post_id);
-				    	System.out.println(post.getDestination());
 				  		
 				    	//get the likers
 				  		PreparedStatement likersST = con.prepareStatement("SELECT liker_id FROM posts_has_likers WHERE liked_post_id=?");
@@ -141,7 +139,6 @@ public class PostDAO {
 			ps.setString(4, p.getCategory().getName());
 			ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
 			ps.setString(6, p.getDestination());
-			System.out.println(new BigDecimal(p.getLatitude()));
 			ps.setBigDecimal(7, new BigDecimal(p.getLongitude()));
 			ps.setBigDecimal(8, new BigDecimal(p.getLatitude()));
 			ps.setString(9, p.getPictureURL());

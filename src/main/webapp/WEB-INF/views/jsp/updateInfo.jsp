@@ -24,7 +24,7 @@ z
 			  contentType: false,
 			  function(result){
 	       			document.getElementById("response").innerHTML = result;
-	       			$('#picture').attr("src", ${profilePic});
+	       			$('#picture').attr("src", "${profilePic}");
 			  }
 		});
 	}

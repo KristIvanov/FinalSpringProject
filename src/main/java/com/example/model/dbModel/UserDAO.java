@@ -48,7 +48,6 @@ public class UserDAO {
 	      		//set user's picture if there is one
 	      		String pictureUrl ="";
 	      		if((pictureUrl=usersRS.getString("pictureURL"))!=null) {
-	      			System.out.println(pictureUrl);
 	      			u.setPhotoURL(pictureUrl);
 	      		}
 	      		
