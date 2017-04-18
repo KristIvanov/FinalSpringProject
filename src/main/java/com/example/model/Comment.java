@@ -1,6 +1,9 @@
 package com.example.model;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Comment {
 	
@@ -9,6 +12,8 @@ public class Comment {
 	private String text;
 	private Post post;
 	private LocalDateTime date;
+	private HashSet<User> likedBy;
+
 	
 	public Comment(User author, String text,Post post,LocalDateTime date) throws InvalidInputException {
 		this.author = author;
@@ -28,7 +33,7 @@ public class Comment {
 		return post;
 	}
 
-public long getComment_id() {
+	public long getComment_id() {
 		return comment_id;
 	}
 
@@ -40,6 +45,22 @@ public long getComment_id() {
 		return date;
 	}
 
+	public int getLikes() {
+		return likedBy.size();
+	}
+	
+	public Set<User> getLikers() {
+		return Collections.unmodifiableSet(likedBy);
+	}
+	
+	public void like(User u){
+		likedBy.add(u);
+	}
+	public void dislike(User u) {
+		if(likedBy.contains(u)) {
+			likedBy.remove(u);
+		}
+	}
 
 
 	public User getAuthor() {
@@ -56,6 +77,8 @@ public long getComment_id() {
 		}
 		return false;
 	}
+	
+	
 	
 	
 

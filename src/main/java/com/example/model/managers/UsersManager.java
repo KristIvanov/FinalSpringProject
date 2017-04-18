@@ -86,6 +86,11 @@ public class UsersManager {
 	  public void delete(User u) {
 		  registeredUsers.remove(u);
 		  UserDAO.getInstance().deleteUser(u);
+		  if(!u.getPosts().isEmpty()) {
+			  for(Post p: u.getPosts()) {
+				  PostManager.getInstance().deletePost(p);
+			  }
+		  }
 	  }
 	  
 	  //update user's information by given parameters.. 

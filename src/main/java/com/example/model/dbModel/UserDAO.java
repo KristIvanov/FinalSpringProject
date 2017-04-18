@@ -224,5 +224,7 @@ public class UserDAO {
 	  
   }
   
+  //TODO follow and unfollow
+  //TODO remove user from followers when user deletes his profile
   //TODO create view profile jsp and view all users with their profiles jsp
 }

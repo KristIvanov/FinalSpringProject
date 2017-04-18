@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.example.model.dbModel.CommentDAO;
 import com.example.model.dbModel.PostDAO;
 import com.example.model.Category;
+import com.example.model.Comment;
 import com.example.model.InvalidInputException;
 import com.example.model.Post;
 import com.example.model.User;
@@ -79,10 +81,19 @@ public class PostManager {
 		p.like(u);
 		PostDAO.getInstance().likePost(p,u);
 	}
+	public void dislike(Post p, User u) {
+		p.dislike(u);
+		PostDAO.getInstance().dislikePost(p, u);
+	}
 	
 	public void deletePost(Post p){
 		allPosts.remove(p);
 		PostDAO.getInstance().deletePost(p);
+		if(!p.getComments().isEmpty()) {
+			for(Comment c : p.getComments()) {
+				CommentDAO.getInstance().deleteComment(c);
+			}
+		}
 	}
 	
 	public List<Post> searchByDestination(String name){

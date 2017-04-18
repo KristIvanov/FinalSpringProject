@@ -2,17 +2,17 @@ package com.example.model;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import java.io.File;
 import java.util.*;
 
 public class MailSender {
-		final String senderEmailID = "tsvetina.gramova@gmail.com";
-	final String senderPassword = "12113292";
-	final String emailSMTPserver = "smtp.gmail.com";
-	final String emailServerPort = "465";
-	String receiverEmailID = null;
-	static String emailSubject=null;
-	static String emailBody=null;
+	
+	private final String senderEmailID = "tsvetina.gramova@gmail.com";
+	private final String senderPassword = "12113292";
+	private final String emailSMTPserver = "smtp.gmail.com";
+	private	final String emailServerPort = "465";
+	private String receiverEmailID = null;
+	private String emailSubject=null;
+	private String emailBody=null;
 	
 	
 	public MailSender(String receiverEmailID, String emailSubject, String emailBody) {

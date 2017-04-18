@@ -76,6 +76,7 @@ private static CommentDAO instance;
 			prepSt.setLong(1, com.getComment_id());
 			prepSt.executeUpdate();
 			prepSt.close();
+			this.comments.remove(com);
 			System.out.println("Post successfully deleted!");
 		  } catch (Exception e) {
 			 System.out.println(e.getMessage());
@@ -100,6 +101,7 @@ private static CommentDAO instance;
 			comment.setComment_id(commentId);;
 			rs.close();
 			ps.close();
+			this.comments.put(comment.getComment_id(), comment);
 			System.out.println("Comment added successfully");
 
 		} catch (SQLException e) {
@@ -110,8 +112,4 @@ private static CommentDAO instance;
 	
 
 }
-
-	//TODO create add comment jsp
-	
-	
 

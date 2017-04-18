@@ -2,7 +2,6 @@ package com.example.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
@@ -13,12 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.model.User;
@@ -28,8 +25,6 @@ import com.example.model.managers.UsersManager;
 @Controller
 @MultipartConfig
 public class UploadImageController {
-	
-	private String vzemiToqImage;
 
 	private static final String FILE_LOCATION = "C:\\travelBook\\usersProfilePics\\";
 	
@@ -41,7 +36,7 @@ public class UploadImageController {
 		String username = (String) session.getAttribute("username");
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		File file;
-		if(u.getPhotoURL()==null) {
+		if(u.getPhotoURL()!=null) {
 			System.out.println(u.getPhotoURL());
 			 file = new File(u.getPhotoURL());
 		}

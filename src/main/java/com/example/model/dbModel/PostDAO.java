@@ -89,7 +89,7 @@ public class PostDAO {
 					  		ResultSet rs = authorST.executeQuery();
 					  		rs.next();
 					  		User liker = UsersManager.getInstance().getRegisteredUsers().get(rs.getString("username"));
-				  			post.addLiker(liker);
+				  			post.like(liker);
 				  			rs.close();
 				  		}
 				  		//get all comments
@@ -199,7 +199,7 @@ public class PostDAO {
 	public synchronized void likePost(Post p,User u) {
 		PreparedStatement prepSt;
 		try {
-			prepSt = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO posts_has_likers (post_id,liker_id) VALUES (?,?)");
+			prepSt = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO posts_has_likers (liked_post_id,liker_id) VALUES (?,?)");
 			prepSt.setLong(2, p.getPostId());
 			prepSt.setLong(2, u.getUserId());
 			prepSt.executeUpdate();
@@ -210,6 +210,19 @@ public class PostDAO {
 		}
 	}
 	
+	public synchronized void dislikePost(Post p,User u) {
+		PreparedStatement prepSt;
+		try {
+			prepSt = DBManager.getInstance().getConnection().prepareStatement("DELETE FROM posts_has_likers WHERE liked_post_id=? and liker_id=? ");
+			prepSt.setLong(2, p.getPostId());
+			prepSt.setLong(2, u.getUserId());
+			prepSt.executeUpdate();
+			prepSt.close();
+			System.out.println("Post disliked successfully!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
 	
 	

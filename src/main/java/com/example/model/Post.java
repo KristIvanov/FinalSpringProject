@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Post {
 	
@@ -89,8 +90,17 @@ public class Post {
 		return likedBy.size();
 	}
 	
+	public Set<User> getLikers() {
+		return Collections.unmodifiableSet(likedBy);
+	}
+	
 	public void like(User u){
 		likedBy.add(u);
+	}
+	public void dislike(User u) {
+		if(likedBy.contains(u)) {
+			likedBy.remove(u);
+		}
 	}
 
 	public List<Comment> getComments() {
@@ -135,13 +145,5 @@ public class Post {
 		return Collections.unmodifiableList(hashtags);
 	}
 
-	public void addLiker(User user) {
-		likedBy.add(user);
-		
-	}
-	
-	
-	
-	
 	
 }
