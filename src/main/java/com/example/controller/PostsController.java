@@ -171,11 +171,20 @@ public class PostsController {
 		String[] keywords = words.split(" ");
 		List<Post> resultsByTag = PostManager.getInstance().searchByTags(keywords);
 		List<Post> resultsByDestination = PostManager.getInstance().searchByDestination(words);
+		List<Post> allPostsByUser = PostManager.getInstance().searchByUser(words);
+		List<Post> tagsByDate = PostManager.getInstance().orderByDate(resultsByTag);
+		List<Post> tagsByLikes = PostManager.getInstance().orderByLikes(resultsByTag);
+		List<Post> destinationByDate = PostManager.getInstance().orderByDate(resultsByDestination);
+		List<Post> destinationByLikes = PostManager.getInstance().orderByLikes(resultsByDestination);
 		List<User> resultsByUser = UsersManager.getInstance().searchUser(words);
-		
 		session.setAttribute("resultsByTag", resultsByTag);
 		session.setAttribute("resultsByDestination", resultsByDestination);
 		session.setAttribute("resultsByUser", resultsByUser);
+		session.setAttribute("tagsByDate", tagsByDate);
+		session.setAttribute("tagsByLikes", tagsByLikes);
+		session.setAttribute("destinationByDate", destinationByDate);
+		session.setAttribute("destinationByLikes", destinationByLikes);
+		session.setAttribute("postsByAuthor", allPostsByUser);
 		jspName="searchResults";
 		return jspName;
 	}

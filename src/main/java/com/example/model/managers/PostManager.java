@@ -156,6 +156,16 @@ public class PostManager {
 		return posts;
 	}
 	//sort posts by likes and date - create treesets??
+
+	public List<Post> searchByUser(String words) {
+		ArrayList<Post> searchResults = new ArrayList<>();
+		for (Post post : allPosts.values()) {
+			if (post.getAuthor().getFirst_name().contains(words) || post.getAuthor().getLast_name().contains(words) || post.getAuthor().getUsername().contains(words) || (post.getAuthor().getFirst_name() + " " + post.getAuthor().getLast_name()).contains(words)){
+				searchResults.add(post);
+			}
+		}
+		return Collections.unmodifiableList(searchResults);
+	}
 	
 	
 	

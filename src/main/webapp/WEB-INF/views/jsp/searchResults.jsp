@@ -17,6 +17,9 @@ $(document).ready(function(){
         $("#test1").html(document.getElementById("printByDestination").innerHTML);
     });
     $("#btn3").click(function(){
+        $("#test1").html(document.getElementById("postsByAuthor").innerHTML);
+    });
+    $("#btn4").click(function(){
         $("#test1").html(document.getElementById("printByUser").innerHTML);
     });
 });
@@ -28,9 +31,13 @@ $(document).ready(function(){
 	<br>
 	<br>
 
-<button id="btn1">Results by tags</button>
-<button id="btn2">Results by destination</button>
-<button id="btn3">Results by name</button>
+<button id="btn1">Posts by tags</button>
+<button id="btn2">Posts by destination</button>
+<button id="btn3">Posts by author</button>
+<button id="btn4">Users</button>
+<br>
+<button id="btn5">Order by date</button>
+<button id="btn6">Order by likes</button>
 
 <div id="test1" align="center"></div>
 
@@ -74,6 +81,39 @@ $(document).ready(function(){
 	<br><br><h2 align="center">No destinations found</h2>
 	</c:if>
 	<c:forEach var="post" items="${sessionScope.resultsByDestination}">
+		<div class="postlook" align="center">
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "/user/<c:out value="${post.author.username}"/> " >${ post.author.username }</a><br>
+				
+				
+				<c:out value="${ post.author.first_name }"></c:out>
+			    <c:out value="${ post.author.last_name }"></c:out>
+	             
+				<c:out value="${ post.date }"></c:out>
+				<c:out value="${ post.category }"></c:out>
+		
+				<c:out value="${ post.postName }"></c:out>
+		
+				<c:out value="${ post.description }"></c:out>
+	             <p>desc</p><br>
+	            
+				<!-- TODO add likes -->
+	             <p>likes</p><br>
+	           
+	             <c:forEach var="Comment" items="${post.comments}"> 
+						<c:out value="${ comment }"></c:out><br>
+	                	<p>comments</p><br>
+	             </c:forEach>
+		</div><br>
+	</c:forEach>
+</div>
+
+<div hidden id="postsByAuthor" align="center">
+	<h1>Posts by author: <c:out value="${sessionScope.searchFor}"></c:out></h1>
+	<c:if test="${sessionScope.postsByAuthor==null || sessionScope.postsByAuthor.isEmpty()}">
+	<br><br><h2 align="center">No posts with such author found</h2>
+	</c:if>
+	<c:forEach var="post" items="${sessionScope.postsByAuthor}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
 				<a href = "/user/<c:out value="${post.author.username}"/> " >${ post.author.username }</a><br>
