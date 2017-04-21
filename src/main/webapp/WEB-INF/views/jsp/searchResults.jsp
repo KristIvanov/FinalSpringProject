@@ -17,11 +17,12 @@ $(document).ready(function(){
         $("#test1").html(document.getElementById("printByDestination").innerHTML);
     });
     $("#btn3").click(function(){
-        $("#test1").html(document.getElementById("postsByAuthor").innerHTML);
+        $("#test1").html(document.getElementById("printByAuthor").innerHTML);
     });
     $("#btn4").click(function(){
         $("#test1").html(document.getElementById("printByUser").innerHTML);
     });
+    
 });
 </script>
 </head>
@@ -35,87 +36,33 @@ $(document).ready(function(){
 <button id="btn2">Posts by destination</button>
 <button id="btn3">Posts by author</button>
 <button id="btn4">Users</button>
-<br>
-<button id="btn5">Order by date</button>
-<button id="btn6">Order by likes</button>
 
 <div id="test1" align="center"></div>
 
 <div hidden id="printByTags" align="center">
 	<h1>Posts tagged with: <c:out value="${sessionScope.searchFor}"></c:out></h1>
-	<c:if test="${sessionScope.resultsByTag==null || sessionScope.resultsByTag.isEmpty()}">
+	<c:if test="${sessionScope.tagsByDate==null || sessionScope.tagsByDate.isEmpty()}">
 	<br><br><h2 align="center">No posts found</h2>
 	</c:if>
-	<c:forEach var="post" items="${sessionScope.resultsByTag}">
+	<script>
+	$("#btn11").click(function(){
+    	$("#test1").html(document.getElementById("printByTags").innerHTML);
+        $("#postsByTags").html(document.getElementById("printByTagsOrderNewest").innerHTML);
+    });
+    $("#btn12").click(function(){
+    	$("#test1").html(document.getElementById("printByTags").innerHTML);
+        $("#postsByTags").html(document.getElementById("printByTagsOrderTop").innerHTML);
+    });
+    </script>
+	<button id="btn11">Newest</button>
+	<button id="btn12">Top</button>
+	<div id="postsByTags" align="center"><p>printbytagsdiv</p><br></div>
+	
+	<div hidden id="printByTagsOrderNewest" align="center">
+		<c:forEach var="post" items="${sessionScope.tagsByDate}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
-				
-				
-				<c:out value="${ post.author.first_name }"></c:out> <br>
-			    <c:out value="${ post.author.last_name }"></c:out> <br>
-	             
-				<c:out value="${ post.date }"></c:out> <br>
-				<c:out value="${ post.category.name }"></c:out> <br>
-		
-				<c:out value="${ post.postName }"></c:out> <br>
-	             <p>postname</p>
-		
-				<c:out value="${ post.description }"></c:out> <br>
-	             <p>desc</p>
-	            
-				<!-- TODO ADD LIKES -->
-	             <p>likes</p><br>
-	           
-	             <c:forEach var="Comment" items="${post.comments}"> 
-						<c:out value="${ comment }"></c:out><br>
-	                	<p>comments</p><br>
-	             </c:forEach>
-		</div><br>
-	</c:forEach>
-</div>
-
-<div hidden id="printByDestination" align="center">
-	<h1>Posts with destination: <c:out value="${sessionScope.searchFor}"></c:out></h1>
-	<c:if test="${sessionScope.resultsByDestination==null || sessionScope.resultsByDestination.isEmpty()}">
-	<br><br><h2 align="center">No destinations found</h2>
-	</c:if>
-	<c:forEach var="post" items="${sessionScope.resultsByDestination}">
-		<div class="postlook" align="center">
-				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
-				
-				<c:out value="${ post.author.first_name }"></c:out> <br>
-			    <c:out value="${ post.author.last_name }"></c:out><br>
-	             
-				<c:out value="${ post.date }"></c:out><br>
-				<c:out value="${ post.category.name }"></c:out><br>
-		
-				<c:out value="${ post.postName }"></c:out><br>
-		
-				<c:out value="${ post.description }"></c:out><br>
-	             <p>desc</p>
-	            
-				<!-- TODO add likes -->
-	             <p>likes</p>
-	           
-	             <c:forEach var="Comment" items="${post.comments}"> 
-						<c:out value="${ comment }"></c:out><br>
-	                	<p>comments</p><br>
-	             </c:forEach>
-		</div><br>
-	</c:forEach>
-</div>
-
-<div hidden id="postsByAuthor" align="center">
-	<h1>Posts by author: <c:out value="${sessionScope.searchFor}"></c:out></h1>
-	<c:if test="${sessionScope.postsByAuthor==null || sessionScope.postsByAuthor.isEmpty()}">
-	<br><br><h2 align="center">No posts with such author found</h2>
-	</c:if>
-	<c:forEach var="post" items="${sessionScope.postsByAuthor}">
-		<div class="postlook" align="center">
-				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "/user/<c:out value="${post.author.username}"/> " >${ post.author.username }</a><br>
+				<a href = "<c:url value="/${user.username}"/> " >${ post.author.username }</a><br>
 				
 				
 				<c:out value="${ post.author.first_name }"></c:out>
@@ -127,7 +74,6 @@ $(document).ready(function(){
 				<c:out value="${ post.postName }"></c:out>
 		
 				<c:out value="${ post.description }"></c:out>
-	             <p>desc</p><br>
 	            
 				<!-- TODO add likes -->
 	             <p>likes</p><br>
@@ -138,6 +84,187 @@ $(document).ready(function(){
 	             </c:forEach>
 		</div><br>
 	</c:forEach>
+	</div>
+	
+	<div hidden id="printByTagsOrderTop" align="center">
+		<c:forEach var="post" items="${sessionScope.tagsByLikes}">
+		<div class="postlook" align="center">
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
+				
+				
+				<c:out value="${ post.author.first_name }"></c:out>
+			    <c:out value="${ post.author.last_name }"></c:out>
+	             
+				<c:out value="${ post.date }"></c:out>
+				<c:out value="${ post.category }"></c:out>
+		
+				<c:out value="${ post.postName }"></c:out>
+		
+				<c:out value="${ post.description }"></c:out>
+	            
+				<!-- TODO add likes -->
+	             <p>likes</p><br>
+	           
+	             <c:forEach var="Comment" items="${post.comments}"> 
+						<c:out value="${ comment }"></c:out><br>
+	                	<p>comments</p><br>
+	             </c:forEach>
+		</div><br>
+	</c:forEach>
+	</div>
+</div>
+
+
+
+<div hidden id="printByDestination" align="center">
+	<h1>Posts tagged with: <c:out value="${sessionScope.searchFor}"></c:out></h1>
+	<c:if test="${sessionScope.tagsByDate==null || sessionScope.tagsByDate.isEmpty()}">
+	<br><br><h2 align="center">No posts found</h2>
+	</c:if>
+	<script>
+	$("#btn21").click(function(){
+        $("#postsByDestination").html(document.getElementById("printByDestOrderNewest").innerHTML);
+    });
+    $("#btn22").click(function(){
+        $("#postsByDestination").html(document.getElementById("printByDestOrderTop").innerHTML);
+    });
+    </script>
+	<button id="btn21">Newest</button>
+	<button id="btn22">Top</button>
+	<div id="postsByDestination" align="center"></div>
+	
+	<div hidden id="printByDestOrderNewest" align="center">
+		<c:forEach var="post" items="${sessionScope.destinationByDate}">
+		<div class="postlook" align="center">
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
+				
+				
+				<c:out value="${ post.author.first_name }"></c:out>
+			    <c:out value="${ post.author.last_name }"></c:out>
+	             
+				<c:out value="${ post.date }"></c:out>
+				<c:out value="${ post.category }"></c:out>
+		
+				<c:out value="${ post.postName }"></c:out>
+		
+				<c:out value="${ post.description }"></c:out>
+	            
+				<!-- TODO add likes -->
+	             <p>likes</p><br>
+	           
+	             <c:forEach var="Comment" items="${post.comments}"> 
+						<c:out value="${ comment }"></c:out><br>
+	                	<p>comments</p><br>
+	             </c:forEach>
+		</div><br>
+	</c:forEach>
+	</div>
+	
+	<div hidden id="printByDestOrderTop" align="center">
+		<c:forEach var="post" items="${sessionScope.destinationByLikes}">
+		<div class="postlook" align="center">
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
+				
+				
+				<c:out value="${ post.author.first_name }"></c:out>
+			    <c:out value="${ post.author.last_name }"></c:out>
+	             
+				<c:out value="${ post.date }"></c:out>
+				<c:out value="${ post.category }"></c:out>
+		
+				<c:out value="${ post.postName }"></c:out>
+		
+				<c:out value="${ post.description }"></c:out>
+	            
+				<!-- TODO add likes -->
+	             <p>likes</p><br>
+	           
+	             <c:forEach var="Comment" items="${post.comments}"> 
+						<c:out value="${ comment }"></c:out><br>
+	                	<p>comments</p><br>
+	             </c:forEach>
+		</div><br>
+	</c:forEach>
+	</div>
+</div>
+
+
+
+<div hidden id="printByAuthor" align="center">
+	<h1>Posts tagged with: <c:out value="${sessionScope.searchFor}"></c:out></h1>
+	<c:if test="${sessionScope.usersByDate==null || sessionScope.usersByDate.isEmpty()}">
+	<br><br><h2 align="center">No posts found</h2>
+	</c:if>
+	<script>
+	 $("#btn31").click(function(){
+	    $("#postsByUsers").html(document.getElementById("printByUserOrderNewest").innerHTML);
+	 });
+	 $("#btn32").click(function(){
+	    $("#postsByUsers").html(document.getElementById("printByUserOrderTop").innerHTML);
+	 });
+    </script>
+	<button id="btn31">Newest</button>
+	<button id="btn32">Top</button>
+	<div id="postsByUsers" align="center"></div>
+	
+	<div hidden id="printByUserOrderNewest" align="center">
+		<c:forEach var="post" items="${sessionScope.usersByDate}">
+		<div class="postlook" align="center">
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
+				
+				
+				<c:out value="${ post.author.first_name }"></c:out>
+			    <c:out value="${ post.author.last_name }"></c:out>
+	             
+				<c:out value="${ post.date }"></c:out>
+				<c:out value="${ post.category }"></c:out>
+		
+				<c:out value="${ post.postName }"></c:out>
+		
+				<c:out value="${ post.description }"></c:out>
+	            
+				<!-- TODO add likes -->
+	             <p>likes</p><br>
+	           
+	             <c:forEach var="Comment" items="${post.comments}"> 
+						<c:out value="${ comment }"></c:out><br>
+	                	<p>comments</p><br>
+	             </c:forEach>
+		</div><br>
+	</c:forEach>
+	</div>
+	
+	<div hidden id="printByUserOrderTop" align="center">
+		<c:forEach var="post" items="${sessionScope.usersByLikes}">
+		<div class="postlook" align="center">
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "<c:url value="/${user.username}"/> " >${ post.author.username }</a><br>
+				
+				
+				<c:out value="${ post.author.first_name }"></c:out>
+			    <c:out value="${ post.author.last_name }"></c:out>
+	             
+				<c:out value="${ post.date }"></c:out>
+				<c:out value="${ post.category }"></c:out>
+		
+				<c:out value="${ post.postName }"></c:out>
+		
+				<c:out value="${ post.description }"></c:out>
+	            
+				<!-- TODO add likes -->
+	             <p>likes</p><br>
+	           
+	             <c:forEach var="Comment" items="${post.comments}"> 
+						<c:out value="${ comment }"></c:out><br>
+	                	<p>comments</p><br>
+	             </c:forEach>
+		</div><br>
+	</c:forEach>
+	</div>
 </div>
 
 <div hidden id="printByUser" align="center">
