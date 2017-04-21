@@ -54,7 +54,6 @@ public class UploadImageController {
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		File file;
 		if(u.getPhotoURL()!=null) {
-			System.out.println(u.getPhotoURL());
 			 file = new File(u.getPhotoURL());
 		}
 		else {
@@ -82,4 +81,6 @@ public class UploadImageController {
 		//TODO figure out why the ajax is not working as it supposed to be?!?!?
 		return "updateInfo";
 	}
+	
+	
 }

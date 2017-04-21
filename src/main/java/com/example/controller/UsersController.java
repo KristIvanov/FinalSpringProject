@@ -44,9 +44,6 @@ public class UsersController {
 				session.setAttribute("firstname", u.getFirst_name());
 				session.setAttribute("lastname", u.getLast_name());
 				session.setAttribute("email", u.getEmail());
-				response.setHeader("Pragma", "No-cache");
-				response.setDateHeader("Expires", 0);
-				response.setHeader("Cache-control", "no-cache");
 				fileName = "settings";
 				if(session.getAttribute("url") != null) {
 					fileName = (String) session.getAttribute("url");
@@ -57,20 +54,22 @@ public class UsersController {
 				errorMsg = "We did not recognise your username and password";
 			}
 			viewModel.addAttribute("errorMsg", errorMsg);
-
+			removeCacheFromResponse(response);
 			return fileName;
 	}
 
 	
 	@RequestMapping(value="/logout", method=RequestMethod.POST)
-	public String sayBye(Model viewModel, HttpSession session) {
+	public String sayBye(Model viewModel, HttpSession session, HttpServletResponse response) {
 		session.invalidate();
+		fileName = "index";
+		removeCacheFromResponse(response);
 		return fileName;
 		
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String register(Model viewModel,HttpSession session,HttpServletRequest req) {
+	public String register(Model viewModel,HttpSession session,HttpServletRequest req, HttpServletResponse response) {
 		String username = req.getParameter("username").trim();
 		String password = req.getParameter("password").trim();
 		String firstname = req.getParameter("firstname").trim();
@@ -90,6 +89,7 @@ public class UsersController {
 			fileName= "register";
 		}
 		viewModel.addAttribute("errorMsg", errorMsg);
+		removeCacheFromResponse(response);
 		return "fileName";
 	}
 	
@@ -100,6 +100,11 @@ public class UsersController {
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String prepareForIndex() {
 		return "index";
+	}
+	@RequestMapping(value="/indexx", method=RequestMethod.GET)
+	public String prepareForIndexx(HttpServletResponse response) {
+		removeCacheFromResponse(response);
+		return "indexx";
 	}
 	@RequestMapping(value="/settings", method=RequestMethod.GET)
 	public String settings() {
@@ -126,12 +131,22 @@ public class UsersController {
 		return "logout";
 	}
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
-	public String profile() {
-		return "profile";
+	public String profile(Model model, HttpSession session, HttpServletResponse response) {
+		if(session.getAttribute("logged") != null) {
+			User u = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
+			model.addAttribute("usersprofile", u);
+			fileName = "profile";
+		}
+		else {
+			fileName = "index";
+		}
+		
+		removeCacheFromResponse(response);
+		return fileName;
 	}
 	
 	@RequestMapping(value="/updateInfo", method=RequestMethod.POST)
-	public String update(Model viewModel, HttpSession session,HttpServletRequest req) {
+	public String update(Model viewModel, HttpSession session,HttpServletRequest req, HttpServletResponse response) {
 		if(session.getAttribute("logged")!= null){
 			String newUsername = req.getParameter("newUsername").trim();
 			String newFirstname = req.getParameter("newFirstname").trim();
@@ -195,23 +210,26 @@ public class UsersController {
 	
 		session.invalidate();
 		viewModel.addAttribute("errorMsg", errorMsg);
+		removeCacheFromResponse(response);
 		return "filename";
 			
 		} 
 	
 	//view user's profile
-	@RequestMapping(value="/{username:.+} ",method = RequestMethod.GET)
+	@RequestMapping(value="user/{username:.+} ",method = RequestMethod.GET)
 	public String viewProfile(Model model, @PathVariable("username") String username, HttpServletResponse response) {
+	if(UsersManager.getInstance().getRegisteredUsers().containsKey(username)) {
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		model.addAttribute("usersprofile",u);
-		response.setHeader("Pragma", "No-cache");
-		response.setDateHeader("Expires", 0);
-		response.setHeader("Cache-control", "no-cache");
+		removeCacheFromResponse(response);
 		return "profile";
+	} else {
+		return "index";
+	}
 	}
 	
 	@RequestMapping(value="/changePass",method = RequestMethod.POST)
-	public String changePass(Model model, HttpServletRequest req, HttpSession session) {
+	public String changePass(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse response) {
 		if(session.getAttribute("logged")!= null){
 			String oldPass = req.getParameter("oldPassword");
 			String newPass = req.getParameter("newPassword");
@@ -232,11 +250,13 @@ public class UsersController {
 		else{
 			fileName="login";
 		}
+		
+		removeCacheFromResponse(response);
 		return fileName;
 	}
 	
 	@RequestMapping(value="/forgotPassword",method = RequestMethod.GET)
-	public String forgotPass(Model model,HttpServletRequest request ) {
+	public String forgotPass(Model model,HttpServletRequest request, HttpServletResponse response ) {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -253,11 +273,12 @@ public class UsersController {
 			String password = UsersManager.getInstance().getRegisteredUsers().get(username).getPassword();
 			new MailSender(email, "Забравена парола за Travelbook", "Вашата парола е " + password + " . Заповядайте отново!");
 		}
+		removeCacheFromResponse(response);
 		return "redirect:/" +htmlFile;
 	}
 	
 	@RequestMapping(value="/newsFeed",method = RequestMethod.GET)
-	public String newsFeed(Model model, HttpSession ses  ) {
+	public String newsFeed(Model model, HttpSession ses, HttpServletResponse response) {
 		ArrayList<Post> posts =null;
 		if(ses.getAttribute("logged")!= null){
 			posts = new ArrayList<>();
@@ -273,7 +294,7 @@ public class UsersController {
 		else{
 			fileName="login";
 		}
-	
+		removeCacheFromResponse(response);
 		model.addAttribute("posts",posts);
 		return fileName;
 	}
@@ -311,6 +332,12 @@ public class UsersController {
 			return true;
 		}
 		return false;
+	}
+	
+	private  void removeCacheFromResponse(HttpServletResponse response) {
+		response.setHeader("Pragma", "No-cache");
+		response.setDateHeader("Expires", 0);
+		response.setHeader("Cache-control", "no-cache");
 	}
 	
 	

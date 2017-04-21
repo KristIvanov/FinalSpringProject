@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="quickSearch" method="get">
+<form action="/MyTravelerProject/quickSearch" method="get">
 <input type="text" placeholder="Search TravelBook" name="searchFor" required>
 <input type="submit" value = "Quick Search"></br>
 </form>   

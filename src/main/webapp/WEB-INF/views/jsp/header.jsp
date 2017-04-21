@@ -19,17 +19,17 @@
 			button0 = "Home";
 			button1 = "Settings";
 			button2 = "Log out";
-			link0 = "index";
-			link1 = "settings";
-			link2 = "logout";
+			link0 = "/MyTravelerProject/index";
+			link1 = "/MyTravelerProject/settings";
+			link2 = "/MyTravelerProject/logout";
 		}
 		else {
 			button0 = "Home";
 			button1 = "Register";
 			button2 = "Log in";
-			link0 = "index";
-			link1 = "register";
-			link2 = "login";
+			link0 = "/MyTravelerProject/index";
+			link1 = "/MyTravelerProject/register";
+			link2 = "/MyTravelerProject/login";
 		}
 	%>
 		<a href = "<%= link0%>" ><%= button0%></a>

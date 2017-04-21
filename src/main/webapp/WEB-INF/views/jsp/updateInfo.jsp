@@ -24,7 +24,7 @@ z
 			  contentType: false,
 			  function(result){
 	       			document.getElementById("response").innerHTML = result;
-	       			$('#picture').attr("src", "${profilePic}");
+	       			$("#picture").attr("src", "${profilePic}");
 			  }
 		});
 	}
@@ -35,7 +35,7 @@ z
 <br>
 <c:if test="${sessionScope.username !=null }">
 <h5 id = "error">${ errorMsg}</h5>
-<img id="picture" src="image" height=300 width="300">
+<img id="picture" src="/MyTravelerProject/image" height=300 width="300">
 <h1>Upload Profile Picture</h1>
         <form name="fileform" id=" fileForm" enctype="multipart/form-data" onsubmit="return uploadPicture()"> 
             <label for="photo"> Select picture :  </label>

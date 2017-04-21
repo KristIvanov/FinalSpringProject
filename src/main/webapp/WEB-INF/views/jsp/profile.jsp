@@ -53,7 +53,7 @@
 <!-- check if !userexists ? return user not found.jsp -->
 <!-- view picture -->
 
-<img src="image/<c:url value="${ usersprofile.username }"></c:url>" height=300 width="300"/> <br>
+<img src="/MyTravelerProject/image/<c:url value="${ usersprofile.username }"></c:url>" height=300 width="300"/> <br>
 
 <!-- print username, first, last, email -->
 <table border="1" id="userInfo">

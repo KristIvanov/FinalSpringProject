@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.math.NumberUtils;
@@ -45,7 +46,7 @@ public class PostsController {
 	
 	
 	@RequestMapping(value="/addPost",method = RequestMethod.POST)
-	public String addPost(Model model,@RequestParam("picture") MultipartFile multiPartPicture,@RequestParam("video") MultipartFile multiPartVideo, HttpServletRequest req,HttpSession session) throws IOException {
+	public String addPost(Model model,@RequestParam("picture") MultipartFile multiPartPicture,@RequestParam("video") MultipartFile multiPartVideo, HttpServletRequest req,HttpSession session, HttpServletResponse response) throws IOException {
 		if(session.getAttribute("username") != null ) {
 			String postName = req.getParameter("postname").trim();
 			String username = (String) req.getSession().getAttribute("username");
@@ -105,6 +106,7 @@ public class PostsController {
 			jspName = "login";
 		}
 		model.addAttribute("errorMsg", errorMsg);
+		removeCacheFromResponse(response);
 		return jspName;
 	}
 	
@@ -140,7 +142,7 @@ public class PostsController {
 
 	
 	@RequestMapping(value="/addComment",method = RequestMethod.POST)
-	public String addComment(Model model, HttpServletRequest request, HttpSession session) {
+	public String addComment(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 		if(session.getAttribute("username") != null ) {
 			String commentText = request.getParameter("text").trim();
 			String username = (String) session.getAttribute("username");
@@ -161,12 +163,12 @@ public class PostsController {
 	else {
 		jspName = "login";
 	}
-	
+		removeCacheFromResponse(response);
 		return jspName;
 	}
 	
 	@RequestMapping(value="/quickSearch",method = RequestMethod.GET)
-	public String products(Model model, HttpSession session, HttpServletRequest request) {
+	public String products(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		String words = request.getParameter("searchFor").trim();
 		session.setAttribute("searchFor", words);
 		String[] keywords = words.split(" ");
@@ -178,6 +180,7 @@ public class PostsController {
 		session.setAttribute("resultsByDestination", resultsByDestination);
 		session.setAttribute("resultsByUser", resultsByUser);
 		jspName="searchResults";
+		removeCacheFromResponse(response);
 		return jspName;
 	}
 	
@@ -187,6 +190,12 @@ public class PostsController {
 			throw new InvalidInputException("Empty comment text!");
 		}
 	
+	}
+	
+	private  void removeCacheFromResponse(HttpServletResponse response) {
+		response.setHeader("Pragma", "No-cache");
+		response.setDateHeader("Expires", 0);
+		response.setHeader("Cache-control", "no-cache");
 	}
 	
 }
