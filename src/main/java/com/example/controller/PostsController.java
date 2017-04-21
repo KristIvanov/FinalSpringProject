@@ -194,15 +194,11 @@ public class PostsController {
 		return jspName;
 	}
 	
-	@RequestMapping(value="/{username:.+}/{postId} ",method = RequestMethod.GET)
-	public String viewProfile(Model model, @PathVariable("postId") long postId, @PathVariable("username") String username, HttpServletResponse response) {
-		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
-		model.addAttribute("usersprofile",u);
+	@RequestMapping(value="/post/{postId} ",method = RequestMethod.GET)
+	public String viewPost(Model model, @PathVariable("postId") String postId,  HttpServletResponse response) {
 		Post post = PostManager.getInstance().getPosts().get(postId);
 		model.addAttribute("post", post);
-		response.setHeader("Pragma", "No-cache");
-		response.setDateHeader("Expires", 0);
-		response.setHeader("Cache-control", "no-cache");
+		removeCacheFromResponse(response);
 		return "post";
 	}
 	
