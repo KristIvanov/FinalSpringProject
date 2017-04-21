@@ -9,42 +9,20 @@
 <title>Profile</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script type="text/javascript">
-<!-- TODO set autoshow -->
-	function printPosts()
-	{	
-		$.ajax({
-		    url: 'printPosts',
-		    type: 'GET',
-		    success: function(result){
-	   			document.getElementById("printedPosts").innerHTML  = result;
-    			}
-		});
-	}
-</script>
-<script type="text/javascript">
-	function printFollowers()
-	{	
-		$.ajax({
-		    url: 'printFollowers',
-		    type: 'GET',
-		    success: function(result){
-	   			document.getElementById("ajaxResponse").innerHTML  = result;
-    			}
-		});
-	}
-</script>
-<script type="text/javascript">
-	function printFollowing()
-	{	
-		$.ajax({
-		    url: 'printFollowing',
-		    type: 'GET',
-		    success: function(result){
-	   			document.getElementById("ajaxResponse").innerHTML  = result;
-    			}
-		});
-	}
+<script>
+$(document).ready(function(){
+    $("#postShow").click(function(){
+        $("#wall").html(document.getElementById("printedPosts").innerHTML);
+    });
+    $("#followersShow").click(function(){
+        $("#wall").html(document.getElementById("printedFollowers").innerHTML);
+    });
+    $("#followingShow").click(function(){
+        $("#wall").html(document.getElementById("printedFollowing").innerHTML);
+    });
+   
+    
+});
 </script>
 <body>
 <jsp:include page="header.jsp" />
@@ -58,56 +36,78 @@
 <!-- print username, first, last, email -->
 <table border="1" id="userInfo">
 				<tr>
-				 <p>username: <c:out value="${ usersprofile.username }"></c:out> </p>
-					
+					<c:out value="${ usersprofile.username }"></c:out>
+                    <p>username</p>
 				</tr>
                 <tr>
-                <p>first name: <c:out value="${ usersprofile.first_name }"></c:out></p>		
+					<c:out value="${ usersprofile.first_name }"></c:out>
+                    <p>first name</p>
 				</tr>
                 <tr>
-                 <p>last name: <c:out value="${ usersprofile.last_name }"></c:out></p>
+					<c:out value="${ usersprofile.last_name }"></c:out>
+                    <p>last name</p>
 				</tr>
                 <tr>
-                 <p>email: <c:out value="${ usersprofile.email }"></c:out></p>
+					<c:out value="${ usersprofile.email }"></c:out>
+                    <p>email</p>
                 </tr>
 		</table>
 <!-- nqkyde vsqsno butoni POSTS FOLLOWING FOLLOWERS -->
-<div>
-	<input type="submit" onclick="printPosts()" value = "Posts">
-	<input type="submit" onclick="printFollowers()" value = "Followers">
-	<input type="submit" onclick="printFollowing()" value = "Following">
+<div id="wall" align="center"></div>
+<button id="postShow">Posts</button>
+<button id="followersShow">Followers</button>
+<button id="followingShow">Following</button>
+
+
+<div hidden id="printedPosts" align="center">
+		<c:forEach var="post" items="${sessionScope.usersprofile.posts}">
+		<div class="postlook" align="center">
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
+				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
+				
+				<c:out value="${ post.author.first_name }"></c:out>
+			    <c:out value="${ post.author.last_name }"></c:out>
+			    
+	            
+		</div><br>
+	</c:forEach>
 </div>
 
-<!-- tablica kato newsfeed, koqto se zapylva sprqmo gornite butoni -->
-<table border="1" id="printedPosts">
-	<c:forEach var="post" items="${usersprofile.posts}"> 
-				<tr>
-					<c:out value="${ post.date }"></c:out>
-                    <p>date</p>
-				</tr>
-                <tr>
-					<c:out value="${ post.category }"></c:out>
-                    <p>category</p>
-				</tr>
-                <tr>
-					<c:out value="${ post.postName }"></c:out>
-                    <p>name</p>
-				</tr>
-                <tr>
-					<c:out value="${ post.description }"></c:out>
-                    <p>desc</p>
-                </tr>
-                <tr>
-					<c:out value="${ post.likers.size }"></c:out>
-                    <p>likes</p>
-                </tr>
-                <tr>
-                	<c:forEach var="Comment" items="${post.comments}"> 
-						<c:out value="${ comment }"></c:out>
-                   	 	<p>comments</p>
-                   	</c:forEach>
-                </tr>
-			</c:forEach>
-</table>
+<div hidden id="printedFollowers" align="center">
+	<c:forEach var="user" items="${sessionScope.usersprofile.followers}">
+		<div class="postlook" align="center">
+				<!-- show small Picture -->
+				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "/user/<c:out value="${user.username}"/> " >${ user.username }</a><br>
+				
+				<c:out value="${ user.first_name }"></c:out>
+			    <c:out value="${ user.last_name }"></c:out>
+	             
+				<c:out value="${ user.email }"></c:out>
+				
+		</div><br>
+	</c:forEach>
+</div>
+
+
+<div hidden id="printedFollowing" align="center">
+	<c:forEach var="user" items="${sessionScope.usersprofile.following}">
+		<div class="postlook" align="center">
+				<!-- show small Picture -->
+				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
+				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+				<a href = "/user/<c:out value="${user.username}"/> " >${ user.username }</a><br>
+				
+				<c:out value="${ user.first_name }"></c:out>
+			    <c:out value="${ user.last_name }"></c:out>
+	             
+				<c:out value="${ user.email }"></c:out>
+				
+		</div><br>
+	</c:forEach>
+</div>
+
 </body>
 </html>

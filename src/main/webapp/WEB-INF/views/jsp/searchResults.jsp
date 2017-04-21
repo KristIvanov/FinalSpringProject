@@ -62,8 +62,8 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.tagsByDate}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${user.username}"/> " >${ post.author.username }</a><br>
-				
+				<a href = "<c:url value="/${post.author.username}"/> " >${ post.author.username }</a><br>
+				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
@@ -90,8 +90,8 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.tagsByLikes}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
-				
+				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
+				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
@@ -138,8 +138,8 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.destinationByDate}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
-				
+				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
+				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
@@ -166,8 +166,8 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.destinationByLikes}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
-				
+				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
+				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
@@ -214,8 +214,8 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.usersByDate}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
-				
+				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
+				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
@@ -242,8 +242,8 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.usersByLikes}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${user.username}"/> " >${ post.author.username }</a><br>
-				
+				<a href = "<c:url value="/${post.author.username}"/> " >${ post.author.username }</a><br>
+				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
@@ -275,7 +275,7 @@ $(document).ready(function(){
 	<c:forEach var="user" items="${sessionScope.resultsByUser}">
 		<div class="postlook" align="center">
 				<!-- show small Picture -->
-				
+				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
 				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
 				
