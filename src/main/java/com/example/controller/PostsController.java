@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -174,14 +175,40 @@ public class PostsController {
 		String[] keywords = words.split(" ");
 		List<Post> resultsByTag = PostManager.getInstance().searchByTags(keywords);
 		List<Post> resultsByDestination = PostManager.getInstance().searchByDestination(words);
+		List<Post> allPostsByUser = PostManager.getInstance().searchByUser(words);
+		List<Post> tagsByDate = PostManager.getInstance().orderByDate(resultsByTag);
+		List<Post> tagsByLikes = PostManager.getInstance().orderByLikes(resultsByTag);
+		List<Post> destinationByDate = PostManager.getInstance().orderByDate(resultsByDestination);
+		List<Post> destinationByLikes = PostManager.getInstance().orderByLikes(resultsByDestination);
 		List<User> resultsByUser = UsersManager.getInstance().searchUser(words);
-		
 		session.setAttribute("resultsByTag", resultsByTag);
 		session.setAttribute("resultsByDestination", resultsByDestination);
 		session.setAttribute("resultsByUser", resultsByUser);
+		session.setAttribute("tagsByDate", tagsByDate);
+		session.setAttribute("tagsByLikes", tagsByLikes);
+		session.setAttribute("destinationByDate", destinationByDate);
+		session.setAttribute("destinationByLikes", destinationByLikes);
+		session.setAttribute("postsByAuthor", allPostsByUser);
 		jspName="searchResults";
 		removeCacheFromResponse(response);
 		return jspName;
+	}
+	
+	@RequestMapping(value="/{username:.+}/{postId} ",method = RequestMethod.GET)
+	public String viewProfile(Model model, @PathVariable("postId") long postId, @PathVariable("username") String username, HttpServletResponse response) {
+		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
+		model.addAttribute("usersprofile",u);
+		Post post = PostManager.getInstance().getPosts().get(postId);
+		model.addAttribute("post", post);
+		response.setHeader("Pragma", "No-cache");
+		response.setDateHeader("Expires", 0);
+		response.setHeader("Cache-control", "no-cache");
+		return "post";
+	}
+	
+	@RequestMapping(value="/post", method=RequestMethod.GET)
+	public String profile() {
+		return "post";
 	}
 	
 	private  void validateData(String text) throws InvalidInputException{
