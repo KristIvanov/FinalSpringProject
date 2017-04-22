@@ -133,7 +133,7 @@ public class PostManager {
 				searchResults.add(post);
 			}
 		}
-		return Collections.unmodifiableList(searchResults);
+		return searchResults;
 	}
 	
 	
@@ -149,7 +149,7 @@ public class PostManager {
 			}
 			if (containsAll) searchResults.add(post);
 		}
-		return Collections.unmodifiableList(searchResults);
+		return searchResults;
 	}
 	
 	public List<Post> orderByLikes(List<Post> posts){
@@ -193,7 +193,7 @@ public class PostManager {
 				searchResults.add(post);
 			}
 		}
-		return Collections.unmodifiableList(searchResults);
+		return searchResults;
 	}
 	
 	

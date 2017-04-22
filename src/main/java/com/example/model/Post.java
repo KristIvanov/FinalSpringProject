@@ -95,7 +95,9 @@ public class Post {
 	}
 	
 	public void like(User u){
-		likedBy.add(u);
+		if(!likedBy.contains(u)){
+			likedBy.add(u);
+		}
 	}
 	public void dislike(User u) {
 		if(likedBy.contains(u)) {

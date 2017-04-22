@@ -60,7 +60,7 @@ $(document).ready(function(){
 
 
 <div hidden id="printedPosts" align="center">
-		<c:forEach var="post" items="${sessionScope.usersprofile.posts}">
+		<c:forEach var="post" items="${usersprofile.posts}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
 				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
@@ -75,7 +75,7 @@ $(document).ready(function(){
 </div>
 
 <div hidden id="printedFollowers" align="center">
-	<c:forEach var="user" items="${sessionScope.usersprofile.followers}">
+	<c:forEach var="user" items="${usersprofile.followers}">
 		<div class="postlook" align="center">
 				<!-- show small Picture -->
 				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
@@ -93,7 +93,7 @@ $(document).ready(function(){
 
 
 <div hidden id="printedFollowing" align="center">
-	<c:forEach var="user" items="${sessionScope.usersprofile.following}">
+	<c:forEach var="user" items="${usersprofile.following}">
 		<div class="postlook" align="center">
 				<!-- show small Picture -->
 				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
