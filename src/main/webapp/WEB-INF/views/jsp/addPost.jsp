@@ -17,7 +17,8 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 100%;
+        height: 2000%;
+        width:80%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -27,10 +28,11 @@
       }
     </style>
 </head>
-<body>
-<jsp:include page="header.jsp" />
+<body class="home">
+	<jsp:include page="header2.jsp" />
 <br>
 <br>
+<br><br><br><br><br><br><br><br>
 <!-- OLD FORM IF NEEDED
 <c:if test="${sessionScope.username !=null }">
 <h2>Please add a new post</h2>
@@ -66,7 +68,7 @@ Categories:
 <input id="pac-input" class="controls" type="text" placeholder="Search Box" >
 
 <div id="map" height="460px" width="100%"></div>
-    <div id="form">
+    <div  id="form">
     	
 	      <form action="addPost" method="post" enctype="multipart/form-data">
 				Post name: <input type="text" value="${ postname }" name="postname" required></br>
@@ -91,7 +93,7 @@ Categories:
 		</form>
     </div>
     
-      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+      <input hidden id="pac-input" class="controls" type="text" placeholder="Search Box">
       <div id="map"></div>
       <script>
         // This example adds a search box to a map, using the Google Place Autocomplete
@@ -104,8 +106,8 @@ Categories:
 
         function initAutocomplete() {
           var map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: -33.8688, lng: 151.2195},
-            zoom: 13,
+            center: {lat: 42.69, lng: 23.32},
+            zoom: 10,
             mapTypeId: 'roadmap'
           });
 

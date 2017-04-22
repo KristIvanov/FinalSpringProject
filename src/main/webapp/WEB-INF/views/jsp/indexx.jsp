@@ -10,13 +10,14 @@
 	
 	<title>Travelbook</title>
 
-    <link rel="shortcut icon" href="gt_favicon.png">
+   <!--  <link rel="shortcut icon" href="gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="css/bootstrap-min.css">
 	<link rel="stylesheet" href="css/font-awesome-min.css">
 
 	<!-- Custom styles for our template -->
+	<!--  
 	<link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="css/main.css">
 
@@ -25,42 +26,14 @@
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
+	
 </head>
 
 
     
 <body class="home">
-	<%
-   		response.addHeader("Cache-Control", "no-cache,no-store,private,must-revalidate,max-stale=0,post-check=0,pre-check=0"); 
-   		response.addHeader("Pragma", "no-cache"); 
-   		response.addDateHeader ("Expires", 0);
-  	%>
-	<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
-		<div class="container">
-			<div class="navbar-header">
-				<!-- Button for smallest screens -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index"><img src="img/logo1.png" alt="Travelbook"></a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav pull-right">
-					<li><a href="index">Home</a></li>					
-					<li><a href="AllDestinations">Posts</a></li>
-							
-					<%if(request.getSession().getAttribute("logged") == null){ %>
-						<li><a class="btn" href="SignIn.jsp">SIGN IN / SIGN UP</a></li>
-					<%}else{ %>
-						<li><a class="btn" href="LogoutServlet">Logout</a></li>
-						<li><a class="btn" href="profile">PROFILE</a></li>
-					<%} %>
-				</ul>
-			</div><!--/.nav-collapse -->
-		</div>
-	</div> 
-	<!-- /.navbar -->
+	<jsp:include page="header2.jsp" />
 
-	<!-- Header -->
 	<header id="head">
 		<div class="container">
 			<div class="row">

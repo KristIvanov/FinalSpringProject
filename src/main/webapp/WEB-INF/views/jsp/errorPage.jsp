@@ -8,6 +8,8 @@
 <title>Error</title>
 </head>
 <body>
+	<jsp:include page="header2.jsp" />
+
 <img src="errorPage.jpg">
 </body>
 </html>
