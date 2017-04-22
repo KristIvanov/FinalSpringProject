@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.annotation.MultipartConfig;
@@ -195,15 +196,35 @@ public class PostsController {
 	}
 	
 	@RequestMapping(value="/post/{postId} ",method = RequestMethod.GET)
-	public String viewPost(Model model, @PathVariable("postId") String postId,  HttpServletResponse response) {
+	public String viewPost(Model model, @PathVariable("postId") String postId,  HttpServletResponse response, HttpSession session) {
 		Post post = PostManager.getInstance().getPosts().get(postId);
-		model.addAttribute("post", post);
+		session.setAttribute("post", post);
 		removeCacheFromResponse(response);
 		return "post";
 	}
 	
 	@RequestMapping(value="/post", method=RequestMethod.GET)
-	public String profile() {
+	public String post() {
+		return "post";
+	}
+	
+	@RequestMapping(value="/likePost", method=RequestMethod.GET)
+	public String likePost(Model model, HttpSession session) {
+		Post post = (Post) session.getAttribute("post");
+		User user = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
+		if (UsersManager.getInstance().getRegisteredUsers().containsKey(session.getAttribute("username"))){
+			post.like(user);
+		}
+		return "post";
+	}
+	
+	@RequestMapping(value="/dislikePost", method=RequestMethod.GET)
+	public String dislikePost(Model model, HttpSession session) {
+		Post post = (Post) session.getAttribute("post");
+		User user = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
+		if (UsersManager.getInstance().getRegisteredUsers().containsKey(session.getAttribute("username"))){
+			post.dislike(user);
+		}
 		return "post";
 	}
 	
