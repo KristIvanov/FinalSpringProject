@@ -13,6 +13,7 @@ $(document).ready(function(){
 	    $("#test1").html(document.getElementById("printByTags").innerHTML);
         $("#postsByTags").html(document.getElementById("printByTagsOrderNewest").innerHTML);
 
+
     $("#btn1").click(function(){
 
         $("#test1").html(document.getElementById("printByTags").innerHTML);
@@ -20,9 +21,11 @@ $(document).ready(function(){
     });
     $("#btn2").click(function(){
         $("#test1").html(document.getElementById("printByDestination").innerHTML);
+        $("#postsByDestination").html(document.getElementById("printByDestOrderNewest").innerHTML);
     });
     $("#btn3").click(function(){
         $("#test1").html(document.getElementById("printByAuthor").innerHTML);
+        $("#postsByUsers").html(document.getElementById("printByUserOrderNewest").innerHTML);
     });
     $("#btn4").click(function(){
         $("#test1").html(document.getElementById("printByUser").innerHTML);
