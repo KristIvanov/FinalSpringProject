@@ -29,7 +29,6 @@ public class UsersController {
 	private static String errorMsg = " ";
        
 	
-	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String sayHi(Model viewModel,HttpServletRequest request,HttpSession session,HttpServletResponse response) {
 		
@@ -81,7 +80,7 @@ public class UsersController {
 		session.setAttribute("firstname", firstname);
 		session.setAttribute("lastname", lastname);
 		session.setAttribute("email", email);
-		
+		fileName="login";
 		try {
 			this.validateData(username, password, firstname, lastname, email);
 			UsersManager.getInstance().register(username, password, firstname, lastname, email);
@@ -90,7 +89,7 @@ public class UsersController {
 		}
 		viewModel.addAttribute("errorMsg", errorMsg);
 		removeCacheFromResponse(response);
-		return "fileName";
+		return fileName;
 	}
 	
 	@RequestMapping(value="/updateInfo", method=RequestMethod.GET)
@@ -303,15 +302,15 @@ public class UsersController {
 	
 	
 	private  void validateData(String username, String password, String firstName, String lastName, String email) throws InvalidInputException{
-		if(username == null || username.isEmpty() || UsersManager.getInstance().getRegisteredUsers().containsKey(username)) {
+		if(username == null || username.isEmpty() || username.length()<5 || UsersManager.getInstance().getRegisteredUsers().containsKey(username)) {
 			errorMsg = "Invalid username!";
 			throw new InvalidInputException("Invalid username!");
 		}
-		if(!checkString(firstName)) {
+		if(!checkString(firstName) || firstName.length()<5) {
 			errorMsg = "Invalid first name!";
 			throw new InvalidInputException("Invalid first name!");
 		}
-		if(!checkString(lastName)) {
+		if(!checkString(lastName) || lastName.length()<5) {
 			errorMsg = "Invalid last name!";
 			throw new InvalidInputException("Invalid last name!");
 		}
@@ -320,8 +319,8 @@ public class UsersController {
 			errorMsg = "Invalid email!";
 			throw new InvalidInputException("Invalid email!");
 		}
-		
 		if(!UsersManager.getInstance().validatePassword(password)){
+			
 			errorMsg = "Invalid password!";
 			throw new InvalidInputException("Invalid password!");
 		}

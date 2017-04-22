@@ -30,7 +30,7 @@
                <ul class="nav navbar-nav pull-right">
                   <li>
                      <form action="/MyTravelerProject/quickSearch" method="get">
-                        <input id="input" type="text" class="btn" placeholder="Search Travelbook" name="searchFor" required>
+                        <input id="input1" type="text" class="btn" placeholder="Search Travelbook" name="searchFor" required>
                         <input class="btn" type="submit" value = "Quick Search">
                      </form>
                   </li>
@@ -40,7 +40,7 @@
                  </c:if>
                  <c:if test="${sessionScope.logged!=null}">
                   <li><a class="btn" href="/MyTravelerProject/logout">Logout</a></li>
-                  <li><a class="btn" href="/MyTravelerProject/profile">Settings</a></li>
+                  <li><a class="btn" href="/MyTravelerProject/updateInfo">Settings</a></li>
                   <li><a class="btn" href="/MyTravelerProject/addPost">Add new post</a></li>
                   </c:if>
                </ul>

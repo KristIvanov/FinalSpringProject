@@ -1,7 +1,13 @@
 /* Header */
-#head { background:#181015 url( ../img/header.jpg) no-repeat; background-size: cover; min-height:1020px; text-align: center; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
-#head.secondary { height:100px; min-height: 100px; padding-top:0px; }
-	#head .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:50px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
+#head2 { background:#181015 url( ../img/loginPic.jpg) no-repeat; background-size: cover; min-height:1220px; text-align: right; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+#head2.secondary { height:100px; min-height: 100px; padding-top:0px; }
+	#head2 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:40px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
+#head3 { background:#181015 url( ../img/pic3.jpg) no-repeat; background-size: cover; min-height:1020px; text-align: right; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+	#head3 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:40px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
+
+#head1 { background:#181015 url( ../img/header.jpg) no-repeat; background-size: cover; min-height:1020px; text-align: center; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+#head1.secondary { height:100px; min-height: 100px; padding-top:0px; }
+	#head1 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:50px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 	#head .tagline { color:red; margin-bottom:25px; }
 		#head .tagline a { color:#fff; } 
 	#head .btn { margin-bottom:10px;}
@@ -16,7 +22,7 @@
 	#head .lead { font-size: 50px; }
 }
 
-#input { width: 50%;
+#input1 { width: 50%;
       height: 30%;
       box-sizing: border-box;
       border: 1px solid #ccc;
@@ -28,7 +34,16 @@
       background-repeat: no-repeat;
       padding: 12px 20px 12px 40px;}
       
-      
+ #input2 { width: 20%;
+      height: 30%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 12px;
+      background-color: white;
+      background-position: -5px, 7px; 
+      background-repeat: no-repeat;
+      padding: 12px 20px 12px 40px;}
 /* Autohide navbar */
 .slideUp { top:-100px; }
 .headroom { -webkit-transition: all 0.4s ease-out; -moz-transition: all 0.4s ease-out; -o-transition: all 0.4s ease-out; transition: all 0.4s ease-out; }

@@ -171,6 +171,7 @@ public class PostsController {
 	
 	@RequestMapping(value="/quickSearch",method = RequestMethod.GET)
 	public String products(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("proba");
 		String words = request.getParameter("searchFor").trim();
 		session.setAttribute("searchFor", words);
 		String[] keywords = words.split(" ");

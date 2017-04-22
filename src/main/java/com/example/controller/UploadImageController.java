@@ -36,6 +36,7 @@ public class UploadImageController {
 	@ResponseBody
 	public void viewPicture(HttpServletResponse resp, Model model,HttpSession session) throws IOException {
 		String username = (String) session.getAttribute("username");
+		System.out.println(username);
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		File file;
 		if(u.getPhotoURL()!=null) {

@@ -12,21 +12,30 @@
 <body>
   <jsp:include page="header2.jsp" />
       
-        <br><br><br><br><br><br><br><br>
 <br>
-<br>
-<c:if test="${sessionScope.username ==null }">
-<h2>Please login</h2>
-<h5 id = "error">${ errorMsg}</h5>
-<form action="login" method="post">
-Username: <input type="text" placeholder="enter username" name="username" required="required"></br>
-Password: <input type="password" placeholder="enter password" name="password" required="required"></br>
-<input type="submit" value = "Login"></br>
-</form>
-<a href="register">Don`t have an account? Register here.</a>
+	<header id="head2">
+		<div class="container">
+			<div class="row">
+			<c:if test="${sessionScope.logged ==null }">
+				<h1 class="lead">Please login</h1>
+				<h5 id = "error">${ errorMsg}</h5>
+				<form action="login" method="post">
+				<div><h4 style="color:black;"> Username: <input id="input2" type="text" placeholder="enter username" name="username" required="required"></h4>
+				<h4 style="color:black;">Password: <input id="input2" type="password" placeholder="enter password" name="password" required="required"></h4></br>
+	</div>
+	<input class="btn"type="submit" value = "Login"></br>
+	</form>
+	<a href="register"> <font size="3" face="verdana" > Don`t have an account? Register here. </font></a>
 </c:if>
-<c:if test="${sessionScope.username != null }">
-<jsp:forward page="settings"></jsp:forward>
+<c:if test="${sessionScope.logged != null }">
+<jsp:forward page="updateInfo.jsp"></jsp:forward>
 </c:if>
+
+				
+
+			</div>
+		</div>
+	</header>
+
 </body>
 </html>

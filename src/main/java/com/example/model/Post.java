@@ -52,6 +52,7 @@ public class Post {
 		this.comments = new ArrayList<>();
 		this.hashtags= new ArrayList<>();
 		this.hashtags=hashTags;
+		this.likedBy=new HashSet<>();
 	}
 	
 	public long getPostId() {

@@ -168,20 +168,21 @@ public class PostManager {
 	
 	public List<Post> orderByDate(List<Post> posts){ //TODO ascending or descending ? 
 		Collections.sort(posts, new Comparator<Post>() {
-
+			
 			@Override
 			public int compare(Post o1, Post o2) {
 				if (o1.getDate().isEqual(o2.getDate())){
 					return o1.hashCode() - o2.hashCode();
 				}
-				else if (o1.getDate().isAfter(o2.getDate())) {
-					return -1;
-				}
-				else {
-					return 1;
-				}
+				return(o2.getDate().compareTo(o1.getDate())); 
+					
+				
 			}
 		});
+		System.out.println("post manager");
+		for(Post p : posts) {
+			System.out.println(p.getDate());
+		}
 		return posts;
 	}
 	//sort posts by likes and date - create treesets??

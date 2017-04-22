@@ -10,8 +10,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+	    $("#test1").html(document.getElementById("printByTags").innerHTML);
+        $("#postsByTags").html(document.getElementById("printByTagsOrderNewest").innerHTML);
+
     $("#btn1").click(function(){
+
         $("#test1").html(document.getElementById("printByTags").innerHTML);
+        $("#postsByTags").html(document.getElementById("printByTagsOrderNewest").innerHTML);
     });
     $("#btn2").click(function(){
         $("#test1").html(document.getElementById("printByDestination").innerHTML);

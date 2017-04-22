@@ -26,12 +26,14 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
 	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 		registration.setMultipartConfig(getMultipartConfigElement());
+		
 	}
 
 	private MultipartConfigElement getMultipartConfigElement() {
 		MultipartConfigElement multipartConfigElement = new MultipartConfigElement(	LOCATION, MAX_FILE_SIZE, MAX_REQUEST_SIZE, FILE_SIZE_THRESHOLD);
 		return multipartConfigElement;
 	}
+	
 
  
     private static final String LOCATION = "C:\\travelBook\\usersProfilePics";  // Temporary location where files will be stored
