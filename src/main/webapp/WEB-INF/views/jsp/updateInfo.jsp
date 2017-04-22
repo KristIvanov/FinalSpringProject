@@ -30,9 +30,9 @@ z
 	}
 	</script>
 <body>
-<jsp:include page="header.jsp" />
-<br>
-<br>
+  <jsp:include page="header2.jsp" />
+     
+        <br><br><br><br><br><br><br><br>
 <c:if test="${sessionScope.username !=null }">
 <h5 id = "error">${ errorMsg}</h5>
 <img id="picture" src="/MyTravelerProject/image" height=300 width="300">

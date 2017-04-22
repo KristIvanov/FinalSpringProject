@@ -8,9 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Logging out</title>
 </head>
-<body>
-<jsp:include page="header.jsp" />
-<br>
+<body>  
+<jsp:include page="header2.jsp" />
+   
+        <br><br><br><br><br><br><br><br>
 <br>
 <c:if test="${sessionScope.username !=null }">
 Are you sure you want to log out?

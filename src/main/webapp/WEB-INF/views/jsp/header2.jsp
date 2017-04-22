@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-   pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+   pageEncoding="utf-8"%>
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
    <head>
@@ -9,10 +11,10 @@
       <title>Travelbook</title>
       <link rel="shortcut icon" href="gt_favicon.png">
       <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-      <link rel="stylesheet" href="css/bootstrap-min.css">
-      <link rel="stylesheet" href="css/font-awesome-min.css">
-      <link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
-      <link rel="stylesheet" href="css/main.css">
+      <link rel="stylesheet" href="/MyTravelerProject/css/bootstrap-min.css">
+      <link rel="stylesheet" href="/MyTravelerProject/css/font-awesome-min.css">
+      <link rel="stylesheet" href="/MyTravelerProject/css/bootstrap-theme.css" media="screen" >
+      <link rel="stylesheet" href="/MyTravelerProject/css/main.css">
    </head>
   
    <body>
@@ -22,7 +24,7 @@
             <div class="navbar-header">
                <!-- Button for smallest screens -->
                <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-               <a  href="indexx" ><img src="img/logo1.png" height="100" width="190" alt="Travelbook"></a>
+               <a  href="/MyTravelerProject/indexx" ><img src="/MyTravelerProject/img/logo1.png" height="100" width="190" alt="Travelbook"></a>
             </div>
             <div class="navbar-collapse collapse">
                <ul class="nav navbar-nav pull-right">
@@ -32,17 +34,17 @@
                         <input class="btn" type="submit" value = "Quick Search">
                      </form>
                   </li>
-                  <%if(request.getSession().getAttribute("logged") == null){ %>
+                  <c:if test="${sessionScope.logged==null}">
                   <li><a class="btn" href="/MyTravelerProject/login">Login</a></li>
                   <li><a class="btn" href="/MyTravelerProject/register">Register</a></li>
-                  <%}else{ %>
-                  <li><a class="btn" href="/MyTravelerProject/LogoutServlet">Logout</a></li>
+                 </c:if>
+                 <c:if test="${sessionScope.logged!=null}">
+                  <li><a class="btn" href="/MyTravelerProject/logout">Logout</a></li>
                   <li><a class="btn" href="/MyTravelerProject/profile">Settings</a></li>
                   <li><a class="btn" href="/MyTravelerProject/addPost">Add new post</a></li>
-                  <%} %>
+                  </c:if>
                </ul>
             </div>
-            <!--/.nav-collapse -->
          </div>
       </div>
    </body>

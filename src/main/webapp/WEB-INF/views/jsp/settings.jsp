@@ -10,9 +10,9 @@
 <title>Settings</title>
 </head>
 <body>
-<jsp:include page="header.jsp" />
-<br>
-<br>
+  <jsp:include page="header2.jsp" />
+        
+        <br><br><br><br><br><br><br><br>
 <c:if test="${sessionScope.username !=null }">
 <a href="updateInfo">Update your profile settings</a> <br>
 <a href="addPost">Add a new post</a>

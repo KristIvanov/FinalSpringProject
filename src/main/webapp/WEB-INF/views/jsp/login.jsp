@@ -10,7 +10,9 @@
 <title>Logging in</title>
 </head>
 <body>
-<jsp:include page="header.jsp" />
+  <jsp:include page="header2.jsp" />
+      
+        <br><br><br><br><br><br><br><br>
 <br>
 <br>
 <c:if test="${sessionScope.username ==null }">

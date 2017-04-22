@@ -10,9 +10,10 @@
 <title>Register</title>
 </head>
 <body>
-<jsp:include page="header.jsp" />
-<br>
-<br>
+  <jsp:include page="header2.jsp" />
+        <br>
+        <br>
+        <br><br><br><br><br><br><br><br>
 <h2>Please register a new account</h2>
 <h5 id = "error">${ errorMsg}</h5>
 <form action="register" method="post">

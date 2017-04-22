@@ -25,7 +25,7 @@ import com.example.model.managers.UsersManager;
 
 @Controller
 public class UsersController {
-	private static String fileName = "index";
+	private static String fileName = "indexx";
 	private static String errorMsg = " ";
        
 	
@@ -99,7 +99,7 @@ public class UsersController {
 	}
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String prepareForIndex() {
-		return "index";
+		return "indexx";
 	}
 	@RequestMapping(value="/indexx", method=RequestMethod.GET)
 	public String prepareForIndexx(HttpServletResponse response) {
@@ -218,14 +218,14 @@ public class UsersController {
 	//view user's profile
 	@RequestMapping(value="user/{username:.+} ",method = RequestMethod.GET)
 	public String viewProfile(Model model, @PathVariable("username") String username, HttpServletResponse response) {
-	if(UsersManager.getInstance().getRegisteredUsers().containsKey(username)) {
-		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
-		model.addAttribute("usersprofile",u);
-		removeCacheFromResponse(response);
-		return "profile";
-	} else {
-		return "index";
-	}
+		if(UsersManager.getInstance().getRegisteredUsers().containsKey(username)) {
+			User u = UsersManager.getInstance().getRegisteredUsers().get(username);
+			model.addAttribute("usersprofile",u);
+			removeCacheFromResponse(response);
+			return "profile";
+		} else {
+			return "indexx";
+		}
 	}
 	
 	@RequestMapping(value="/changePass",method = RequestMethod.POST)

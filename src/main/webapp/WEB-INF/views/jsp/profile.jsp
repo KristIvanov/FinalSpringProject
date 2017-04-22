@@ -25,9 +25,9 @@ $(document).ready(function(){
 });
 </script>
 <body>
-<jsp:include page="header.jsp" />
-	<br>
-	<br>
+  <jsp:include page="header2.jsp" />
+        
+        <br><br><br><br><br><br><br><br>
 <!-- check if !userexists ? return user not found.jsp -->
 <!-- view picture -->
 

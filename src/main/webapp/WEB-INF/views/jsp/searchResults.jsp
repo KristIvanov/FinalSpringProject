@@ -28,9 +28,10 @@ $(document).ready(function(){
 </head>
 <body>
 
-<jsp:include page="header.jsp" />
-	<br>
-	<br>
+  <jsp:include page="header2.jsp" />
+        <br>
+        <br>
+        <br><br><br><br><br><br><br><br>
 
 <button id="btn1">Posts by tags</button>
 <button id="btn2">Posts by destination</button>
