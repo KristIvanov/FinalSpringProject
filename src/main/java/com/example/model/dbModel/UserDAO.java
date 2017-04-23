@@ -197,6 +197,7 @@ public class UserDAO {
   public void updatePass(String hashPassword, User u) {
 	  Connection con = DBManager.getInstance().getConnection();
 	  PreparedStatement prepSt = null;
+	  u.setPassword(hashPassword);
 	  try {
 		prepSt = con.prepareStatement("UPDATE users SET password = ? WHERE user_id=?");
 		prepSt.setString(1, hashPassword);

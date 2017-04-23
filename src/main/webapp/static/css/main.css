@@ -4,8 +4,13 @@
 	#head2 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:40px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 #head3 { background:#181015 url( ../img/pic3.jpg) no-repeat; background-size: cover; min-height:1020px; text-align: right; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
 	#head3 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:40px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
-
-#head1 { background:#181015 url( ../img/header.jpg) no-repeat; background-size: cover; min-height:1020px; text-align: center; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+#head4 { background:#181015 url( ../img/pic5.jpg) no-repeat; background-size: cover; min-height:1020px; text-align: right; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+	#head4 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:40px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
+#head5 { background:#181015 url( ../img/pic2.jpg) no-repeat; background-size: cover; min-height:1020px; text-align: center; padding-top:200px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
+	#head5 .lead { font-family:"Open sans", Helvetica, Arial;font-style: bold; font-size:30px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
+	#head5.secondary { height:100px; min-height: 100px; padding-top:0px; }
+	
+#head1 { background:#181015 url( ../img/header.jpg) no-repeat; background-size: cover; min-height:1520px; text-align: center; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
 #head1.secondary { height:100px; min-height: 100px; padding-top:0px; }
 	#head1 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:50px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 	#head .tagline { color:red; margin-bottom:25px; }
@@ -40,15 +45,85 @@
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 12px;
-      background-color: white;
-      background-position: -5px, 7px; 
-      background-repeat: no-repeat;
+		background: rgba(0, 0, 0, 0); 
+     background-repeat: no-repeat;
       padding: 12px 20px 12px 40px;}
 /* Autohide navbar */
 .slideUp { top:-100px; }
 .headroom { -webkit-transition: all 0.4s ease-out; -moz-transition: all 0.4s ease-out; -o-transition: all 0.4s ease-out; transition: all 0.4s ease-out; }
 
+ .basic-grey {
+    margin-left:auto;
+    margin-right:auto;
+    max-width: 500px;
+    background: #F7F7F7;
+    padding: 25px 15px 25px 10px;
+    font: 12px Georgia, "Times New Roman", Times, serif;
+    color: #888;
+    text-shadow: 1px 1px 1px #FFF;
+    border:1px solid #E4E4E4;
+}
+.basic-grey h1 {
+    font-size: 25px;
+    padding: 0px 0px 10px 40px;
+    display: block;
+    border-bottom:1px solid #E4E4E4;
+    margin: -10px -15px 30px -10px;;
+    color: #888;
+}
+.basic-grey h1>span {
+    display: block;
+    font-size: 11px;
+}
+.basic-grey label {
+    display: block;
+    margin: 0px;
+}
+.basic-grey label>span {
+    float: left;
+    width: 20%;
+    text-align: right;
+    padding-right: 10px;
+    margin-top: 10px;
+    color: #888;
+}
+.basic-grey input[type="text"],.basic-grey input[type="file"], .basic-grey input[type="email"], .basic-grey textarea, .basic-grey select {
+    border: 1px solid #DADADA;
+    color: #888;
+    height: 30px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px 3px 3px 5px;
+    width: 70%;
+    font-size: 12px;
+    line-height:15px;
+    box-shadow: inset 0px 1px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
 
+.basic-grey select {
+    background: #FFF url('down-arrow.png') no-repeat right;
+    background: #FFF url('down-arrow.png') no-repeat right);
+    appearance:none;
+    -webkit-appearance:none; 
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    width: 47%;
+    height: 35px;
+    line-height: 25px;
+}
+
+            
+            textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 50px;
+    max-height: 100px;
+}
 /* Highlights (in jumbotron in most cases) */
 .highlight { margin-top:40px; }
 	.h-caption { text-align: center; } 

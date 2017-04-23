@@ -4,6 +4,7 @@ package com.example.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,13 +38,14 @@ public class UsersController {
 			String password = request.getParameter("password").trim();
 
 			if(UsersManager.getInstance().validateLogin(username, UsersManager.getInstance().hashPassword(password))){
+				System.out.println("da be da");
 				session.setAttribute("username", username);
 				session.setAttribute("logged", true);
 				User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 				session.setAttribute("firstname", u.getFirst_name());
 				session.setAttribute("lastname", u.getLast_name());
 				session.setAttribute("email", u.getEmail());
-				fileName = "settings";
+				fileName = "updateInfo";
 				if(session.getAttribute("url") != null) {
 					fileName = (String) session.getAttribute("url");
 				}
@@ -129,6 +131,10 @@ public class UsersController {
 	public String prepareForLogout() {
 		return "logout";
 	}
+	@RequestMapping(value="/forgotPassword", method=RequestMethod.GET)
+	public String forgotPass() {
+		return "forgotPassword";
+	}
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String profile(Model model, HttpSession session, HttpServletResponse response) {
 		if(session.getAttribute("logged") != null) {
@@ -210,7 +216,7 @@ public class UsersController {
 		session.invalidate();
 		viewModel.addAttribute("errorMsg", errorMsg);
 		removeCacheFromResponse(response);
-		return "filename";
+		return fileName;
 			
 		} 
 	
@@ -249,12 +255,12 @@ public class UsersController {
 		else{
 			fileName="login";
 		}
-		
+		model.addAttribute("errorMsg", errorMsg);
 		removeCacheFromResponse(response);
 		return fileName;
 	}
 	
-	@RequestMapping(value="/forgotPassword",method = RequestMethod.GET)
+	@RequestMapping(value="/forgotPassword",method = RequestMethod.POST)
 	public String forgotPass(Model model,HttpServletRequest request, HttpServletResponse response ) {
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -262,18 +268,22 @@ public class UsersController {
 			e.printStackTrace();
 		}
 		String username = request.getParameter("username");
+		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		String email = request.getParameter("email");
-		String htmlFile="";
 		if(!UsersManager.getInstance().getRegisteredUsers().containsKey(username)) {
-			htmlFile="forgotPassword.html";
+			fileName = "forgotPassword";
+			errorMsg= "No such user";
 		} 
 		else{
-			htmlFile="passwordSent.html";
-			String password = UsersManager.getInstance().getRegisteredUsers().get(username).getPassword();
-			new MailSender(email, "Забравена парола за Travelbook", "Вашата парола е " + password + " . Заповядайте отново!");
+			fileName = "indexx";
+			String password = generateNewPass();
+			UsersManager.getInstance().updatePass(password, u);
+			new MailSender(email, "Нова парола за Travelbook", "Вашата нова парола е " + password + " . Заповядайте отново!");
 		}
+		model.addAttribute("errorMsg", errorMsg);
+
 		removeCacheFromResponse(response);
-		return "redirect:/" +htmlFile;
+		return fileName;
 	}
 	
 	@RequestMapping(value="/newsFeed",method = RequestMethod.GET)
@@ -337,6 +347,27 @@ public class UsersController {
 		response.setHeader("Pragma", "No-cache");
 		response.setDateHeader("Expires", 0);
 		response.setHeader("Cache-control", "no-cache");
+	}
+	
+	private String generateNewPass() {
+		int digit1 = new Random().nextInt(10)+48;
+		int upperCase = new Random().nextInt(26)+65;
+		int lowerCase = new Random().nextInt(26)+97;
+		int digit2 = new Random().nextInt(10)+48;
+		int lowerCase2 = new Random().nextInt(26)+97;
+		int upperCase2 = new Random().nextInt(26)+65;
+		StringBuilder sb = new StringBuilder();
+		sb.append((char)digit1);
+		sb.append((char)digit2);
+		sb.append((char)upperCase);
+		sb.append((char)upperCase2);
+		sb.append((char)lowerCase);
+		sb.append((char)lowerCase2);
+		System.out.println(digit1);
+		System.out.println(digit2);
+		System.out.println(upperCase);
+		String newPass = sb.toString();
+		return newPass;
 	}
 	
 	

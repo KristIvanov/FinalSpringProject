@@ -20,11 +20,13 @@
             width:80%;
             }
             /* Optional: Makes the sample page fill the window. */
+           
             html, body {
             height: 100%;
             margin: 0;
             padding: 0;
             }
+           
         </style>
     </head>
     <body class="home">
@@ -65,16 +67,18 @@
         <h5 id = "error">${ errorMsg}</h5>
         <input id="pac-input" class="controls" type="text" placeholder="Search Box" >
         <div id="map"></div>
-        <div  id="form">
+        <div  class = "basic-grey"id="form">
             <form action="addPost" method="post" enctype="multipart/form-data">
-                Post name: <input type="text" value="${ postname }" name="postname" required></br>
+              <p> <font size="4" face="verdana" color="black" >
+                Post name: <br>
+                <input type="text" value="${ postname }" name="postname" placeholder="Add name"  required></br>
                 Post description:
-                <textarea name="postdescription" value="${postdescription }" cols="50" rows="8" placeholder="Add description"  required></textarea>
+                <textarea onkeyup="auto_grow(this)" name="postdescription" value="${postdescription }" placeholder="Add description"  required></textarea>
                 </br>
-                Destination name: <input type="text" value="${ destinationname }" name="destinationname" required></br>
+                Destination name: <input  type="text" value="${ destinationname }" name="destinationname" placeholder="Add destination"  required></br>
                 <input id="longitude" hidden type="text" value="${ longitude }" name="longitude" required>
                 <input id="latitude" hidden type="text" value="${latitude}" name="latitude" required>
-                Enter key words separated by spaces: <input type="text" value="${ hashtags }" name="hashtags" ></br>
+                Enter key words separated by spaces: <input  type="text" value="${ hashtags }" name="hashtags" placeholder="Add tags" ></br>
                 Categories: 
                 <select name = "category">
                     <c:forEach var="category" items="${CategoryDAO.getInstance().categories}">
@@ -84,11 +88,12 @@
                     </c:forEach>
                 </select>
                 <br>
-                <label for="photo"> Select picture:  </label> <br>
-                <input type="file" name="picture" size="50" placeholder="Upload Your Image" ><br><br>
-                <label for="video"> Select video:  </label> <br>
-                <input type="file" name="video" size="50" placeholder="Upload Your Video" ><br><br>
-                <input type="submit" value = "Add post"></br>
+                <label for="photo"> Select picture:  </label>
+                <input type="file" name="picture" size="50" placeholder="Upload Your Image" >
+                <label for="video"> Select video:  </label>
+                <input  type="file" name="video" size="50" placeholder="Upload Your Video" ><br>
+                </font></p>
+                <input class="btn" type="submit" value = "Add post"></br>
             </form>
         </div>
         <input hidden id="pac-input" class="controls" type="text" placeholder="Search Box">
@@ -102,6 +107,10 @@
             // parameter when you first load the API. For example:
             // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
             
+          function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+}
             function initAutocomplete() {
               var map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 42.69, lng: 23.32},

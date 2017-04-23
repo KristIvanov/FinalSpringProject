@@ -36,7 +36,6 @@ public class UploadImageController {
 	@ResponseBody
 	public void viewPicture(HttpServletResponse resp, Model model,HttpSession session) throws IOException {
 		String username = (String) session.getAttribute("username");
-		System.out.println(username);
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		File file;
 		if(u.getPhotoURL()!=null) {
@@ -68,14 +67,15 @@ public class UploadImageController {
 	public String receiveUpload(@RequestParam("picture") MultipartFile multiPartFile,HttpServletResponse response, Model model,HttpServletRequest request, HttpSession session) throws IOException{
 		String username = (String) session.getAttribute("username");
 		String extension = request.getParameter("extension");
-		System.out.println(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
-	if(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL()!=null) {
+		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
+	if(u.getPhotoURL()!=null) {
 			File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
 			System.out.println("da be ");
 			usersPicture.delete();
 	}
 		File fileOnDisk = new File(FILE_LOCATION + username+"-profile-pic."+extension);
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		u.setPhotoURL(fileOnDisk.getAbsolutePath());
 		model.addAttribute("profilePic", fileOnDisk.getAbsolutePath());
 		response.setStatus(200);
 		response.getWriter().append("Picture successfully uploaded!");

@@ -9,7 +9,7 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script type="text/javascript">
-z
+
 	function uploadPicture()
 	{ 
 		 var fd = new FormData(document.getElementById("fileform"));
@@ -32,15 +32,17 @@ z
 <body>
   <jsp:include page="header2.jsp" />
      
-        <br><br><br><br><br><br><br><br>
+        <header id="head4">
+		<div class="container">
+			<div class="row">
 <c:if test="${sessionScope.username !=null }">
-<h5 id = "error">${ errorMsg}</h5>
+<h5 style="color:black; id = "error">${ errorMsg}</h5>
 <img id="picture" src="/MyTravelerProject/image" height=300 width="300">
-<h1>Upload Profile Picture</h1>
+<h1 class="lead">Upload Profile Picture</h1>
         <form name="fileform" id=" fileForm" enctype="multipart/form-data" onsubmit="return uploadPicture()"> 
-            <label for="photo"> Select picture :  </label>
-            <input type="file" id = "fileInput" name="picture" size="50" placeholder="Upload Your Image" required/><br><br>
- 			<input type="submit" value="Upload" />           
+            <label for="picture"> Select picture :  
+            <input type="file" id = "fileInput" name="picture" required/></label><br>
+ 			<input class="btn"type="submit" value="Upload" />           
   </form>
         <h5 id="response"></h5>
 <h1>Update Info</h1>
@@ -49,7 +51,7 @@ Username: <input type="text" value="${ sessionScope.username }" name="newUsernam
 Email: <input type="text" value="${ sessionScope.email }" name="newEmail"></br>
 First Name: <input type="text" value="${ sessionScope.firstname }" name="newFirstname"></br>
 Last Name: <input type="text" value="${ sessionScope.lastname }" name="newLastname"></br>
-Confirm Password: <input type="password" placeholder="enter password" name="confirmPassword"></br>
+Confirm Password: <input type="password" placeholder="enter password" name="confirmPassword" required></br>
 <input type="submit" value = "Update Info"></br>
 </form>
 <h5 id = "error">${ errorMsg}</h5>
@@ -62,7 +64,12 @@ New Password: <input type="password" placeholder="enter new password" name="newP
 </c:if>
 <c:if test="${sessionScope.username ==null }">
 <%session.setAttribute("url", "updateInfo"); %>
-<jsp:forward page="login"></jsp:forward>
+<jsp:forward page="login.jsp"></jsp:forward>
 </c:if>
+
+			</div>
+		</div>
+	</header>
+
 </body>
 </html>
