@@ -10,7 +10,7 @@
 		#head4 .img {float: left; position: relative; width: 250px; height: 250px; border-radius: 70%; }
 		#head4 .settings {float: left; position: relative; left:10%;}
 		#head4 .input {width: 90%;   height: 30%; box-sizing: border-box;border: 1px solid #ccc; border-radius: 5px; font-size: 12px; background: rgba(0, 0, 0, 0);background-repeat: no-repeat; padding: 12px 20px 12px 40px;}
-#head5 { background:#181015 url( ../img/pic2.jpg) no-repeat; background-size: 100% 100%;; min-height:820px;  text-align: center; padding-top:200px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
+#head5 { background:#181015 url( ../img/pic2.jpg) no-repeat; background-size: 100% 100%;; min-height:1120px;  text-align: center; padding-top:200px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
 	#head5 .lead { font-family:"Open sans", Helvetica, Arial;font-style: bold; font-size:30px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 	#head5.secondary { height:100px; min-height: 100px; padding-top:0px; }
 #head6 { background:#e7eddc  no-repeat; background-size: 100% 100%;; min-height:820px;  text-align: center; padding-top:100px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
@@ -56,7 +56,7 @@
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 5px;
-      font-size: 12px;
+      font-size: 13px;
 		background: rgba(0, 0, 0, 0); 
       background-image: url("../img/searchIcon.jpg");
       background-position: -5px, 7px; 
@@ -68,7 +68,7 @@
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 5px;
-      font-size: 12px;
+      font-size: 20px;
 		background: rgba(0, 0, 0, 0); 
      background-repeat: no-repeat;
       padding: 12px 20px 12px 40px;}
@@ -142,7 +142,7 @@
 }
 
             
- .basic-grey textarea {
+ textarea {
     resize: none;
     overflow: hidden;
     min-height: 50px;

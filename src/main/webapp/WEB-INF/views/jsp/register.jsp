@@ -20,14 +20,14 @@
                         <form action="register" method="post">
                             <div>
                                 <p> <font size="4" face="verdana" color="black" > 
-                                	Username(5 symbols): <input id="input2" type="text" placeholder="enter username" value="${ username }" name="username" required><br>
+                                	Username (5 symbols): <input id="input2" type="text" placeholder="enter username" value="${ username }" name="username" required><br>
                                     Email: <input id="input2" type="text" placeholder="enter email" value="${ email }" name="email" required></br>
                                     First Name: <input id="input2" type="text" placeholder="enter firstname" value="${ firstname }" name="firstname" required></br>
                                     Family Name: <input id="input2" type="text" placeholder="enter lastname" value="${ lastname }" name="lastname" required></br>
                                     Password: <input id="input2" type="password" placeholder="enter password" name="password" required> 
                                     </font>
                                 </p>
-                                <p> <font size="1" face="verdana" color="black" >Should contain upper&lower case letter and digit. </font></p></br>
+                                <p> <font size="2" face="verdana" color="white" >Should contain upper&lower case letter and digit. </font></p></br>
                             </div>
                             <input class="btn" type="submit" value = "Register"></br>
                         </form>
@@ -35,7 +35,7 @@
                     <c:if test="${sessionScope.logged != null }">
                         <jsp:forward page="updateInfo.jsp"></jsp:forward>
                     </c:if>
-                    <a href="login"><font size="4" face="verdana" color="black" >Already a registered user? Login here.</font></a>
+                    <a href="login"><font size="4" face="verdana" color="white" >Already a registered user? Login here.</font></a>
                 </div>
             </div>
         </header>

@@ -16,7 +16,8 @@
             <div class="row">
 <c:if test="${sessionScope.username !=null }">
 <h2 class="lead">Are you sure you want to log out? </h2>
-<form action="logout" method = "post"> <input class="btn"type = "submit" value= "Log out" > </form>
+<form action="logout" method = "post"> 
+<input class="btn" type = "submit" value= "Log out" > </form>
 <a href = "indexx"><font size="3" face="verdana" >Return to main page</font></a>
 </c:if>
 <c:if test="${sessionScope.username ==null }">
