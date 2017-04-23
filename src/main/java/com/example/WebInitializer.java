@@ -3,6 +3,8 @@ package com.example;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 
@@ -34,6 +36,14 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return multipartConfigElement;
 	}
 	
+	
+	
+	@Override
+    protected DispatcherServlet createDispatcherServlet(WebApplicationContext servletAppContext) {
+        final DispatcherServlet dispatcherServlet = new DispatcherServlet(servletAppContext);
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
+        return dispatcherServlet;
+    }
 
  
     private static final String LOCATION = "C:\\travelBook\\usersProfilePics";  // Temporary location where files will be stored
