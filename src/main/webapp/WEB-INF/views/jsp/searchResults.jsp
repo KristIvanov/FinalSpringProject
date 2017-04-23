@@ -84,8 +84,7 @@ $(document).ready(function(){
 		
 				<c:out value="${ post.description }"></c:out>
 	            
-				<!-- TODO add likes -->
-	             <p>likes</p><br>
+				<c:out value="${ post.likes }"></c:out>
 	           
 	             <c:forEach var="Comment" items="${post.comments}"> 
 						<c:out value="${ comment }"></c:out><br>
@@ -112,8 +111,7 @@ $(document).ready(function(){
 		
 				<c:out value="${ post.description }"></c:out>
 	            
-				<!-- TODO add likes -->
-	             <p>likes</p><br>
+				<c:out value="${ post.likes }"></c:out>
 	           
 	             <c:forEach var="Comment" items="${post.comments}"> 
 						<c:out value="${ comment }"></c:out><br>
@@ -160,8 +158,7 @@ $(document).ready(function(){
 		
 				<c:out value="${ post.description }"></c:out>
 	            
-				<!-- TODO add likes -->
-	             <p>likes</p><br>
+				<c:out value="${ post.likes }"></c:out>
 	           
 	             <c:forEach var="Comment" items="${post.comments}"> 
 						<c:out value="${ comment }"></c:out><br>
@@ -173,7 +170,7 @@ $(document).ready(function(){
 	
 	<div hidden id="printByDestOrderTop" align="center">
 		<c:forEach var="post" items="${sessionScope.destinationByLikes}">
-		<div class="postlook" align="center">
+		<div class="userlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
 				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
 				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
@@ -188,8 +185,7 @@ $(document).ready(function(){
 		
 				<c:out value="${ post.description }"></c:out>
 	            
-				<!-- TODO add likes -->
-	             <p>likes</p><br>
+				<c:out value="${ post.likes }"></c:out>
 	           
 	             <c:forEach var="Comment" items="${post.comments}"> 
 						<c:out value="${ comment }"></c:out><br>
@@ -236,8 +232,7 @@ $(document).ready(function(){
 		
 				<c:out value="${ post.description }"></c:out>
 	            
-				<!-- TODO add likes -->
-	             <p>likes</p><br>
+				<c:out value="${ post.likes }"></c:out>
 	           
 	             <c:forEach var="Comment" items="${post.comments}"> 
 						<c:out value="${ comment }"></c:out><br>
@@ -264,8 +259,7 @@ $(document).ready(function(){
 		
 				<c:out value="${ post.description }"></c:out>
 	            
-				<!-- TODO add likes -->
-	             <p>likes</p><br>
+				<c:out value="${ post.likes }"></c:out>
 	           
 	             <c:forEach var="Comment" items="${post.comments}"> 
 						<c:out value="${ comment }"></c:out><br>

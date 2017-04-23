@@ -47,21 +47,66 @@
 }
 </style>
 </head>
+
+
 <body>
+<div class="postLarge" align="center">
+	<div class="postName" align="center">
+		<c:out value="${ post.postName }"></c:out>
+	</div>
+	<div class="postCategory" align="center">
+		<c:out value="${ post.category }"></c:out>
+	</div>
+	<div class="authorAndDate" align="center">
+		<c:out value="${ post.author.first_name } "></c:out>
+		<c:out value="${ post.author.last_name } * "></c:out>
+		<c:out value="${ post.date } "></c:out>
+	</div>
+	<div class="authorMoreInfo" align="center">
+		<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username } </a><br>
+		<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
+	</div>
+	<div class="postDesc" align="center">
+		<c:out value="${ post.description } "></c:out>
+	</div>
+	<div class="postLikes">
+		<!--<c:out value="${ post.likes } 5"></c:out>
+		<!-- Open List With People Who Like This Post -->
+		<button id="likesBtn">${ post.likes } likes</button>
+	</div>
+	<div class="postComments">
+               	<p>comments</p><br>
+               	<p>comments</p><br>
+		<c:forEach var="Comment" items="${post.comments}"> 
+			<c:out value="${ comment }"></c:out><br>
+        </c:forEach>
+	</div>
+    <div id="addComment">
+    	<c:if test="${ sessionScope.username == null }">
+			<p>to add comments, please log in first!<p>
+			<form action="login" method="get">
+				<input type="submit" value="login">
+			</form>
+		</c:if>
+		<c:if test="${ sessionScope.username != null }">
+			<form action="addComment" method="post" >
+				Enter comment:<textarea name="newComment" value="${newComment }" cols="50" rows="8" placeholder="Add comment"  required></textarea></br>
+				<input type="submit" value = "Add comment" name="text"></br>
+				<input type="hidden" value="<c:out value="${post.id}"/>" name="postId">
+			</form>
+		</c:if>
+    </div>
 
-
-<!-- Trigger/Open List with people who liked this post -->
-<button id="likesBtn">${sessionScope.post.likes} likes</button>
-
-<!-- Likes -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>showing users?</p>
-    <c:forEach var="user" items="${sessionScope.post.likers}">
-		<div class="postlook" align="center">
+	
+	
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+	
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+	    <c:forEach var="User" items="${post.likers}"> 
+			<div class="userlook" align="center">
 				<!-- show small Picture -->
 				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
@@ -72,39 +117,39 @@
 	             
 				<c:out value="${ user.email }"></c:out>
 				
-		</div><br>
-	</c:forEach>
-  </div>
-
+			</div><br>
+        </c:forEach>
+	  </div>
+	
+	</div>
+	
+	<script>
+	// Get the modal
+	var modal = document.getElementById('myModal');
+	
+	// Get the button that opens the modal
+	var btn = document.getElementById("likesBtn");
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	
+	// When the user clicks the button, open the modal 
+	btn.onclick = function() {
+	    modal.style.display = "block";
+	}
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+	</script>
 </div>
-
-<script>
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("likesBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-
 </body>
 </html>
