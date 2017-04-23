@@ -34,11 +34,9 @@ public class UsersController {
 	public String sayHi(Model viewModel,HttpServletRequest request,HttpSession session,HttpServletResponse response) {
 		
 			String username = request.getParameter("username");
-			System.out.println(username);
 			String password = request.getParameter("password").trim();
 
 			if(UsersManager.getInstance().validateLogin(username, UsersManager.getInstance().hashPassword(password))){
-				System.out.println("da be da");
 				session.setAttribute("username", username);
 				session.setAttribute("logged", true);
 				User u = UsersManager.getInstance().getRegisteredUsers().get(username);
@@ -55,6 +53,7 @@ public class UsersController {
 				errorMsg = "We did not recognise your username and password";
 			}
 			viewModel.addAttribute("errorMsg", errorMsg);
+			errorMsg=null;
 			removeCacheFromResponse(response);
 			return fileName;
 	}
@@ -63,7 +62,7 @@ public class UsersController {
 	@RequestMapping(value="/logout", method=RequestMethod.POST)
 	public String sayBye(Model viewModel, HttpSession session, HttpServletResponse response) {
 		session.invalidate();
-		fileName = "index";
+		fileName = "indexx";
 		removeCacheFromResponse(response);
 		return fileName;
 		
@@ -90,6 +89,7 @@ public class UsersController {
 			fileName= "register";
 		}
 		viewModel.addAttribute("errorMsg", errorMsg);
+		errorMsg=null;
 		removeCacheFromResponse(response);
 		return fileName;
 	}
@@ -143,7 +143,7 @@ public class UsersController {
 			fileName = "profile";
 		}
 		else {
-			fileName = "index";
+			fileName = "indexx";
 		}
 		
 		removeCacheFromResponse(response);
@@ -168,25 +168,20 @@ public class UsersController {
 						u.setEmail(newEmail);
 					}
 				}
-				System.out.println(newLastname + "newlastname");
-				System.out.println(u.getLast_name() + " u.getLastname");
 				if (newLastname != u.getLast_name()){
 					if (newLastname==null || newLastname.isEmpty()){
 						errorMsg = "Enter last name please!";
 					}
 					else{
 						u.setLast_name(newLastname);
-						System.out.println(u.getLast_name());
 					}
 				}
 				if (newFirstname != u.getFirst_name()){
-					System.out.println(newFirstname + " <- newFirsname if");
 					if (newFirstname==null || newFirstname.isEmpty()){
 						errorMsg = "Enter first name please!";
 					}
 					else{
 						u.setFirst_name(newFirstname);
-						System.out.println(u.getFirst_name());
 					}
 				}
 				if ((String )session.getAttribute("username")==newUsername){
@@ -196,7 +191,6 @@ public class UsersController {
 					}
 					else {
 						u.setUsername(newUsername);
-						System.out.println(u.getUsername());
 					}
 				}
 				if (errorMsg == " "){
@@ -215,6 +209,7 @@ public class UsersController {
 	
 		session.invalidate();
 		viewModel.addAttribute("errorMsg", errorMsg);
+		errorMsg=null;
 		removeCacheFromResponse(response);
 		return fileName;
 			
@@ -228,13 +223,13 @@ public class UsersController {
 			model.addAttribute("usersprofile",u);
 			removeCacheFromResponse(response);
 			return "profile";
-		} else {
-			return "indexx";
 		}
+		return "indexx";
 	}
 	
 	@RequestMapping(value="/changePass",method = RequestMethod.POST)
 	public String changePass(Model model, HttpServletRequest req, HttpSession session, HttpServletResponse response) {
+		fileName= "updateInfo";
 		if(session.getAttribute("logged")!= null){
 			String oldPass = req.getParameter("oldPassword");
 			String newPass = req.getParameter("newPassword");
@@ -245,6 +240,7 @@ public class UsersController {
 				}
 				else {
 					UsersManager.getInstance().updatePass(newPass, u);
+					errorMsg = "Password successfully changed!";
 				}
 			}
 			else{
@@ -256,6 +252,7 @@ public class UsersController {
 			fileName="login";
 		}
 		model.addAttribute("errorMsg", errorMsg);
+		errorMsg=null;
 		removeCacheFromResponse(response);
 		return fileName;
 	}
@@ -281,7 +278,7 @@ public class UsersController {
 			new MailSender(email, "Нова парола за Travelbook", "Вашата нова парола е " + password + " . Заповядайте отново!");
 		}
 		model.addAttribute("errorMsg", errorMsg);
-
+		errorMsg=null;
 		removeCacheFromResponse(response);
 		return fileName;
 	}

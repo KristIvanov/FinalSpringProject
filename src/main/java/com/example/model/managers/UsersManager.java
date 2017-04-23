@@ -147,12 +147,7 @@ public class UsersManager {
 					break;
 				}
 			}
-			if (upperCaseLetter && lowerCaseLetter && digit) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return (upperCaseLetter && lowerCaseLetter && digit); 
 		}
 	  
 	  public String hashPassword(String password){

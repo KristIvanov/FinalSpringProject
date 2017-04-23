@@ -28,7 +28,8 @@ import com.example.model.managers.UsersManager;
 public class UploadImageController {
 
 	private static final String FILE_LOCATION = "C:\\travelBook\\usersProfilePics\\";
-	
+	private static String errorMsg = " ";
+
 	
 
 	
@@ -64,24 +65,32 @@ public class UploadImageController {
 	}
 	
 	@RequestMapping(value="/uploadPicture", method=RequestMethod.POST)
-	public String receiveUpload(@RequestParam("picture") MultipartFile multiPartFile,HttpServletResponse response, Model model,HttpServletRequest request, HttpSession session) throws IOException{
+	public String receiveUpload(@RequestParam("picture") MultipartFile multiPartFile,HttpServletResponse response, Model model,HttpServletRequest request, HttpSession session) {
+	try {
 		String username = (String) session.getAttribute("username");
-		String extension = request.getParameter("extension");
+		
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
-	if(u.getPhotoURL()!=null) {
+		//if(u.getPhotoURL()!=null) {
 			File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
-			System.out.println("da be ");
 			usersPicture.delete();
-	}
-		File fileOnDisk = new File(FILE_LOCATION + username+"-profile-pic."+extension);
+	//	}
+		File fileOnDisk = new File(FILE_LOCATION + username+"-profile-pic."+multiPartFile.getContentType().split("/")[1]);
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		u.setPhotoURL(fileOnDisk.getAbsolutePath());
 		model.addAttribute("profilePic", fileOnDisk.getAbsolutePath());
-		response.setStatus(200);
-		response.getWriter().append("Picture successfully uploaded!");
-		//TODO figure out why the ajax is not working as it supposed to be?!?!?
-		return "updateInfo";
+		errorMsg= "Picture successfully uploaded!";
+		/*response.setStatus(200);
+		response.getWriter().append("Picture successfully uploaded!");*/
+
+	} catch (IOException e) {
+		errorMsg="Picture failed to upload!";
+		e.printStackTrace();
 	}
+	model.addAttribute("errorMsg", errorMsg);
+	errorMsg=null;
 	
+	return "updateInfo";
+		
 	
+}
 }

@@ -53,6 +53,5 @@
 	<script src="js/headroom.min.js"></script>
 	<script src="js/jQuery-headroom-min.js"></script>
 	<script src="js/template.js"></script>
-	<script src="js/autosize.js"></script>
 	</body>
 </html>

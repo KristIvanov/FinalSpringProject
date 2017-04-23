@@ -39,7 +39,7 @@ import com.example.model.managers.UsersManager;
 @MultipartConfig
 public class PostsController {
 
-	private static String jspName = "index";
+	private static String jspName = "indexx";
 	private static String errorMsg = " ";
 	private static final String PICTURES_LOCATION = "C:\\travelBook\\postsPics\\";
 	private static final String VIDEOS_LOCATION = "C:\\travelBook\\postsVideos\\";
@@ -60,20 +60,7 @@ public class PostsController {
 			String hashtags = req.getParameter("hashtags").trim();
 			String[] keywords = hashtags.split(" ");
 	        String postPicUrl=null;
-			if(multiPartPicture.getSize() != 0) {
-				int numberOfPosts = PostManager.getInstance().getPosts().size()+1;
-				File fileOnDisk = new File(PICTURES_LOCATION + "id=" + numberOfPosts+"post-pic" +"."+ multiPartPicture.getContentType().split("/")[1]);
-				Files.copy(multiPartPicture.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				postPicUrl = fileOnDisk.getAbsolutePath();
-			}
 			
-			String postVideoUrl=null;
-			if(multiPartVideo.getSize() != 0) {
-				int numberOfPosts = PostManager.getInstance().getPosts().size()+1;
-				File fileOnDisk = new File(VIDEOS_LOCATION + "id=" + numberOfPosts+"post-video" +"."+ multiPartVideo.getContentType().split("/")[1]);
-				Files.copy(multiPartVideo.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				postVideoUrl = fileOnDisk.getAbsolutePath();
-			}
 			
 			
 			//saving old inputs in session to have filled inputs if something was invalid
@@ -94,7 +81,22 @@ public class PostsController {
 				rs.next();
 				Long categoryId = rs.getLong("category_id");
 				Category category = CategoryDAO.getInstance().getALlCategoriesByID().get(categoryId);
+				if(multiPartPicture.getSize() != 0) {
+					int numberOfPosts = PostManager.getInstance().getPosts().size()+1;
+					File fileOnDisk = new File(PICTURES_LOCATION + "id=" + numberOfPosts+"post-pic" +"."+ multiPartPicture.getContentType().split("/")[1]);
+					Files.copy(multiPartPicture.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					postPicUrl = fileOnDisk.getAbsolutePath();
+				}
+				
+				String postVideoUrl=null;
+				if(multiPartVideo.getSize() != 0) {
+					int numberOfPosts = PostManager.getInstance().getPosts().size()+1;
+					File fileOnDisk = new File(VIDEOS_LOCATION + "id=" + numberOfPosts+"post-video" +"."+ multiPartVideo.getContentType().split("/")[1]);
+					Files.copy(multiPartVideo.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					postVideoUrl = fileOnDisk.getAbsolutePath();
+				}
 				PostManager.getInstance().addNewPost(postName, username, postdescription, category, date, destinationName, NumberUtils.toDouble(longitude), NumberUtils.toDouble(latitude),postPicUrl, keywords,postVideoUrl);
+
 			} catch (InvalidInputException e) {
 				jspName= "addPost";
 			} catch (SQLException e) {
@@ -107,6 +109,7 @@ public class PostsController {
 			jspName = "login";
 		}
 		model.addAttribute("errorMsg", errorMsg);
+		errorMsg=null;
 		removeCacheFromResponse(response);
 		return jspName;
 	}
@@ -157,6 +160,8 @@ public class PostsController {
 				Post post = PostManager.getInstance().getPosts().get(postId);
 				LocalDateTime date = LocalDateTime.now();
 				CommentDAO.getInstance().addNewComment(new Comment(author, commentText, post, date));
+				jspName="newsFeed";
+				//TODO news feed jsp!!! with user's posts and following posts
 			} catch (InvalidInputException e) {
 				jspName= "addPost";
 			}
@@ -164,13 +169,14 @@ public class PostsController {
 	else {
 		jspName = "login";
 	}
+		model.addAttribute("errorMsg", errorMsg);
+		errorMsg=null;
 		removeCacheFromResponse(response);
 		return jspName;
 	}
 	
 	@RequestMapping(value="/quickSearch",method = RequestMethod.GET)
 	public String products(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("proba");
 		String words = request.getParameter("searchFor").trim();
 		session.setAttribute("searchFor", words);
 		String[] keywords = words.split(" ");

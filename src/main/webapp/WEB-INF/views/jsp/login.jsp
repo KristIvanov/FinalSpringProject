@@ -16,7 +16,7 @@
             <div class="row">
                <c:if test="${sessionScope.logged ==null }">
                   <h1 class="lead">Please login</h1>
-                  <h5 style="color:black; id = "error">${errorMsg}</h5>
+                  <font face="Bradley Hand ITC" size="4" style="color:black;">${ errorMsg}</font>
                   <form action="login" method="post">
                      <div>
                         <h4 style="color:black;"> Username: <input id="input2" type="text" placeholder="enter username" name="username" required="required"></h4>

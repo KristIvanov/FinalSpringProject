@@ -11,16 +11,19 @@
 <body>  
 <jsp:include page="header2.jsp" />
    
-        <br><br><br><br><br><br><br><br>
-<br>
+<header id="head2">
+         <div class="container">
+            <div class="row">
 <c:if test="${sessionScope.username !=null }">
-Are you sure you want to log out?
-<form action="logout" method = "post"> <input type = "submit" value= "Log out" > </form>
-<a href = "index">Return to main page</a>
+<h2 class="lead">Are you sure you want to log out? </h2>
+<form action="logout" method = "post"> <input class="btn"type = "submit" value= "Log out" > </form>
+<a href = "indexx"><font size="3" face="verdana" >Return to main page</font></a>
 </c:if>
 <c:if test="${sessionScope.username ==null }">
 <c:redirect url= "login"></c:redirect>
 </c:if>
-
+</div>
+         </div>
+      </header>
 </body>
 </html>

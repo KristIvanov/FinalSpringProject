@@ -14,8 +14,8 @@
             <div class="row">
                <c:if test="${sessionScope.logged ==null }">
                   <h1 class="lead">Enter your username <br> and password</h1>
-                  <h5 style="color:black; id = "error">${ errorMsg}</h5>
-                  <form action="forgotPassword" method = "POST">
+                   <font face="Bradley Hand ITC" size="4" style="color:black;">${ errorMsg}</font>
+					 <form action="forgotPassword" method = "POST">
                      <div>
                         <h4 style="color:black;"> Username: <input id="input2" type="text" placeholder="enter username" name="username" required="required"></h4>
                         <h4 style="color:black;">&nbsp &nbsp &nbsp &nbsp Email: <input id="input2" type="email" placeholder="enter email" name="email" required="required"></h4>
