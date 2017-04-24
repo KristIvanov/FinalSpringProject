@@ -13,7 +13,7 @@
 	
 	<br>
 	<br>
-	
+	<jsp:include page="testPostMap.jsp" />
 
 </body>
 </html>
