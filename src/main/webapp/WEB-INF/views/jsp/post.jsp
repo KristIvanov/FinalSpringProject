@@ -73,6 +73,10 @@
 		<!--<c:out value="${ post.likes } 5"></c:out>
 		<!-- Open List With People Who Like This Post -->
 		<button id="likesBtn">${ post.likes } likes</button>
+		<div class="container">
+    		<button class="btn likeButton" rel="6">Like</button>
+		</div>
+		
 	</div>
 	<div class="postComments">
                	<p>comments</p><br>
@@ -149,6 +153,40 @@
 	        modal.style.display = "none";
 	    }
 	}
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script>
+	$('button.likeButton').live('click', function(e){
+	    e.preventDefault();
+	    $button = $(this);
+	    if($button.hasClass('liked')){
+	        
+	        //$.ajax(); Do Dislike
+	        $.post("dislike");
+	        $button.removeClass('liked');
+	        $button.removeClass('dislike');
+	        $button.text('Like');
+	    } else {
+	        
+	        // $.ajax(); Do Like
+	        $.post("like");
+	        $button.addClass('liked');
+	        $button.text('Dislike');
+	    }
+	});
+	
+	$('button.likeButton').hover(function(){
+	     $button = $(this);
+	    if($button.hasClass('liked')){
+	        $button.addClass('dislike');
+	        $button.text('Dislike');
+	    }
+	}, function(){
+	    if($button.hasClass('liked')){
+	        $button.removeClass('dislike');
+	        $button.text('Liked');
+	    }
+	});
 	</script>
 </div>
 </body>

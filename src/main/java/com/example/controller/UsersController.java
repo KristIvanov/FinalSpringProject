@@ -68,6 +68,30 @@ public class UsersController {
 		
 	}
 	
+	@RequestMapping(value="/follow", method=RequestMethod.POST)
+	public String follow(Model viewModel, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		String username = request.getParameter("username");
+		String usersProfileName = request.getParameter("usersprofile");
+		User user = UsersManager.getInstance().getRegisteredUsers().get(username);
+		User userProfile = UsersManager.getInstance().getRegisteredUsers().get(usersProfileName);
+		if (!user.doesFollow(userProfile)){
+			user.follow(userProfile);
+		}
+		return "user/" + usersProfileName;
+	}
+	
+	@RequestMapping(value="/unfollow", method=RequestMethod.POST)
+	public String unfollow(Model viewModel, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		String username = request.getParameter("username");
+		String usersProfileName = request.getParameter("usersprofile");
+		User user = UsersManager.getInstance().getRegisteredUsers().get(username);
+		User userProfile = UsersManager.getInstance().getRegisteredUsers().get(usersProfileName);
+		if (user.doesFollow(userProfile)){
+			user.unfollow(userProfile);
+		}
+		return "user/" + usersProfileName;
+	}
+	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(Model viewModel,HttpSession session,HttpServletRequest req, HttpServletResponse response) {
 		String username = req.getParameter("username").trim();
@@ -221,10 +245,11 @@ public class UsersController {
 	
 	//view user's profile
 	@RequestMapping(value="user/{username:.+} ",method = RequestMethod.GET)
-	public String viewProfile(Model model, @PathVariable("username") String username, HttpServletResponse response) {
+	public String viewProfile(Model model, @PathVariable("username") String username, HttpServletResponse response, HttpSession session) {
 		if(UsersManager.getInstance().getRegisteredUsers().containsKey(username)) {
 			User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 			model.addAttribute("usersprofile",u);
+			session.setAttribute("usersprofile",u);
 			removeCacheFromResponse(response);
 			return "profile";
 		}

@@ -23,6 +23,39 @@ $(document).ready(function(){
    
     
 });
+
+
+$('button.followButton').live('click', function(e){
+    e.preventDefault();
+    $button = $(this);
+    if($button.hasClass('following')){
+        
+        //$.ajax(); Do Unfollow
+        $.post("unfollow");
+        $button.removeClass('following');
+        $button.removeClass('unfollow');
+        $button.text('Follow');
+    } else {
+        
+        // $.ajax(); Do Follow
+        $.post("follow");
+        $button.addClass('following');
+        $button.text('Following');
+    }
+});
+
+$('button.followButton').hover(function(){
+     $button = $(this);
+    if($button.hasClass('following')){
+        $button.addClass('unfollow');
+        $button.text('Unfollow');
+    }
+}, function(){
+    if($button.hasClass('following')){
+        $button.removeClass('unfollow');
+        $button.text('Following');
+    }
+});
 </script>
 <body>
   <jsp:include page="header2.jsp" />
@@ -53,6 +86,10 @@ $(document).ready(function(){
                 </tr>
 		</table>
 <!-- nqkyde vsqsno butoni POSTS FOLLOWING FOLLOWERS -->
+<div class="container" align="center">
+    <button class="btn followButton" rel="6">Follow</button>
+</div>
+
 <div id="wall" align="center"></div>
 <button id="postShow">Posts</button>
 <button id="followersShow">Followers</button>
