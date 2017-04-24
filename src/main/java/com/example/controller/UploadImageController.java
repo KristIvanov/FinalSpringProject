@@ -70,13 +70,13 @@ public class UploadImageController {
 		String username = (String) session.getAttribute("username");
 		
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
-		//if(u.getPhotoURL()!=null) {
+		if(u.getPhotoURL()!=null) {
 			File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
 			usersPicture.delete();
-	//	}
+		}
 		File fileOnDisk = new File(FILE_LOCATION + username+"-profile-pic."+multiPartFile.getContentType().split("/")[1]);
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		u.setPhotoURL(fileOnDisk.getAbsolutePath());
+		UsersManager.getInstance().addProfilePic(username, fileOnDisk.getAbsolutePath());
 		model.addAttribute("profilePic", fileOnDisk.getAbsolutePath());
 		errorMsg= "Picture successfully uploaded!";
 		/*response.setStatus(200);

@@ -66,29 +66,53 @@ $(document).ready(function(){
 	
 	<div hidden id="printByTagsOrderNewest" align="center">
 		<c:forEach var="post" items="${sessionScope.tagsByDate}">
-		<div class="postlook" align="center">
-				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "user/<c:url value="${post.author.username}"/> " >${ post.author.username }</a><br>
-				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
-				
-				<c:out value="${ post.author.first_name }"></c:out>
-			    <c:out value="${ post.author.last_name }"></c:out>
-	             
-				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category.name }"></c:out>
 		
-				<c:out value="${ post.postName }"></c:out>
-		
-				<c:out value="${ post.description }"></c:out>
-	            
-				<c:out value="${ post.likes }"></c:out>
-	           
-	             <c:forEach var="Comment" items="${post.comments}"> 
+				<div class="border1">
+                        <img class="img-circle-users" src="image/
+                        <c:url value="${post.author.username}"/>
+                        ">
+                        <font style= "oblique" size="3" style="color:black;">
+                           <a href = "user/
+                           <c:url value="${post.author.username}"/>
+                           " >${ post.author.username }</a> posted on ${post.date} <br>
+                  
+                        <a  href = "post/
+                        <c:url value="${post.postId}"/>
+                        " >${ post.postName }</a> <br><br>
+                              </font>
+                        <img class="picture1"src="${post.pictureURL}" >
+                        <button id="likesBtn">${ post.likes } likes</button>
+                       <c:forEach var="Comment" items="${post.comments}"> 
 						<c:out value="${ comment }"></c:out><br>
 	                	<p>comments</p><br>
-	             </c:forEach>
+	            	 </c:forEach>
+                        <div id="myModal" class="modal">
+                           <!-- Modal content -->
+                           <div class="modal-content">
+                              <span class="close">&times;</span>
+                              <c:forEach var="User" items="${post.likers}">
+                                 <div class="userlook" align="center">
+                                    <!-- show small Picture -->
+                                    <img class="img-circle-users" src="image/
+                                    <c:url value="${post.author.username}"/>
+                                    ">
+                                    <font style= "oblique" size="5" style="color:black;">
+                                       <a href = "user/
+                                       <c:url value="${post.author.username}"/>
+                                       " >${ post.author.username }</a> <br>
+                                    </font>
+                                    <c:out value="${ user.first_name }"></c:out>
+                                    <c:out value="${ user.last_name }"></c:out>
+                                 </div>
+                                 <br>
+                              </c:forEach>
+                           </div>
+                        </div>
+                     </div>
+                     <br>
+           </c:forEach>
+	            
 		</div><br>
-	</c:forEach>
 	</div>
 	
 	<div hidden id="printByTagsOrderTop" align="center">

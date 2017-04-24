@@ -75,6 +75,7 @@ public class UsersController {
 		String usersProfileName = request.getParameter("usersprofile");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(username);
 		User userProfile = UsersManager.getInstance().getRegisteredUsers().get(usersProfileName);
+		System.out.println("follow method");
 		if (!user.doesFollow(userProfile)){
 			user.follow(userProfile);
 		}
@@ -322,15 +323,16 @@ public class UsersController {
 		ArrayList<Post> posts =null;
 		if(ses.getAttribute("logged")!= null){
 			fileName="newsFeed";
-			posts = new ArrayList<>();
 			String username = (String) ses.getAttribute("username");
 			User u = UsersManager.getInstance().getRegisteredUsers().get(username);
-			for (Post post : PostManager.getInstance().getPosts().values()) {
-				if (u.getFollowing().contains(post.getAuthor())){
-					posts.add(post);
+			if(!PostManager.getInstance().getPosts().values().isEmpty()) {
+				for (Post post : PostManager.getInstance().getPosts().values()) {
+					if (u.getFollowing().contains(post.getAuthor())){
+						posts = new ArrayList<>();
+						posts.add(post);
+					}
 				}
 			}
-				//each post in different form ?
 		}
 		else{
 			fileName="login";

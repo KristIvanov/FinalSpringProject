@@ -237,11 +237,13 @@ public class PostsController {
 	@RequestMapping(value="/allPosts", method=RequestMethod.GET)
 	public String getAllPosts(Model model, HttpSession session) {
 		ArrayList<Post> posts = new ArrayList<>();
-		for(Post p : PostManager.getInstance().getPosts().values()) {
-			
+		for(Post p : PostManager.getInstance().getPosts().values()) {	
+			if(p.getPictureURL()==null) {
 				p.setPictureURL("img\\logo1.png");
-			
-			System.out.println(p.getPictureURL());
+			}
+			//TODO delete this!!!!
+
+			p.setPictureURL("img\\logo1.png");
 			posts.add(p);
 		}
 		model.addAttribute("posts",posts);

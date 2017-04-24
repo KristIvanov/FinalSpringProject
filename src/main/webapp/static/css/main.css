@@ -12,7 +12,10 @@
 		#head4 .input {width: 90%;   height: 30%; box-sizing: border-box;border: 1px solid #ccc; border-radius: 5px; font-size: 12px; background: rgba(0, 0, 0, 0);background-repeat: no-repeat; padding: 12px 20px 12px 40px;}
 		#head4 .border { border: 2px solid grey;border-radius: 8px;width:800px; height: 500px;    
     padding: 40px;background:white;}
-	#head4 .pass {float: right; position: relative; }
+		#head4 .pass {float: right; position: relative; }
+		#head4 .picture {  border: 2px solid grey; border-radius: 6px;width:700px;  height:300px; }
+		#head4 .border1 { border: 2px solid grey;border-radius: 8px; width:500px; height: 300px;    padding: 40px;background:white;}
+		#head4 .picture1 {  border: 2px solid grey; border-radius: 6px;width:300px;  height:150px; }
 
 #head5 { background:#181015 url( ../img/pic2.jpg) no-repeat; background-size: 100% 100%;; min-height:1120px;  text-align: center; padding-top:200px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
 	#head5 .lead { font-family:"Open sans", Helvetica, Arial;font-style: bold; font-size:30px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
@@ -56,6 +59,42 @@
     width: 50px;
     height: 50px;
 }
+/* The Modal (background) */
+      .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+      /* Modal Content */
+      .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 60px;
+      border: 1px solid #888;
+      width: 20%;
+      }
+      /* The Close Button */
+      .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 32px;
+      font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+      }
+      
 
 #input1 { width: 50%;
       height: 43px;

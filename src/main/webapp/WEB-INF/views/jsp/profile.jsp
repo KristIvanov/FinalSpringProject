@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Profile</title>
 </head>
+<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -25,18 +26,21 @@ $(document).ready(function(){
 });
 
 
-$('button.followButton').live('click', function(e){
-    e.preventDefault();
+$("button.followButton").live("click", function(e){
+   	alert("test1");
+	e.preventDefault();
     $button = $(this);
     if($button.hasClass('following')){
-        
+       	alert("test2");
+
         //$.ajax(); Do Unfollow
         $.post("unfollow");
         $button.removeClass('following');
         $button.removeClass('unfollow');
         $button.text('Follow');
     } else {
-        
+       	alert("test3");
+
         // $.ajax(); Do Follow
         $.post("follow");
         $button.addClass('following');
