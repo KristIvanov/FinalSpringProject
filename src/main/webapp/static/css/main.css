@@ -20,8 +20,10 @@
 #head6 { background:#e7eddc  no-repeat; background-size: 100% 100%;; min-height:820px;  text-align: center; padding-top:100px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
 	#head6 .lead { font-family:"Open sans", Helvetica, Arial;font-style: bold; font-size:30px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 	#head6.secondary { height:100px; min-height: 100px; padding-top:0px; }
-	
-#head1 { background:#181015 url( ../img/header.jpg) no-repeat; background-size: 100% 100%; min-height:1020px;  text-align: center; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+
+#head7 { background:#181015 url( ../img/404pic.jpg) no-repeat; background-size: 100% 100%;; min-height:820px; text-align: right; padding-top:200px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+	#head7 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:40px; margin-bottom:6px; color:#083244; line-height:1.15em; } 	
+#head1 { background:#181015 url( ../img/header.jpg) no-repeat; background-size: 100% 100%; height:1220px; text-align: center; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
 #head1.secondary { height:100px; min-height: 100px; padding-top:0px; }
 	#head1 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:50px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 	#head .tagline { color:red; margin-bottom:25px; }

@@ -45,6 +45,18 @@
     text-decoration: none;
     cursor: pointer;
 }
+/* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+         #map {
+         height: 50%;
+         width:50%;
+         }
+         /* Optional: Makes the sample page fill the window. */
+         html, body {
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         }
 </style>
 </head>
 
@@ -73,6 +85,10 @@
 		<!--<c:out value="${ post.likes } 5"></c:out>
 		<!-- Open List With People Who Like This Post -->
 		<button id="likesBtn">${ post.likes } likes</button>
+		<div class="container">
+    		<button class="btn likeButton" rel="6">Like</button>
+		</div>
+		
 	</div>
 	<div class="postComments">
                	<p>comments</p><br>
@@ -96,6 +112,9 @@
 			</form>
 		</c:if>
     </div>
+    <div id="map"></div>
+	<input id="longitude" hidden type="text" value="${ post.longitude }" name="longitude" required>
+	<input id="latitude" hidden type="text" value="${ post.latitude }" name="latitude" required>
 
 	
 	
@@ -149,6 +168,77 @@
 	        modal.style.display = "none";
 	    }
 	}
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script>
+	$('button.likeButton').live('click', function(e){
+	    e.preventDefault();
+	    $button = $(this);
+	    if($button.hasClass('liked')){
+	        
+	        //$.ajax(); Do Dislike
+	        $.post("dislike");
+	        $button.removeClass('liked');
+	        $button.removeClass('dislike');
+	        $button.text('Like');
+	    } else {
+	        
+	        // $.ajax(); Do Like
+	        $.post("like");
+	        $button.addClass('liked');
+	        $button.text('Dislike');
+	    }
+	});
+	
+	$('button.likeButton').hover(function(){
+	     $button = $(this);
+	    if($button.hasClass('liked')){
+	        $button.addClass('dislike');
+	        $button.text('Dislike');
+	    }
+	}, function(){
+	    if($button.hasClass('liked')){
+	        $button.removeClass('dislike');
+	        $button.text('Liked');
+	    }
+	});
+	</script>
+	
+	
+	
+	<script type="text/javascript">
+	function initAutocomplete() {
+		var lat = parseFloat(document.getElementById("latitude").value);
+	    var lng = parseFloat(document.getElementById("longitude").value);
+	    var latLng = new google.maps.LatLng(lat, lng);
+	    var map = new google.maps.Map(document.getElementById('map'), {
+	      center: latLng,
+	      zoom: 10
+	    });
+	    var marker;
+        var infoWindow = new google.maps.InfoWindow;
+        var lat = parseFloat(document.getElementById("latitude").value);
+        var lng = parseFloat(document.getElementById("longitude").value);
+        var latLng = new google.maps.LatLng(lat, lng);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: latLng
+        });
+        marker.setMap(map);
+    }
+	</script>
+	<script>
+         
+         function auto_grow(element) {
+         element.style.height = "5px";
+         element.style.height = (element.scrollHeight)+"px";
+         }
+    </script>
+	<script async defer
+    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0sPhqPEf8YKqPYO862QcMihJmO0xb5s&callback=initMap">
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0sPhqPEf8YKqPYO862QcMihJmO0xb5s&libraries=places&callback=initAutocomplete"
+         async defer>
 	</script>
 </div>
 </body>

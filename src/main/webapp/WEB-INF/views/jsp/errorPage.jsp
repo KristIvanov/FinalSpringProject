@@ -10,13 +10,15 @@
 </head>
 <body>
 	<jsp:include page="header2.jsp" />
-	<br><br><br><br><br><br><br>
-	<c:if test="${response.getStatus==404}">
-		<img src="/MyTravelerProject/img/404pic.jpg" height="200" weight="200">
-	</c:if>
-	<c:if test="${response.getStatus!=404}">
-		<img src="/MyTravelerProject/img/404pic.jpg" align="middle" height="500" weight="500">
-	</c:if>
-
+	<br><br><br><br><br><br>
+	<header id="head7"></header>
+		<!--  
+		<c:if test="${response.getStatus==404}">
+			<img src="/MyTravelerProject/img/404pic.jpg" height="200" weight="200">
+		</c:if>
+		<c:if test="${response.getStatus!=404}">
+			<img src="/MyTravelerProject/img/404pic.jpg" align="middle" height="500" weight="500">
+		</c:if>-->
+	</header>
 </body>
 </html>
