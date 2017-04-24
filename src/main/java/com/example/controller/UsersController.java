@@ -135,6 +135,10 @@ public class UsersController {
 	public String forgotPass() {
 		return "forgotPassword";
 	}
+	@RequestMapping(value="/errorPage", method=RequestMethod.GET)
+	public String errorPage() {
+		return "errorPage";
+	}
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String profile(Model model, HttpSession session, HttpServletResponse response) {
 		if(session.getAttribute("logged") != null) {

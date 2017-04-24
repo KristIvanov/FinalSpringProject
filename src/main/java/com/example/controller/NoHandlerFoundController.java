@@ -10,7 +10,7 @@ public class NoHandlerFoundController {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public String handleNoHandlerFoundException(NoHandlerFoundException ex) {
-        return "indexx";
+        return "errorPage";
     }
 
 }
