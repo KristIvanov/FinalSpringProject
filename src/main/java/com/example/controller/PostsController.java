@@ -188,6 +188,8 @@ public class PostsController {
 		List<Post> tagsByLikes = PostManager.getInstance().orderByLikes(resultsByTag);
 		List<Post> destinationByDate = PostManager.getInstance().orderByDate(resultsByDestination);
 		List<Post> destinationByLikes = PostManager.getInstance().orderByLikes(resultsByDestination);
+		List<Post> usersByDate = PostManager.getInstance().orderByDate(allPostsByUser);
+		List<Post> usersByLikes = PostManager.getInstance().orderByDate(allPostsByUser);
 		List<User> resultsByUser = UsersManager.getInstance().searchUser(words);
 		session.setAttribute("resultsByTag", resultsByTag);
 		session.setAttribute("resultsByDestination", resultsByDestination);
@@ -197,6 +199,8 @@ public class PostsController {
 		session.setAttribute("destinationByDate", destinationByDate);
 		session.setAttribute("destinationByLikes", destinationByLikes);
 		session.setAttribute("postsByAuthor", allPostsByUser);
+		session.setAttribute("usersByDate", usersByDate);
+		session.setAttribute("usersByLikes", usersByLikes);
 		jspName="searchResults";
 		removeCacheFromResponse(response);
 		return jspName;
