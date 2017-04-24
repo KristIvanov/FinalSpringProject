@@ -61,6 +61,7 @@ public class UsersController {
 	
 	@RequestMapping(value="/logout", method=RequestMethod.POST)
 	public String sayBye(Model viewModel, HttpSession session, HttpServletResponse response) {
+		session.setAttribute("username", null);
 		session.invalidate();
 		fileName = "indexx";
 		removeCacheFromResponse(response);
@@ -126,6 +127,10 @@ public class UsersController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String prepareForLogIn() {
 		return "login";
+	}
+	@RequestMapping(value="/wall", method=RequestMethod.GET)
+	public String wall() {
+		return "wall";
 	}
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String prepareForLogout() {
@@ -287,6 +292,7 @@ public class UsersController {
 	public String newsFeed(Model model, HttpSession ses, HttpServletResponse response) {
 		ArrayList<Post> posts =null;
 		if(ses.getAttribute("logged")!= null){
+			fileName="newsFeed";
 			posts = new ArrayList<>();
 			String username = (String) ses.getAttribute("username");
 			User u = UsersManager.getInstance().getRegisteredUsers().get(username);

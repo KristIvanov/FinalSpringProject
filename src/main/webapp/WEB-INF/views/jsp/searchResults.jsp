@@ -35,10 +35,9 @@ $(document).ready(function(){
 <body>
 
   <jsp:include page="header2.jsp" />
-        <br>
-        <br>
-        <br><br><br><br><br><br><br><br>
-
+       <header id="head4">
+         <div class="container">
+            <div class="row">
 <button id="btn1">Posts by tags</button>
 <button id="btn2">Posts by destination</button>
 <button id="btn3">Posts by author</button>
@@ -69,14 +68,14 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.tagsByDate}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${post.author.username}"/> " >${ post.author.username }</a><br>
+				<a href = "user/<c:url value="${post.author.username}"/> " >${ post.author.username }</a><br>
 				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
 	             
 				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category }"></c:out>
+				<c:out value="${ post.category.name }"></c:out>
 		
 				<c:out value="${ post.postName }"></c:out>
 		
@@ -96,14 +95,14 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.tagsByLikes}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
+				<a href = "user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a><br>
 				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
 	             
 				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category }"></c:out>
+				<c:out value="${ post.category.name }"></c:out>
 		
 				<c:out value="${ post.postName }"></c:out>
 		
@@ -143,14 +142,14 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.destinationByDate}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
+				<a href = "user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a><br>
 				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
 	             
 				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category }"></c:out>
+				<c:out value="${ post.category.name }"></c:out>
 		
 				<c:out value="${ post.postName }"></c:out>
 		
@@ -170,14 +169,14 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.destinationByLikes}">
 		<div class="userlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
+				<a href = "user/<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
 				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
 	             
 				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category }"></c:out>
+				<c:out value="${ post.category.name }"></c:out>
 		
 				<c:out value="${ post.postName }"></c:out>
 		
@@ -217,14 +216,14 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.usersByDate}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username }</a><br>
+				<a href = "user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a><br>
 				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
 	             
 				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category }"></c:out>
+				<c:out value="${ post.category.name }"></c:out>
 		
 				<c:out value="${ post.postName }"></c:out>
 		
@@ -244,14 +243,14 @@ $(document).ready(function(){
 		<c:forEach var="post" items="${sessionScope.usersByLikes}">
 		<div class="postlook" align="center">
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${post.author.username}"/> " >${ post.author.username }</a><br>
+				<a href = "user/<c:url value="${post.author.username}"/> " >${ post.author.username }</a><br>
 				<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
 				
 				<c:out value="${ post.author.first_name }"></c:out>
 			    <c:out value="${ post.author.last_name }"></c:out>
 	             
 				<c:out value="${ post.date }"></c:out>
-				<c:out value="${ post.category }"></c:out>
+				<c:out value="${ post.category.name }"></c:out>
 		
 				<c:out value="${ post.postName }"></c:out>
 		
@@ -278,7 +277,7 @@ $(document).ready(function(){
 				<!-- show small Picture -->
 				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
+				<a href = "user/<c:url value="${user.username}"/>" >${ post.author.username }</a><br>
 				
 				<c:out value="${ user.first_name }"></c:out>
 			    <c:out value="${ user.last_name }"></c:out>
@@ -288,6 +287,9 @@ $(document).ready(function(){
 		</div><br>
 	</c:forEach>
 </div>
+</div>
+         </div>
+      </header>
 </body>
 </html>
 

@@ -23,32 +23,13 @@
 			<div class="row">
 				<h1 class="lead">Travelbook</h1>
 				
-				<p><a class="btn btn-action btn-lg" href="SectionUnderConstructionPage.html">View Top Destinations</a> 
-				<a class="btn btn-action btn-lg" href="AllDestinations.jsp" >View All Destinations</a></p>
+				<p><a class="btn btn-action btn-lg" href="indexx">View Top Posts</a> 
+				<a class="btn btn-action btn-lg" href="allPosts" >View All Posts</a></p>
 
 			</div>
 		</div>
 	</header>
-	<!-- /Header -->
 
-	<!-- Intro -->
 	
-	<!-- Social links. @TODO: replace by link/instructions in template -->
-	<section id="social">
-		<div class="container">
-			<div class="wrapper clearfix">
-				<!-- AddThis Button BEGIN -->
-				<div class="addthis_toolbox addthis_default_style">
-				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-				<a class="addthis_button_tweet"></a>
-				<a class="addthis_button_linkedin_counter"></a>
-				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-				</div>
-				<!-- AddThis Button END -->
-			</div>
-		</div>
-	</section>
-
-
 </body>
 </html>

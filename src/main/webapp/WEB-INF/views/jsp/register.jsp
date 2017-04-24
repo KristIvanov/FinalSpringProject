@@ -10,7 +10,6 @@
     </head>
     <body>
         <jsp:include page="header2.jsp" />
-        <br>
         <header id="head3">
             <div class="container">
                 <div class="row">
@@ -19,7 +18,7 @@
                         <font face="Bradley Hand ITC" size="4" style="color:black;">${ errorMsg}</font>
                         <form action="register" method="post">
                             <div>
-                                <p> <font size="4" face="verdana" color="black" > 
+                                <p> <font size="4" face="Book Antiqua" color="black" > 
                                 	Username (5 symbols): <input id="input2" type="text" placeholder="enter username" value="${ username }" name="username" required><br>
                                     Email: <input id="input2" type="text" placeholder="enter email" value="${ email }" name="email" required></br>
                                     First Name: <input id="input2" type="text" placeholder="enter firstname" value="${ firstname }" name="firstname" required></br>

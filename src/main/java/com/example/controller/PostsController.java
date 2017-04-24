@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.annotation.MultipartConfig;
@@ -232,6 +233,19 @@ public class PostsController {
 			post.dislike(user);
 		}
 		return "post";
+	}
+	@RequestMapping(value="/allPosts", method=RequestMethod.GET)
+	public String getAllPosts(Model model, HttpSession session) {
+		ArrayList<Post> posts = new ArrayList<>();
+		for(Post p : PostManager.getInstance().getPosts().values()) {
+			
+				p.setPictureURL("img\\logo1.png");
+			
+			System.out.println(p.getPictureURL());
+			posts.add(p);
+		}
+		model.addAttribute("posts",posts);
+		return "allPosts";
 	}
 	
 	private  void validateData(String text) throws InvalidInputException{

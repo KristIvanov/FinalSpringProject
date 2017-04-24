@@ -148,5 +148,7 @@ public class Post {
 		return Collections.unmodifiableList(hashtags);
 	}
 
-	
+	public void setPictureURL(String pictureURL) {
+		this.pictureURL = pictureURL;
+	}
 }

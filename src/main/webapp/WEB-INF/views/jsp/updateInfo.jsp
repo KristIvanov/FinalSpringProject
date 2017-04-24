@@ -38,11 +38,11 @@
                      <input class="btn" type="submit" value = "Update Info"></br>
                   </form>
                   </div>
-                  
+                   <div class="pass">
                   <form action="changePass" method="post">
                      <h1 class="lead" >Change Password</h1>
-                     Old Password: <input id="input2" type="password" placeholder="enter old password" name="oldPassword" required="required"></br>
-                     New Password: <input id="input2" type="password" placeholder="enter new password" name="newPassword" required="required"></br>
+                     Old Password: <input class="input" type="password" placeholder="enter old password" name="oldPassword" required="required"></br>
+                     New Password: <input class="input" type="password" placeholder="enter new password" name="newPassword" required="required"></br>
                      <input class="btn" type="submit" value = "Change Password"></br>
                   </form>
                </c:if>

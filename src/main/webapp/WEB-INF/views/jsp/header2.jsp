@@ -24,13 +24,13 @@
             <div class="navbar-header">
                <!-- Button for smallest screens -->
                <button type="button" class="navbar-toggle" data-toggle="collapse"  data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-               <a  href="/MyTravelerProject/indexx" ><img src="/MyTravelerProject/img/logo1.png" height="100" width="190" alt="Travelbook"></a>
+               <a  href="/MyTravelerProject/indexx" ><img src="/MyTravelerProject/img/logo1.png" height="90" width="190" alt="Travelbook"></a>
             </div>
             <div class="navbar-collapse collapse">
                <ul class="nav navbar-nav pull-right">
                   <li>
                      <form action="/MyTravelerProject/quickSearch" method="get">
-                        <input id="input1" type="text" class="btn" placeholder="Search Travelbook" name="searchFor" required>
+                        <input id="input1" style="color:white" type="text" class="btn" placeholder="Search Travelbook" name="searchFor" required>
                         <input class="btn" type="submit" value = "Quick Search">
                      </form>
                   </li>
@@ -42,6 +42,8 @@
                   <li><a class="btn" href="/MyTravelerProject/logout">Logout</a></li>
                   <li><a class="btn" href="/MyTravelerProject/updateInfo">Settings</a></li>
                   <li><a class="btn" href="/MyTravelerProject/addPost">Add new post</a></li>
+                  <li><a class="btn" href="/MyTravelerProject/newsFeed">News feed</a></li>
+                  
                   </c:if>
                </ul>
             </div>
