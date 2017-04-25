@@ -151,41 +151,53 @@
 	    }
 	}
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script>
-	$('button.likeButton').live('click', function(e){
-	    e.preventDefault();
-	    $button = $(this);
-	    if($button.hasClass('liked')){
-	        
+	<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+	   
+	$("#btn").click(function(e){
+		e.preventDefault();
+	    
+	    if($("#btn").hasClass('liked')){
+
 	        //$.ajax(); Do Dislike
-	        $.post("dislike");
-	        $button.removeClass('liked');
-	        $button.removeClass('dislike');
-	        $button.text('Like');
+	        $.post("dislikePost");
+	        $("#btn").removeClass('liked');
+	        $("#btn").addClass('dislike');
+	        $("#btn").text('like');
 	    } else {
-	        
+
 	        // $.ajax(); Do Like
-	        $.post("like");
-	        $button.addClass('liked');
-	        $button.text('Dislike');
+	        $.post("likePost");
+	        $("#btn").addClass('liked');
+	        $("#btn").text('liked');
 	    }
+	    
 	});
+	$( "div.container" )
+	  .mouseover(function() {
+		  if($("#btn").hasClass('liked')){
+		  $("#btn").addClass('dislike');
+			$("#btn").text('Dislike');
+		  }
+	  })
+	  .mouseout(function() {
+		  if($("#btn").hasClass('liked')){
+		  $("#btn").removeClass('dislike');
+			$("#btn").text('Liked');
+		  }
+	  });
 	
-	$('button.likeButton').hover(function(){
-	     $button = $(this);
-	    if($button.hasClass('liked')){
-	        $button.addClass('dislike');
-	        $button.text('Dislike');
-	    }
-	}, function(){
-	    if($button.hasClass('liked')){
-	        $button.removeClass('dislike');
-	        $button.text('Liked');
-	    }
-	});
-	</script>
-	
+});
+
+</script>
+
+
+<div id = "btn" class="container" align="center">
+    <button class="btn likeButton" rel="6">Follow</button>
+</div><br>
 	
 	
 	<script type="text/javascript">

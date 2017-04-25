@@ -50,25 +50,25 @@ $(document).ready(function(){
 
 	        // $.ajax(); Do Follow
 	        $.post("follow");
-	        $("#btn").addClass('following');
+	        $("#btn").removeClass('following');
 	        $("#btn").text('Following');
 	    }
-	    $("#test1").html(document.getElementById("printByTags").innerHTML);
-	    $("#postsByTags").html(document.getElementById("printByTagsOrderNewest").innerHTML);
+	    
 	});
-	$('button.followButton').hover(function(){
-		$button.text('Following');
-	     $button = $(this);
-	    if($button.hasClass('following')){
-	        $button.addClass('unfollow');
-	        $button.text('Unfollow');
-	    }
-	}, function(){
-	    if($button.hasClass('following')){
-	        $button.removeClass('unfollow');
-	        $button.text('Following');
-	    }
-	});
+	$( "div.container" )
+	  .mouseover(function() {
+		  if($("#btn").hasClass('following')){
+		  $("#btn").addClass('unfollow');
+			$("#btn").text('Unfollow');
+		  }
+	  })
+	  .mouseout(function() {
+		  if($("#btn").hasClass('following')){
+		  $("#btn").removeClass('unfollow');
+			$("#btn").text('Following');
+		  }
+	  });
+	
 });
 
 </script>

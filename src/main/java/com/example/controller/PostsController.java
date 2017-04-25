@@ -218,6 +218,7 @@ public class PostsController {
 		Long postId = Long.parseLong(id);
 		Post post = PostManager.getInstance().getPosts().get(postId);
 		model.addAttribute("post", post);
+		session.setAttribute("post", post);
 		removeCacheFromResponse(response);
 		return "post";
 	}
