@@ -11,12 +11,14 @@
 
 <body>
   <jsp:include page="header2.jsp" />
+        <div id="head4">
+          <div class="container">
+           <div class="img">
         
-        <br><br><br><br><br><br><br><br>
 <!-- check if !userexists ? return user not found.jsp -->
 <!-- view picture -->
 
-<img src="/MyTravelerProject/image/<c:url value="${ usersprofile.username }"></c:url>" height=300 width="300"/> <br>
+                  <img class="img" src="/MyTravelerProject/image" align="middle" height=300 width="300"> <br>
 
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -74,11 +76,11 @@ $(document).ready(function(){
 </script>
 
 
-<div id = "btn" class="container" align="center">
+<div id = "btn" >
     <button class="btn followButton" rel="6">Follow</button>
 </div><br>
 <!-- print username, first, last, email -->
-<table border="1" id="userInfo">
+<table class="lead"border="1" id="userInfo">
 				<tr>
 					<c:out value="${ usersprofile.username }"></c:out>
                     <p>username</p>
@@ -153,6 +155,9 @@ $(document).ready(function(){
 				
 		</div><br>
 	</c:forEach>
+	</div>
+	</div>
+	</div>
 </div>
 
 </body>
