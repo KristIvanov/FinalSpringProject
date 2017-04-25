@@ -46,6 +46,12 @@ public class UsersController {
 				fileName = "updateInfo";
 				if(session.getAttribute("url") != null) {
 					fileName = (String) session.getAttribute("url");
+					if(session.getAttribute("postId") != null) {
+						Long id = (Long) session.getAttribute("postId");
+						Post p = PostManager.getInstance().getPosts().get(id);
+						viewModel.addAttribute("post",p);
+						fileName= "post";
+					}
 				}
 			}
 			else{

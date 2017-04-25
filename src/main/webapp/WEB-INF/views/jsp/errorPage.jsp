@@ -10,7 +10,6 @@
 </head>
 <body>
 	<jsp:include page="header2.jsp" />
-	<br><br><br><br><br><br>
 	<header id="head7"></header>
 		<!--  
 		<c:if test="${response.getStatus==404}">

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Post {
 	
@@ -16,7 +17,7 @@ public class Post {
 	private String description;
 	private User author;
 	private LocalDateTime date;
-	private ArrayList<Comment> comments;
+	private TreeSet<Comment> comments;
 	private String destination;
 	private double longitude;
 	private double latitude;
@@ -49,7 +50,7 @@ public class Post {
 		
 		this.author = author;
 		this.date = date;
-		this.comments = new ArrayList<>();
+		this.comments = new TreeSet<>();
 		this.hashtags= new ArrayList<>();
 		this.hashtags=hashTags;
 		this.likedBy=new HashSet<>();
@@ -106,8 +107,8 @@ public class Post {
 		}
 	}
 
-	public List<Comment> getComments() {
-		return Collections.unmodifiableList(comments);
+	public Set<Comment> getComments() {
+		return Collections.unmodifiableSet(comments);
 	}
 
 	public String getDestination() {

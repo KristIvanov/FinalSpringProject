@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.model.Post;
 import com.example.model.User;
+import com.example.model.managers.PostManager;
 import com.example.model.managers.UsersManager;
 
 
@@ -60,6 +62,34 @@ public class UploadImageController {
 		else {
 
 			file = new File("C:\\travelBook\\usersProfilePics\\No_person.jpg");
+		}
+		Files.copy(file.toPath(), resp.getOutputStream());
+	}
+	@RequestMapping(value="/picture/{post_id:.+}", method=RequestMethod.GET)
+	@ResponseBody
+	public void viewPostPicture( @PathVariable("post_id") Long id,HttpServletResponse resp, Model model,HttpSession session) throws IOException {
+		Post p = PostManager.getInstance().getPosts().get(id);
+		File file;
+		if(p.getPictureURL()!=null) {
+			 file = new File(p.getPictureURL());
+		}
+		else {
+
+			file = new File("C:\\travelBook\\logo1.png");
+		}
+		Files.copy(file.toPath(), resp.getOutputStream());
+	}
+	@RequestMapping(value="/video/{post_id:.+}", method=RequestMethod.GET)
+	@ResponseBody
+	public void viewPostVideo( @PathVariable("post_id") Long id,HttpServletResponse resp, Model model,HttpSession session) throws IOException {
+		Post p = PostManager.getInstance().getPosts().get(id);
+		File file;
+		if(p.getVideoURL()!=null) {
+			 file = new File(p.getVideoURL());
+		}
+		else {
+
+			file = new File("C:\\travelBook\\logo1.png");
 		}
 		Files.copy(file.toPath(), resp.getOutputStream());
 	}

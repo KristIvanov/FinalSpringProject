@@ -32,7 +32,7 @@ private static CommentDAO instance;
 		Connection con = DBManager.getInstance().getConnection();
 		try {
 			
-			PreparedStatement ps = con.prepareStatement("SELECT comment_id,author_id,text,posts_post_i,dated FROM comments");
+			PreparedStatement ps = con.prepareStatement("SELECT comment_id,author_id,text,posts_post_id,date FROM comments");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				PreparedStatement authorST = con.prepareStatement("SELECT username FROM users WHERE user_id=?"); 
@@ -40,8 +40,9 @@ private static CommentDAO instance;
 		  		ResultSet authorRS = authorST.executeQuery();
 		  		authorRS.next();
 		  		User author = UsersManager.getInstance().getRegisteredUsers().get(authorRS.getString("username"));
-		  		Post post = PostManager.getInstance().getPosts().get(rs.getLong("posts_post_id"));
-		  		Comment comment = new Comment(author, rs.getString("text"), post,rs.getTimestamp("date").toLocalDateTime());
+		  		
+		  		Long postId = rs.getLong("posts_post_id");
+		  		Comment comment = new Comment(author, rs.getString("text"), postId,rs.getTimestamp("date").toLocalDateTime());
 				comments.put(rs.getLong("comment_id"), comment);
 				comment.setComment_id(rs.getLong("comment_id"));
 				PreparedStatement likersST = con.prepareStatement("SELECT liker_id FROM comments_has_likers WHERE comment_id=?");
@@ -59,13 +60,14 @@ private static CommentDAO instance;
 				}
 				
 				
-				rs.close();
-				ps.close();
+				
 				authorRS.close();
 				authorST.close();
 				likersRS.close();
 				likersST.close();
 			}
+			rs.close();
+			ps.close();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -108,10 +110,10 @@ private static CommentDAO instance;
 		PreparedStatement ps = null;
 		
 		try {
-			ps = con.prepareStatement("INSERT INTO comments (author_id,text,posts_post_id,date) VALUES (?,?,?", Statement.RETURN_GENERATED_KEYS);
+			ps = con.prepareStatement("INSERT INTO comments (author_id,text,posts_post_id,date) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, comment.getAuthor().getUserId());
 			ps.setString(2, comment.getText());
-			ps.setLong(3, comment.getPost().getPostId());
+			ps.setLong(3, comment.getPost());
 			ps.setTimestamp(4, Timestamp.valueOf(comment.getDate()));
 			ps.executeUpdate();
 			
@@ -123,6 +125,9 @@ private static CommentDAO instance;
 			ps.close();
 			this.comments.put(comment.getComment_id(), comment);
 			System.out.println("Comment added successfully");
+			comments.put(comment.getComment_id(), comment);
+			PostManager.getInstance().getPosts().get(comment.getPost()).addComment(comment);
+			System.out.println("komentari-" + PostManager.getInstance().getPosts().get(comment.getPost()).getComments().size());
 
 		} catch (SQLException e) {
 			e.printStackTrace();

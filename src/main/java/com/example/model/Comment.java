@@ -5,19 +5,19 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Comment {
+public class Comment implements Comparable<Comment> {
 	
 	private long comment_id;
 	private User author;
 	private String text;
-	private Post post;
+	private Long postId;
 	private LocalDateTime date;
 	private HashSet<User> likedBy;
 
 	
-	public Comment(User author, String text,Post post,LocalDateTime date) throws InvalidInputException {
+	public Comment(User author, String text,Long postId,LocalDateTime date) throws InvalidInputException {
 		this.author = author;
-		this.post=post;
+		this.postId=postId;
 		this.date=date;
 		if(checkString(text)) {
 			this.text = text;
@@ -29,8 +29,8 @@ public class Comment {
 	
 	
 	
-	public Post getPost() {
-		return post;
+	public Long getPost() {
+		return postId;
 	}
 
 	public long getComment_id() {
@@ -76,6 +76,13 @@ public class Comment {
 			return true;
 		}
 		return false;
+	}
+
+
+
+	@Override
+	public int compareTo(Comment o) {
+		return this.date.compareTo(o.date);
 	}
 	
 	

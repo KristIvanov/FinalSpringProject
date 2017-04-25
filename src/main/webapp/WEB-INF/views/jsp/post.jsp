@@ -7,44 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Post</title>
 <style>
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
 
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
 /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
          #map {
@@ -62,53 +25,64 @@
 
 
 <body>
+<jsp:include page="header2.jsp" />
+      <header id="head4">
+         <div class="container">
+            <div class="row">
 <div class="postLarge" align="center">
 	<div class="postName" align="center">
 		<c:out value="${ post.postName }"></c:out>
 	</div>
 	<div class="postCategory" align="center">
-		<c:out value="${ post.category }"></c:out>
+		<c:out value="${ post.category.name }"></c:out>
 	</div>
 	<div class="authorAndDate" align="center">
 		<c:out value="${ post.author.first_name } "></c:out>
 		<c:out value="${ post.author.last_name } * "></c:out>
-		<c:out value="${ post.date } "></c:out>
 	</div>
+	<!-- TODO post pic and video! if no pic - default pic -->
 	<div class="authorMoreInfo" align="center">
-		<a href = "<c:url value="/${post.author.username}"/>" >${ post.author.username } </a><br>
-		<img src="image/<c:url value="${ post.author.username }"></c:url>" height=30 width="30"/> <br>
+          <a href = "/MyTravelerProject/user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
+         <img class="img-circle-users" src="/MyTravelerProject/image/<c:url value="${post.author.username}"/>">
 	</div>
 	<div class="postDesc" align="center">
 		<c:out value="${ post.description } "></c:out>
 	</div>
+	<!-- TODO like only if logged -->
 	<div class="postLikes">
 		<!--<c:out value="${ post.likes } 5"></c:out>
 		<!-- Open List With People Who Like This Post -->
+		<c:if test=""></c:if>
 		<button id="likesBtn">${ post.likes } likes</button>
+		      <c:if test="${sessionScope.username !=null }">
+		
 		<div class="container">
     		<button class="btn likeButton" rel="6">Like</button>
 		</div>
-		
+		</c:if>
 	</div>
 	<div class="postComments">
                	<p>comments</p><br>
                	<p>comments</p><br>
 		<c:forEach var="Comment" items="${post.comments}"> 
-			<c:out value="${ comment }"></c:out><br>
+			<a href = "/MyTravelerProject/user/<c:url value="${post.author.username}"/>" >${ post.author.username } </a>
+			Commented on: <c:out value="${ Comment.date }"></c:out><br>
+			
+		
+			<c:out value="${ Comment.text }"></c:out><br>
+			
+			
         </c:forEach>
 	</div>
     <div id="addComment">
     	<c:if test="${ sessionScope.username == null }">
-			<p>to add comments, please log in first!<p>
-			<form action="login" method="get">
-				<input type="submit" value="login">
-			</form>
+			<p>to add comments and like, please log in first!<p>
+				<a class="btn" href="/MyTravelerProject/login">Login</a>
 		</c:if>
 		<c:if test="${ sessionScope.username != null }">
-			<form action="addComment" method="post" >
+			<form action="/MyTravelerProject/addComment" method="post" >
 				Enter comment:<textarea name="newComment" value="${newComment }" cols="50" rows="8" placeholder="Add comment"  required></textarea></br>
 				<input type="submit" value = "Add comment" name="text"></br>
-				<input type="hidden" value="<c:out value="${post.id}"/>" name="postId">
 			</form>
 		</c:if>
     </div>
@@ -124,6 +98,8 @@
 	  <!-- Modal content -->
 	  <div class="modal-content">
 	    <span class="close">&times;</span>
+<c:if test="${post.likes==0}"> Nobody likes this!</c:if>
+	    
 	    <c:forEach var="User" items="${post.likers}"> 
 			<div class="userlook" align="center">
 				<!-- show small Picture -->
@@ -141,6 +117,12 @@
 	  </div>
 	
 	</div>
+	</div>
+         </div>
+         </div>
+      </header>
+      <c:set var="url" scope="session" value="post/"></c:set>
+	      <c:set var="postId" scope="session" value="${post.postId}"></c:set>
 	
 	<script>
 	// Get the modal

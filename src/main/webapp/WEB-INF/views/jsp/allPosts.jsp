@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page errorPage="errorPage.jsp"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-      <title>Insert title here</title>
+      <title>All posts</title>
    </head>
    <style>
       .p {
@@ -51,7 +49,18 @@
       text-decoration: none;
       cursor: pointer;
       }
-      
+      /* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+      #map {
+      height: 50%;
+      width:50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      }
    </style>
    <body>
       <jsp:include page="header2.jsp" />
@@ -61,33 +70,27 @@
                <c:if test="${posts != null}">
                   <c:forEach var="post" items="${posts}">
                      <div class="border">
-                        <img class="img-circle-users" src="image/
-                        <c:url value="${post.author.username}"/>
-                        ">
+                        <img class="img-circle-users" src="image/<c:url value="${post.author.username}"/>">
                         <font style= "oblique" size="5" style="color:black;">
                            <a href = "user/
-                           <c:url value="${post.author.username}"/>
-                           " >${ post.author.username }</a> posted on ${post.date} <br>
+                           <c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
                         </font>
-                        <a class="lead" href = "post/
-                        <c:url value="${post.postId}"/>
-                        " >${ post.postName }</a> <br><br>
-                        <img class="picture" src="${post.pictureURL}" >
+                        <a class="lead" href = "post/<c:url value="${post.postId}"/> " >${ post.postName }</a> <br><br>
+                        <img class="p"src="picture/${post.postId}" height="300" width="700">
                         <button id="likesBtn">${ post.likes } likes</button>
                         <div id="myModal" class="modal">
                            <!-- Modal content -->
                            <div class="modal-content">
                               <span class="close">&times;</span>
+                              <c:if test="${post.likes==0}"> Nobody likes this!</c:if>
                               <c:forEach var="User" items="${post.likers}">
                                  <div class="userlook" align="center">
                                     <!-- show small Picture -->
                                     <img class="img-circle-users" src="image/
-                                    <c:url value="${post.author.username}"/>
-                                    ">
+                                    <c:url value="${post.author.username}"/>">
                                     <font style= "oblique" size="5" style="color:black;">
                                        <a href = "user/
-                                       <c:url value="${post.author.username}"/>
-                                       " >${ post.author.username }</a> <br>
+                                       <c:url value="${post.author.username}"/>" >${ post.author.username }</a> <br>
                                     </font>
                                     <c:out value="${ user.first_name }"></c:out>
                                     <c:out value="${ user.last_name }"></c:out>
@@ -101,7 +104,6 @@
                   </c:forEach>
                </c:if>
             </div>
-            <!-- The Modal -->
          </div>
       </header>
       <script>

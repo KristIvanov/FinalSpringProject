@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -149,22 +151,27 @@ public class PostsController {
 	@RequestMapping(value="/addComment",method = RequestMethod.POST)
 	public String addComment(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 		if(session.getAttribute("username") != null ) {
-			String commentText = request.getParameter("text").trim();
+			String commentText = request.getParameter("newComment").trim();
 			String username = (String) session.getAttribute("username");
-			Long postId = (Long) request.getAttribute("postId"); //or maybe set the post id as parameter of the request
+			Long postId = (Long) session.getAttribute("postId"); //or maybe set the post id as parameter of the request
 			
 			model.addAttribute("text", commentText);
 			
 			try {
 				validateData(commentText);
 				User author = UsersManager.getInstance().getRegisteredUsers().get(username);
-				Post post = PostManager.getInstance().getPosts().get(postId);
 				LocalDateTime date = LocalDateTime.now();
-				CommentDAO.getInstance().addNewComment(new Comment(author, commentText, post, date));
-				jspName="newsFeed";
-				//TODO news feed jsp!!! with user's posts and following posts
+				CommentDAO.getInstance().addNewComment(new Comment(author, commentText, postId, date));
+				if(session.getAttribute("url") != null) {
+					if(session.getAttribute("postId") != null) {
+						Long id = (Long) session.getAttribute("postId");
+						Post p = PostManager.getInstance().getPosts().get(id);
+						model.addAttribute("post",p);
+						jspName= "post";
+					}
+				}
 			} catch (InvalidInputException e) {
-				jspName= "addPost";
+				jspName= "post";
 			}
 		}
 	else {
@@ -203,9 +210,10 @@ public class PostsController {
 	}
 	
 	@RequestMapping(value="/post/{postId} ",method = RequestMethod.GET)
-	public String viewPost(Model model, @PathVariable("postId") String postId,  HttpServletResponse response, HttpSession session) {
+	public String viewPost(Model model, @PathVariable("postId") String id,  HttpServletResponse response, HttpSession session) {
+		Long postId = Long.parseLong(id);
 		Post post = PostManager.getInstance().getPosts().get(postId);
-		session.setAttribute("post", post);
+		model.addAttribute("post", post);
 		removeCacheFromResponse(response);
 		return "post";
 	}
@@ -236,14 +244,10 @@ public class PostsController {
 	}
 	@RequestMapping(value="/allPosts", method=RequestMethod.GET)
 	public String getAllPosts(Model model, HttpSession session) {
-		ArrayList<Post> posts = new ArrayList<>();
+		TreeSet<Post> posts = new TreeSet<>((Post p1, Post p2)->p2.getDate().compareTo(p1.getDate()));
+		
 		for(Post p : PostManager.getInstance().getPosts().values()) {	
-			if(p.getPictureURL()==null) {
-				p.setPictureURL("img\\logo1.png");
-			}
-			//TODO delete this!!!!
-
-			p.setPictureURL("img\\logo1.png");
+			
 			posts.add(p);
 		}
 		model.addAttribute("posts",posts);
