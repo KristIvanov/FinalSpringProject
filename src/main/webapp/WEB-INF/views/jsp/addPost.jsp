@@ -60,7 +60,7 @@
     <div id="head6">
           <div class="container">
            <div class="row">
-	<div id="map"></div>
+			<div id="map"></div>
 
    		   <c:if test="${sessionScope.username ==null }">
    		   <c:set var="url" scope="session" value="addPost"></c:set>
