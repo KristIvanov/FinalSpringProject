@@ -8,6 +8,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Profile</title>
 </head>
+
+<body>
+  <jsp:include page="header2.jsp" />
+        
+        <br><br><br><br><br><br><br><br>
+<!-- check if !userexists ? return user not found.jsp -->
+<!-- view picture -->
+
+<img src="/MyTravelerProject/image/<c:url value="${ usersprofile.username }"></c:url>" height=300 width="300"/> <br>
+
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script>
@@ -21,55 +31,52 @@ $(document).ready(function(){
     $("#followingShow").click(function(){
         $("#wall").html(document.getElementById("printedFollowing").innerHTML);
     });
-   
-    
-});
-
-
-$("button.followButton").live("click", function(e){
-   	alert("test1");
-	e.preventDefault();
-    $button = $(this);
-    if($button.hasClass('following')){
-       	alert("test2");
-
-        //$.ajax(); Do Unfollow
-        $.post("unfollow");
-        $button.removeClass('following');
-        $button.removeClass('unfollow');
-        $button.text('Follow');
-    } else {
-       	alert("test3");
-
-        // $.ajax(); Do Follow
-        $.post("follow");
-        $button.addClass('following');
-        $button.text('Following');
-    }
-});
-
-$('button.followButton').hover(function(){
-     $button = $(this);
-    if($button.hasClass('following')){
-        $button.addClass('unfollow');
-        $button.text('Unfollow');
-    }
-}, function(){
-    if($button.hasClass('following')){
-        $button.removeClass('unfollow');
-        $button.text('Following');
-    }
 });
 </script>
-<body>
-  <jsp:include page="header2.jsp" />
-        
-        <br><br><br><br><br><br><br><br>
-<!-- check if !userexists ? return user not found.jsp -->
-<!-- view picture -->
+<script>
+$(document).ready(function(){
+	   
+	$("#btn").click(function(e){
+		e.preventDefault();
+	    
+	    if($("#btn").hasClass('following')){
 
-<img src="/MyTravelerProject/image/<c:url value="${ usersprofile.username }"></c:url>" height=300 width="300"/> <br>
+	        //$.ajax(); Do Unfollow
+	        $.post("unfollow");
+	        $("#btn").removeClass('following');
+	        $("#btn").removeClass('unfollow');
+	        $("#btn").text('Follow');
+	    } else {
 
+	        // $.ajax(); Do Follow
+	        $.post("follow");
+	        $("#btn").removeClass('following');
+	        $("#btn").text('Following');
+	    }
+	    
+	});
+	$( "div.container" )
+	  .mouseover(function() {
+		  if($("#btn").hasClass('following')){
+		  $("#btn").addClass('unfollow');
+			$("#btn").text('Unfollow');
+		  }
+	  })
+	  .mouseout(function() {
+		  if($("#btn").hasClass('following')){
+		  $("#btn").removeClass('unfollow');
+			$("#btn").text('Following');
+		  }
+	  });
+	
+});
+
+</script>
+
+
+<div id = "btn" class="container" align="center">
+    <button class="btn followButton" rel="6">Follow</button>
+</div><br>
 <!-- print username, first, last, email -->
 <table border="1" id="userInfo">
 				<tr>
@@ -90,9 +97,7 @@ $('button.followButton').hover(function(){
                 </tr>
 		</table>
 <!-- nqkyde vsqsno butoni POSTS FOLLOWING FOLLOWERS -->
-<div class="container" align="center">
-    <button class="btn followButton" rel="6">Follow</button>
-</div>
+
 
 <div id="wall" align="center"></div>
 <button id="postShow">Posts</button>

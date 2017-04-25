@@ -136,6 +136,7 @@
                </div>
       </header>
       <c:set var="url" scope="session" value="post/"></c:set>
+<<<<<<< HEAD
       <c:set var="postId" scope="session" value="${post.postId}"></c:set>
      <script>    // Get the modal
      var mapModal = document.getElementById('mapModal');
@@ -210,6 +211,108 @@
                  $button.text('Dislike');
              }
          });
+
+	      <c:set var="postId" scope="session" value="${post.postId}"></c:set>
+	
+	<script>
+	// Get the modal
+	var modal = document.getElementById('myModal');
+	
+	// Get the button that opens the modal
+	var btn = document.getElementById("likesBtn");
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	
+	// When the user clicks the button, open the modal 
+	btn.onclick = function() {
+	    modal.style.display = "block";
+	}
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+	</script>
+	<script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+	   
+	$("#btn").click(function(e){
+		e.preventDefault();
+	    
+	    if($("#btn").hasClass('liked')){
+
+	        //$.ajax(); Do Dislike
+	        $.post("dislikePost");
+	        $("#btn").removeClass('liked');
+	        $("#btn").addClass('dislike');
+	        $("#btn").text('like');
+	    } else {
+
+	        // $.ajax(); Do Like
+	        $.post("likePost");
+	        $("#btn").addClass('liked');
+	        $("#btn").text('liked');
+	    }
+	    
+	});
+	$( "div.container" )
+	  .mouseover(function() {
+		  if($("#btn").hasClass('liked')){
+		  $("#btn").addClass('dislike');
+			$("#btn").text('Dislike');
+		  }
+	  })
+	  .mouseout(function() {
+		  if($("#btn").hasClass('liked')){
+		  $("#btn").removeClass('dislike');
+			$("#btn").text('Liked');
+		  }
+	  });
+	
+});
+
+</script>
+
+
+<div id = "btn" class="container" align="center">
+    <button class="btn likeButton" rel="6">Follow</button>
+</div><br>
+	
+	
+	<script type="text/javascript">
+	function initAutocomplete() {
+		var lat = parseFloat(document.getElementById("latitude").value);
+	    var lng = parseFloat(document.getElementById("longitude").value);
+	    var latLng = new google.maps.LatLng(lat, lng);
+	    var map = new google.maps.Map(document.getElementById('map'), {
+	      center: latLng,
+	      zoom: 10
+	    });
+	    var marker;
+        var infoWindow = new google.maps.InfoWindow;
+        var lat = parseFloat(document.getElementById("latitude").value);
+        var lng = parseFloat(document.getElementById("longitude").value);
+        var latLng = new google.maps.LatLng(lat, lng);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: latLng
+        });
+        marker.setMap(map);
+    }
+	</script>
+	<script>
+>>>>>>> 68b1f9ff375417625de422f189c7585e66cf9de1
          
          $('button.likeButton').hover(function(){
               $button = $(this);
