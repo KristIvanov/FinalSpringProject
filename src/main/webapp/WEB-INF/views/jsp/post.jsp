@@ -136,7 +136,10 @@
                </div>
       </header>
       <c:set var="url" scope="session" value="post/"></c:set>
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
       <c:set var="postId" scope="session" value="${post.postId}"></c:set>
      <script>    // Get the modal
      var mapModal = document.getElementById('mapModal');
