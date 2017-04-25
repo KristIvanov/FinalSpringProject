@@ -152,4 +152,8 @@ public class Post {
 	public void setPictureURL(String pictureURL) {
 		this.pictureURL = pictureURL;
 	}
+	
+	public int getCommentssize() {
+		return this.comments.size();
+	}
 }

@@ -8,19 +8,19 @@
 	#head4 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; text-align: center;font-size:25px; margin-bottom:1px; color:#083244; line-height:1.15em; } 
 		#head4.secondary { height:100px; min-height: 100px; padding-top:0px; }
 		#head4 .img {float: left; position: relative; width: 250px; height: 250px; border-radius: 70%; }
-		#head4 .settings {float: left; position: relative; left:10%;}
+		#head4 .settings {float: left; position: relative; left:20%;}
 		#head4 .input {width: 90%;   height: 30%; box-sizing: border-box;border: 1px solid #ccc; border-radius: 5px; font-size: 12px; background: rgba(0, 0, 0, 0);background-repeat: no-repeat; padding: 12px 20px 12px 40px;}
-		#head4 .border { border: 2px solid grey;border-radius: 8px;width:800px; height: 500px;    
-    padding: 40px;background:white;}
+		#head4 .border { border: 2px solid grey;border-radius: 8px;width:700px; height: 450px;    
+    padding: 40px;}
 		#head4 .pass {float: right; position: relative; }
 		#head4 .picture {  border: 2px solid grey; border-radius: 6px;width:700px;  height:300px; }
-		#head4 .border1 { border: 2px solid grey;border-radius: 8px; width:500px; height: 300px;    padding: 40px;background:white;}
+		#head4 .border1 { border: 2px solid grey;border-radius: 8px; height: 300px;    padding: 40px;background:white;}
 		#head4 .picture1 {  border: 2px solid grey; border-radius: 6px;width:300px;  height:150px; }
 
 #head5 { background:#181015 url( ../img/pic2.jpg) no-repeat; background-size: 100% 100%;; min-height:1120px;  text-align: center; padding-top:200px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
 	#head5 .lead { font-family:"Open sans", Helvetica, Arial;font-style: bold; font-size:30px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 	#head5.secondary { height:100px; min-height: 100px; padding-top:0px; }
-#head6 { background:#e7eddc  no-repeat; background-size: 100% 100%;; min-height:820px;  text-align: center; padding-top:100px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
+#head6 { background:#e7eddc  no-repeat; background-size: 100% 100%; min-height:820px;  text-align: center; padding-top:200px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
 	#head6 .lead { font-family:"Open sans", Helvetica, Arial;font-style: bold; font-size:30px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 	#head6.secondary { height:100px; min-height: 100px; padding-top:0px; }
 
@@ -187,7 +187,10 @@
 }
 
             
- textarea {
+ #textarea {
+ -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 5px;
     resize: none;
     overflow: hidden;
     min-height: 50px;

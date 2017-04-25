@@ -55,18 +55,21 @@
          </form>
          </c:if>
            !-->
-           <header id="head6">
-         <div class="container">
-            <div class="row">
-      <c:if test="${sessionScope.username ==null }">
-         <%session.setAttribute("url", "addPost"); %>
+           
+           
+    <div id="head6">
+          <div class="container">
+           <div class="row">
+	<div id="map"></div>
+
+   		   <c:if test="${sessionScope.username ==null }">
+   		   <c:set var="url" scope="session" value="addPost"></c:set>
          <c:redirect url= "login"></c:redirect>
       </c:if>
-      <h2 class="lead" align="center">Please add a new post</h2>
       <font face="Bradley Hand ITC" size="4" style="color:black;">${ errorMsg}</font>
       <input id="pac-input" class="controls" type="text" placeholder="Search Box" >
       <div id="map"></div>
-      <div  class = "basic-grey"id="form">
+        <div  class = "basic-grey"id="form">
          <form action="addPost" method="post" enctype="multipart/form-data">
             <p>
                <font size="4" face="verdana" color="black" >
@@ -79,8 +82,8 @@
                   
                   <label for="destination">Destination name: </label> <input  type="text" value="${ destinationname }" name="destinationname" placeholder="Add destination"  required></br>
                 
-                  <input id="longitude" hidden type="text" value="${ longitude }" name="longitude" required>
-                  <input id="latitude" hidden type="text" value="${latitude}" name="latitude" required>
+                  <input id="longitude" hidden type="text" value="${ longitude }" name="longitude">
+                  <input id="latitude" hidden type="text" value="${latitude}" name="latitude" >
                    <label for="hashtags">  Enter key words separated by spaces: </label> <input  type="text" value="${ hashtags }" name="hashtags" placeholder="Add tags" ></br>
                    <label for="category"> Categories:  </label>
                   <select name = "category">
@@ -101,10 +104,9 @@
          </form>
       </div>
       <input hidden id="pac-input" class="controls" type="text" placeholder="Search Box">
-      <div id="map"></div>
       </div>
-         </div>
-      </header>
+      </div>
+      </div>
       <script>
          // This example adds a search box to a map, using the Google Place Autocomplete
          // feature. People can enter geographical searches. The search box will return a
@@ -149,12 +151,16 @@
          
              google.maps.event.addListener(map, 'click', function(event) {
              	
-               
+            	 if (marker && marker.setMap) {
+            		    marker.setMap(null);
+            		  }
                marker = new google.maps.Marker({
                  position: event.latLng,
                  map: map
                });
-               
+               document.getElementById('latitude').value = event.latLng.lat();
+               document.getElementById('longitude').value = event.latLng.lng();
+         	  infowindow.open(map, marker);
          
          
          

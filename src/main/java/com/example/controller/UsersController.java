@@ -159,9 +159,9 @@ public class UsersController {
 	public String prepareForLogIn() {
 		return "login";
 	}
-	@RequestMapping(value="/wall", method=RequestMethod.GET)
+	@RequestMapping(value="/testPostMap", method=RequestMethod.GET)
 	public String wall() {
-		return "wall";
+		return "testPostMap";
 	}
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String prepareForLogout() {
