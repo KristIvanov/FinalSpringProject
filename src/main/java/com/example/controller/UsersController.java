@@ -279,6 +279,11 @@ public class UsersController {
 	@RequestMapping(value="user/{username:.+} ",method = RequestMethod.GET)
 	public String viewProfile(Model model, @PathVariable("username") String username, HttpServletResponse response, HttpSession session) {
 		if(UsersManager.getInstance().getRegisteredUsers().containsKey(username)) {
+			User viewer = null;
+			if (session.getAttribute("username")!=null){
+				viewer = UsersManager.getInstance().getRegisteredUsers().get((String)session.getAttribute("username"));
+				model.addAttribute("isFollowing", viewer.doesFollow(username));
+			}
 			User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 			model.addAttribute("usersprofile",u);
 			session.setAttribute("usersprofile",u);

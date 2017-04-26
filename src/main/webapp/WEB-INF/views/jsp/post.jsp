@@ -67,11 +67,21 @@
                <!--<c:out value="${ post.likes } 5"></c:out>
                   <!-- Open List With People Who Like This Post -->
                <c:if test=""></c:if>
-               <button id="likesBtn">${ post.likes } likes</button>
-               <c:if test="${sessionScope.username !=null }">
-                  <div class="container">
-                     <button class="btn likeButton" rel="6">Like</button>
-                  </div>
+               <button id="likesBtn">${ post.likes } likes</button><br>
+               <c:if test="${ sessionScope.username != null }">
+               
+	               <c:if test="${sessionScope.username !=null && !isLiked}">
+	               
+	                  <div class="container">
+	                     <button id="btn" class="btn likeButton" rel="6">Like</button>
+	                  </div>
+	               </c:if>
+	               <c:if test="${sessionScope.username !=null && isLiked}">
+	                  <div id="btn1" class="container">
+	                     <button class="btn likeButton" rel="6">Dislike</button>
+	                  </div>
+	               </c:if>
+
                </c:if>
             </div>
             <div class="postComments">
@@ -136,10 +146,7 @@
                </div>
       </header>
       <c:set var="url" scope="session" value="post/"></c:set>
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
       <c:set var="postId" scope="session" value="${post.postId}"></c:set>
      <script>    // Get the modal
      var mapModal = document.getElementById('mapModal');
@@ -205,18 +212,43 @@
 			   
 			$("#btn").click(function(e){
 				e.preventDefault();
-			    
+				
+				
+				
 			    if($("#btn").hasClass('liked')){
 		
 			        //$.ajax(); Do Dislike
-			        $.post("dislikePost");
+			        $.post("/MyTravelerProject/dislikePost");
 			        $("#btn").removeClass('liked');
 			        $("#btn").addClass('dislike');
 			        $("#btn").text('like');
 			    } else {
 		
 			        // $.ajax(); Do Like
-			        $.post("likePost");
+			        
+			        $.post("/MyTravelerProject/likePost");
+			        $("#btn").addClass('liked');
+			        $("#btn").text('liked');
+			    }
+			    
+			});
+			$("#btn1").click(function(e){
+				e.preventDefault();
+				
+				
+				
+			    if($("#btn").hasClass('liked')){
+		
+			        //$.ajax(); Do Dislike
+			        $.post("/MyTravelerProject/dislikePost");
+			        $("#btn").removeClass('liked');
+			        $("#btn").addClass('dislike');
+			        $("#btn").text('like');
+			    } else {
+		
+			        // $.ajax(); Do Like
+			        
+			        $.post("/MyTravelerProject/likePost");
 			        $("#btn").addClass('liked');
 			        $("#btn").text('liked');
 			    }
@@ -240,9 +272,7 @@
 </script>
 
 
-<div id = "btn" class="container" align="center">
-    <button class="btn likeButton" rel="6">Follow</button>
-</div><br>
+
 	
 	
 	<script type="text/javascript">
