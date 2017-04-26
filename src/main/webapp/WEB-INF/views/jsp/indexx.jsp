@@ -15,7 +15,7 @@
 
 
     
-<body class="home">
+<body >
 	<jsp:include page="header2.jsp" />
 
 	<header id="head1">

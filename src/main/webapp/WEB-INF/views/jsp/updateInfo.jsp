@@ -45,6 +45,7 @@
                      New Password: <input class="input" type="password" placeholder="enter new password" name="newPassword" required="required"></br>
                      <input class="btn" type="submit" value = "Change Password"></br>
                   </form>
+                  </div>
                </c:if>
                <c:if test="${sessionScope.username ==null }">
                   <%session.setAttribute("url", "updateInfo"); %>

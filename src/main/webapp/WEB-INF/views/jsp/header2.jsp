@@ -15,9 +15,12 @@
       <link rel="stylesheet" href="/MyTravelerProject/css/font-awesome-min.css">
       <link rel="stylesheet" href="/MyTravelerProject/css/bootstrap-theme.css" media="screen" >
       <link rel="stylesheet" href="/MyTravelerProject/css/main.css">
+       <link href="/MyTravelerProject/css/simple-sidebar.css" rel="stylesheet">
    </head>
   
    <body>
+   
+   <jsp:include page="sidebar.jsp"></jsp:include>
       <!-- Fixed navbar -->
       <div class="navbar navbar-inverse navbar-fixed-top headroom" >
          <div class="container">
@@ -40,9 +43,7 @@
                  </c:if>
                  <c:if test="${sessionScope.logged!=null}">
                   <li><a class="btn" href="/MyTravelerProject/logout">Logout</a></li>
-                  <li><a class="btn" href="/MyTravelerProject/updateInfo">Settings</a></li>
                   <li><a class="btn" href="/MyTravelerProject/addPost">Add new post</a></li>
-                  <li><a class="btn" href="/MyTravelerProject/newsFeed">News feed</a></li>
                   
                   </c:if>
                </ul>
@@ -50,6 +51,7 @@
          </div>
       </div>
    
+
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script src="/MyTravelerProject/js/headroom.min.js"></script>

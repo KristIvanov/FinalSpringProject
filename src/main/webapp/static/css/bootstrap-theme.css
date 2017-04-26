@@ -1,26 +1,13 @@
 /*******************************/
 /*         Navigatioin         */
 /*******************************/
-.navbar-inverse { border-radius: 0; background:rgba(0, 0, 0, .8); border-bottom:1px solid rgba(255, 255, 255, 0.15); min-height:100px; padding-top:25px; margin-bottom:0;}
+.navbar-inverse { border-radius: 0; background:rgba(0, 0, 0, .8); border-bottom:1px solid rgba(255, 255, 255, 0.15); min-height:90px; padding-top:25px; margin-bottom:0;}
 .navbar-inverse *:focus { outline: 0; }
 @media (max-width: 767px) {
 	.navbar-inverse {  background:rgba(0,0,0,.9); }
 }
 
-.navbar-inverse .navbar-nav > li > a,
-.navbar-inverse .navbar-nav > .open ul > a { color:rgba(255, 255, 255, .4); }
 
-.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover, 
-.navbar-inverse .navbar-nav > .active > a:focus { color: #fff; background:none ; }
-.navbar-inverse .navbar-nav > .open > a{ background:none; color:white; }
-
-.navbar-inverse .navbar-nav>li>a:hover, 
-.navbar-inverse .navbar-nav>li>a:focus,
-.navbar-inverse .navbar-nav>.open>a:hover, 
-.navbar-inverse .navbar-nav>.open>a:focus { background:none; color:white; }
-
-.navbar-inverse .navbar-nav > .active > a { background:none; color:white; }
 
 .navbar-inverse .navbar-brand { font-family: "Open sans", helvetica, arial; font-size: 24px; color:white; padding:0 0 0 5px; margin:20px 0 0 0; }
 	.navbar-inverse .navbar-brand img { margin-top:-4px;}
@@ -33,16 +20,6 @@
 	-webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px;
 	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
-.navbar-nav .dropdown-menu > li > a { color:rgba(255, 255, 255, .7); padding:7px 20px; }
-	.navbar-nav .dropdown-menu > li > a:hover,
-	.navbar-nav .dropdown-menu > li > a:focus,
-	.navbar-nav .dropdown-menu > .active > a:hover{ background: rgba(255, 255, 255, .1); color:white; }
-
-.navbar-nav .dropdown-menu > .active > a,
-.navbar-nav .dropdown-menu > .active > a:focus { background: none; color:#fff; }
-
-.navbar-nav .btn { border:1px solid rgba(255, 255, 255, .2); margin-left:5px; margin-top:5px; padding-top:10px; padding-bottom:10px; }
-
 .navbar-nav a.btn:focus, 
 .navbar-nav a.btn:hover  { border:1px solid rgba(255,255,255,.6); }
 
@@ -69,7 +46,7 @@
 
 .btn { padding: 10px 40px; font-weight: bold; border:0 none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
 .btn-lg { padding: 15px 65px; font-size: 14px; font-weight:bold; }
-.btn-default { text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); }
+.btn-default { text-shadow: none;width:40px; background:white; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); }
 	.btn-default:hover,
 	.btn-default:focus { color:rgba(50,50,50,.8); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.8); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.8); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.8); background: transparent; }
 	.btn-default:active,
@@ -96,3 +73,4 @@
 /*           Images            */
 /*******************************/
 .img-rounded { -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+

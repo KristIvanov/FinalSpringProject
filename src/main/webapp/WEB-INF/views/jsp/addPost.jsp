@@ -60,15 +60,15 @@
     <div id="head6">
           <div class="container">
            <div class="row">
-			<div id="map"></div>
-
+<div id="map"></div>
    		   <c:if test="${sessionScope.username ==null }">
    		   <c:set var="url" scope="session" value="addPost"></c:set>
          <c:redirect url= "login"></c:redirect>
       </c:if>
+            <div id="map"></div>
+      
       <font face="Bradley Hand ITC" size="4" style="color:black;">${ errorMsg}</font>
       <input id="pac-input" class="controls" type="text" placeholder="Search Box" >
-      <div id="map"></div>
         <div  class = "basic-grey"id="form">
          <form action="addPost" method="post" enctype="multipart/form-data">
             <p>

@@ -175,6 +175,10 @@ public class UsersController {
 	public String errorPage() {
 		return "errorPage";
 	}
+	@RequestMapping(value="/comingSoon", method=RequestMethod.GET)
+	public String comingSoon() {
+		return "comingSoon";
+	}
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String profile(Model model, HttpSession session, HttpServletResponse response) {
 		if(session.getAttribute("logged") != null) {
@@ -183,7 +187,7 @@ public class UsersController {
 			fileName = "profile";
 		}
 		else {
-			fileName = "indexx";
+			fileName = "login";
 		}
 		
 		removeCacheFromResponse(response);

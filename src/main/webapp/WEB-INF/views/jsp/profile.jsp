@@ -15,10 +15,9 @@
           <div class="container">
            <div class="img">
         
-<!-- check if !userexists ? return user not found.jsp -->
 <!-- view picture -->
 
-                  <img class="img" src="/MyTravelerProject/image" align="middle" height=300 width="300"> <br>
+                  <img class="img" src="/MyTravelerProject/image/${usersprofile.username }" align="middle" height=300 width="300"> <br>
 
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -76,35 +75,30 @@ $(document).ready(function(){
 </script>
 
 
-<div id = "btn" >
-    <button class="btn followButton" rel="6">Follow</button>
-</div><br>
+
 <!-- print username, first, last, email -->
-<table class="lead"border="1" id="userInfo">
-				<tr>
-					<c:out value="${ usersprofile.username }"></c:out>
-                    <p>username</p>
-				</tr>
-                <tr>
-					<c:out value="${ usersprofile.first_name }"></c:out>
-                    <p>first name</p>
-				</tr>
-                <tr>
-					<c:out value="${ usersprofile.last_name }"></c:out>
-                    <p>last name</p>
-				</tr>
-                <tr>
-					<c:out value="${ usersprofile.email }"></c:out>
-                    <p>email</p>
-                </tr>
-		</table>
+
+	<h2 class="lead"><c:out value="${ usersprofile.username }"></c:out>
+	</h2>
+	<div id = "btn" >
+    <button class="btn followButton" rel="6">Follow</button>
+</div>
+	<p> <font size="5" face="Book Antiqua" color="black" > 
+		First name: 	
+              
+					<c:out value="${ usersprofile.first_name }"></c:out> <br>
+       Last name:
+					<c:out value="${ usersprofile.last_name }"></c:out> <br>
+       Email:
+					<c:out value="${ usersprofile.email }"></c:out> <br>
+                    </font></p>
 <!-- nqkyde vsqsno butoni POSTS FOLLOWING FOLLOWERS -->
 
 
 <div id="wall" align="center"></div>
-<button id="postShow">Posts</button>
-<button id="followersShow">Followers</button>
-<button id="followingShow">Following</button>
+<button class="btn-default" id="postShow">Posts</button>
+<button class="btn-default" id="followersShow">Followers</button>
+<button class = "btn-default" id="followingShow">Following</button>
 
 
 <div hidden id="printedPosts" align="center">
@@ -159,6 +153,6 @@ $(document).ready(function(){
 	</div>
 	</div>
 </div>
-
+ 
 </body>
 </html>
