@@ -23,7 +23,7 @@
                 </li>
               
                 <li class="sidebar-brand">
-                    <a href="/MyTravelerProject/comingSoon">Contact</a>
+                    <a href="/MyTravelerProject/contactUs">Contact us</a>
                 </li>
             </ul>
         </div>

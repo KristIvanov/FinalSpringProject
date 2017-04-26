@@ -346,15 +346,15 @@ public class UsersController {
 	
 	@RequestMapping(value="/newsFeed",method = RequestMethod.GET)
 	public String newsFeed(Model model, HttpSession ses, HttpServletResponse response) {
-		ArrayList<Post> posts =null;
+		ArrayList<Post> posts =new ArrayList<>();
 		if(ses.getAttribute("logged")!= null){
 			fileName="newsFeed";
 			String username = (String) ses.getAttribute("username");
 			User u = UsersManager.getInstance().getRegisteredUsers().get(username);
+			System.out.println(PostManager.getInstance().getPosts().size());
 			if(!PostManager.getInstance().getPosts().values().isEmpty()) {
 				for (Post post : PostManager.getInstance().getPosts().values()) {
-					if (u.getFollowing().contains(post.getAuthor())){
-						posts = new ArrayList<>();
+					if (u.getFollowing().contains(post.getAuthor().getUsername())){
 						posts.add(post);
 					}
 				}
@@ -362,6 +362,9 @@ public class UsersController {
 		}
 		else{
 			fileName="login";
+		}
+		if(posts.size()==0) {
+			posts=null;
 		}
 		removeCacheFromResponse(response);
 		model.addAttribute("posts",posts);
@@ -376,7 +379,7 @@ public class UsersController {
 			errorMsg = "Invalid username!";
 			throw new InvalidInputException("Invalid username!");
 		}
-		if(!checkString(firstName) || firstName.length()<5) {
+		if(!checkString(firstName) || firstName.length()<3) {
 			errorMsg = "Invalid first name!";
 			throw new InvalidInputException("Invalid first name!");
 		}
