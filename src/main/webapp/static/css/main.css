@@ -8,6 +8,8 @@
 	#head4 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; text-align: center;font-size:25px; margin-bottom:1px; color:#083244; line-height:1.15em; } 
 		#head4.secondary { height:100px; min-height: 100px; padding-top:0px; }
 		#head4 .img {float: left; position: relative; width: 250px; height: 250px; border-radius: 70%; }
+				#head4 .profilepic { width: 250px; height: 250px; border-radius: 70%; }
+		
 		#head4 .settings {float: left; position: relative; left:20%;}
 		#head4 .input {width: 90%;   height: 30%; box-sizing: border-box;border: 1px solid #ccc; border-radius: 5px; font-size: 12px; background: rgba(0, 0, 0, 0);background-repeat: no-repeat; padding: 12px 20px 12px 40px;}
 		#head4 .border { border: 2px solid grey;border-radius: 8px;width:700px; height: 450px;    
@@ -29,6 +31,8 @@
 #head8 { background:#181015 url( ../img/comingsoon.jpg) no-repeat; background-size: 100% 100%;; min-height:1220px;  text-align: center; padding-top:150px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:200; }
 	#head8 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:70px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 	
+#head9 { background:#181015 url( ../img/message.jpg) no-repeat; background-size: 100% 100%;; min-height:1020px;  text-align: center; padding-top:270px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+	#head9 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:35px; margin-bottom:6px; color:grey; line-height:1.15em; } 
 
 #head1 { background:#181015 url( ../img/header.jpg) no-repeat; background-size: 100% 100%; height:1220px; text-align: center; padding-top:340px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
 #head1.secondary { height:100px; min-height: 100px; padding-top:0px; }
@@ -112,6 +116,17 @@
       border: 3px solid black;
       border-radius: 5px;
       font-size: 20px;
+	  background: rgba(0, 0, 0, 0); 
+      background-repeat: no-repeat;
+      padding: 12px 20px 12px 40px;}
+      
+ #input3 { width: 25%;
+      height: 25%;
+      box-sizing: border-box;
+      border: 2px solid grey;
+      border-radius: 5px;
+      font-size: 20px;
+     
 	  background: rgba(0, 0, 0, 0); 
       background-repeat: no-repeat;
       padding: 12px 20px 12px 40px;}

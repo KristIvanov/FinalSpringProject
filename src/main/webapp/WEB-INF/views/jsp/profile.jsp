@@ -10,14 +10,15 @@
 </head>
 
 <body>
+<c:set var="usersprofile" scope="session" value="${usersprofile.username }"></c:set>
+
   <jsp:include page="header2.jsp" />
         <div id="head4">
           <div class="container">
-           <div class="img">
+          
         
 <!-- view picture -->
-
-                  <img class="img" src="/MyTravelerProject/image/${usersprofile.username }" align="middle" height=300 width="300"> <br>
+                  <img class="profilepic" src="/MyTravelerProject/image/${usersprofile.username }" align="middle" height=300 width="300"> <br>
 
 <script src="https://code.jquery.com/jquery-1.7.1.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -43,14 +44,14 @@ $(document).ready(function(){
 	    if($("#btn").hasClass('following')){
 
 	        //$.ajax(); Do Unfollow
-	        $.post("unfollow");
+	        $.post("/MyTravelerProject/unfollow");
 	        $("#btn").removeClass('following');
 	        $("#btn").removeClass('unfollow');
 	        $("#btn").text('Follow');
 	    } else {
 
 	        // $.ajax(); Do Follow
-	        $.post("follow");
+	        $.post("/MyTravelerProject/follow");
 	        $("#btn").removeClass('following');
 	        $("#btn").text('Following');
 	    }
@@ -80,9 +81,11 @@ $(document).ready(function(){
 
 	<h2 class="lead"><c:out value="${ usersprofile.username }"></c:out>
 	</h2>
+	<c:if test="${sessionScope.username != null && sessionScope.username != usersprofile.username}">
 	<div id = "btn" >
     <button class="btn followButton" rel="6">Follow</button>
 </div>
+</c:if>
 	<p> <font size="5" face="Book Antiqua" color="black" > 
 		First name: 	
               
@@ -117,17 +120,13 @@ $(document).ready(function(){
 </div>
 
 <div hidden id="printedFollowers" align="center">
-	<c:forEach var="user" items="${usersprofile.followers}">
+	<c:forEach var="string" items="${usersprofile.followers}">
 		<div class="postlook" align="center">
 				<!-- show small Picture -->
-				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
+				<img src="/MyTravelerProject/image/<c:url value="${ string }"></c:url>" height=30 width="30"/> <br>
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "/user/<c:out value="${user.username}"/> " >${ user.username }</a><br>
+				<a href = "/MyTravelerProject/user/<c:out value="${string}"/> " >${ string }</a><br>
 				
-				<c:out value="${ user.first_name }"></c:out>
-			    <c:out value="${ user.last_name }"></c:out>
-	             
-				<c:out value="${ user.email }"></c:out>
 				
 		</div><br>
 	</c:forEach>
@@ -135,17 +134,13 @@ $(document).ready(function(){
 
 
 <div hidden id="printedFollowing" align="center">
-	<c:forEach var="user" items="${usersprofile.following}">
+	<c:forEach var="string" items="${usersprofile.following}">
 		<div class="postlook" align="center">
 				<!-- show small Picture -->
-				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
+				<img src="/MyTravelerProject/image/<c:url value="${ string }"></c:url>" height=30 width="30"/> <br>
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "/user/<c:out value="${user.username}"/> " >${ user.username }</a><br>
+				<a href = "/MyTravelerProject/user/<c:out value="${string}"/> " >${ string }</a><br>
 				
-				<c:out value="${ user.first_name }"></c:out>
-			    <c:out value="${ user.last_name }"></c:out>
-	             
-				<c:out value="${ user.email }"></c:out>
 				
 		</div><br>
 	</c:forEach>

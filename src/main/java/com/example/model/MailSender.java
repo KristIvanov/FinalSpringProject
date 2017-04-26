@@ -4,10 +4,10 @@ import javax.mail.internet.*;
 
 import java.util.*;
 
-public class MailSender {
+public class MailSender extends Thread {
 
-    private final String senderEmailID = "tsvetina.gramova@gmail.com";
-    private final String senderPassword = "12113292";
+    private final String senderEmailID = "mytravelbook21@gmail.com";
+    private final String senderPassword = "travelbook1234";
     private final String emailSMTPserver = "smtp.gmail.com";
     private final String emailServerPort = "465";
     private String receiverEmailID = null;
@@ -19,8 +19,10 @@ public class MailSender {
         this.receiverEmailID = receiverEmailID;
         this.emailSubject = emailSubject;
         this.emailBody = emailBody;
-
-        Properties props = new Properties();
+    }
+    @Override
+    public void run() {
+    	Properties props = new Properties();
         props.put("mail.smtp.user", senderEmailID);
         props.put("mail.smtp.host", emailSMTPserver);
         props.put("mail.smtp.port", emailServerPort);
@@ -50,8 +52,10 @@ public class MailSender {
         }
     }
 
+   
 
-    public class SMTPAuthenticator extends javax.mail.Authenticator {
+
+    private class SMTPAuthenticator extends javax.mail.Authenticator {
 
         public PasswordAuthentication getPasswordAuthentication() {
 

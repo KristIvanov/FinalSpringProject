@@ -73,6 +73,7 @@ public class PostManager {
 			PostDAO.getInstance().addNewPost(p);
 			long id = p.getPostId();
 			allPosts.put(id, p);
+			u.addPost(p);
 		} catch (InvalidInputException e) {
 			System.out.println(e.getMessage());
 			System.out.println("Post not added");

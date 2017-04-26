@@ -77,13 +77,9 @@ public class UserDAO {
 		    		followerName.setLong(1, followerId);
 		    		ResultSet rs = followerName.executeQuery();
 		    		rs.next();
-		    		User follower = UsersManager.getInstance().getRegisteredUsers().get(rs.getString("username"));
+		    		String follower = rs.getString("username");
 		    		u.addFollower(follower);
 		    	}
-		    	
-		    	followersPS.close();
-		    	followersRS.close();
-		    	
 		    	//get user's following
 		    	PreparedStatement followingPS = con.prepareStatement(followingSQL);
 		    	followingPS.setLong(1, u.getUserId());
@@ -94,12 +90,13 @@ public class UserDAO {
 		    		followingName.setLong(1, followingId);
 		    		ResultSet rs = followingName.executeQuery();
 		    		rs.next();
-		    		User following = UsersManager.getInstance().getRegisteredUsers().get(rs.getString("username"));
+		    		String following = rs.getString("username");
 		    		u.addFollowing(following);
-		    	}
-		    	
+}
 		    	followersPS.close();
 		    	followersRS.close();
+		    	
+		    	
 	      	}
 	      	userST.close();
 		    usersRS.close();
@@ -224,7 +221,34 @@ public class UserDAO {
 	  
   }
   
-  //TODO follow and unfollow
+  public void follow(User follower, User following) {
+	  
+	  Connection con = DBManager.getInstance().getConnection();
+	  PreparedStatement prepSt = null;
+	  try {
+		prepSt= con.prepareStatement("INSERT INTO users_has_followers (user_id,follower_id) VALUES (?,?)");
+		prepSt.setLong(1, following.getUserId());
+		prepSt.setLong(2, follower.getUserId());
+		prepSt.executeUpdate();
+	  } catch (SQLException e) {
+		e.printStackTrace();
+	}
+	  
+  }
+public void unFollow(User follower, User following) {
+	  
+	  Connection con = DBManager.getInstance().getConnection();
+	  PreparedStatement prepSt = null;
+	  try {
+		prepSt= con.prepareStatement("DELETE FROM users_has_followers where user_id=? and follower_id=?");
+		prepSt.setLong(1, following.getUserId());
+		prepSt.setLong(2, follower.getUserId());
+		prepSt.executeUpdate();
+	  } catch (SQLException e) {
+		e.printStackTrace();
+	}
+	  
+  }
+  
   //TODO remove user from followers when user deletes his profile
-  //TODO create view profile jsp and view all users with their profiles jsp
 }

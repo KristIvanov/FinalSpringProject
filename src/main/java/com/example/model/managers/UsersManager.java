@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.example.model.dbModel.DBManager;
 import com.example.model.dbModel.UserDAO;
 import com.example.model.InvalidInputException;
+import com.example.model.MailSender;
 import com.example.model.Post;
 import com.example.model.User;
 
@@ -228,8 +229,20 @@ public class UsersManager {
 			});
 			return sortedUsers;
 		}
-		
+		public void contactUs(String from, String text) {
+			MailSender mailSender = new MailSender("travelbookmails@gmail.com", "Message from " + from, text);
+			mailSender.start();
+		}
 	  
+		
+		public void follow(User follower, User following) {
+			follower.follow(following.getUsername());
+			UserDAO.getInstance().follow(follower, following);
+		}
+		public void unFollow(User follower, User following) {
+			follower.unfollow(following.getUsername());
+			UserDAO.getInstance().unFollow(follower, following);
+		}
 	}
 
 

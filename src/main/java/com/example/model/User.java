@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.example.model.managers.UsersManager;
+
 
 public class User {
 	
@@ -16,8 +18,8 @@ public class User {
 	private String first_name;
 	private String last_name;
 	private String photoURL;
-	private HashSet<User> followers;
-	private HashSet<User> following;
+	private HashSet<String> followers;
+	private HashSet<String> following;
 	private ArrayList<Post> posts;
 	
 	
@@ -118,11 +120,11 @@ public class User {
 		this.photoURL = photoURL;
 	}
 
-	public Set<User> getFollowers() {
+	public Set<String> getFollowers() {
 		return Collections.unmodifiableSet(followers);
 	}
 
-	public Set<User> getFollowing() {
+	public Set<String> getFollowing() {
 		return Collections.unmodifiableSet(following);
 	}
 
@@ -132,13 +134,6 @@ public class User {
 
 	
 	
-	public void addFollower(User follower) {
-		this.followers.add(follower);
-	}
-	
-	public void addFollowing(User following) {
-		this.following.add(following);
-	}
 	
 	
 	
@@ -161,23 +156,35 @@ public class User {
         return m.matches();
 	}
 
-	public void follow(User u){
-		if (!this.doesFollow(u)){
-			u.followers.add(this);
-			this.following.add(u);
+	public void follow(String following){
+		if (!this.doesFollow(following)){
+			this.following.add(following);
+			User u = UsersManager.getInstance().getRegisteredUsers().get(following);
+			u.followers.add(this.username);
 		}
 	}
 	
-	public void unfollow(User u){
-		if (this.doesFollow(u)){
-			u.followers.remove(this);
-			this.following.remove(u);
+	public void unfollow(String following){
+		if (this.doesFollow( following)){
+			User u = UsersManager.getInstance().getRegisteredUsers().get(following);
+			u.followers.remove(this.username);
+			this.following.remove(u.username);
 		}
 	}
 	
-	public boolean doesFollow(User u){
-		return u.followers.contains(this);
+	public boolean doesFollow(String following){
+		return this.following.contains(following);
 	}
+
+
+
+	public void addFollowing(String following) {
+		this.following.add(following);
+}
+	
+	public void addFollower(String follower) {
+		this.followers.add(follower);
+}
 	
 	
 	

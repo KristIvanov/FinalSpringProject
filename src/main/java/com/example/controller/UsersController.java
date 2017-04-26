@@ -77,14 +77,13 @@ public class UsersController {
 	
 	@RequestMapping(value="/follow", method=RequestMethod.POST)
 	public String follow(Model viewModel, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-		String username = request.getParameter("username");
-		String usersProfileName = request.getParameter("usersprofile");
+		String username = (String) session.getAttribute("username");
+		String usersProfileName = (String)session.getAttribute("usersprofile");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(username);
 		User userProfile = UsersManager.getInstance().getRegisteredUsers().get(usersProfileName);
 		System.out.println("follow method");
-		if (!user.doesFollow(userProfile)){
-			user.follow(userProfile);
-		}
+		UsersManager.getInstance().follow(user, userProfile);
+		
 		return "user/" + usersProfileName;
 	}
 	
@@ -93,9 +92,8 @@ public class UsersController {
 		String username = request.getParameter("username");
 		String usersProfileName = request.getParameter("usersprofile");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(username);
-		User userProfile = UsersManager.getInstance().getRegisteredUsers().get(usersProfileName);
-		if (user.doesFollow(userProfile)){
-			user.unfollow(userProfile);
+		if (user.doesFollow(usersProfileName)){
+			user.unfollow(usersProfileName);
 		}
 		return "user/" + usersProfileName;
 	}
@@ -178,6 +176,23 @@ public class UsersController {
 	@RequestMapping(value="/comingSoon", method=RequestMethod.GET)
 	public String comingSoon() {
 		return "comingSoon";
+	}
+	@RequestMapping(value="/contactUs", method=RequestMethod.GET)
+	public String contactUs() {
+		return "contactUs";
+	}
+	
+	@RequestMapping(value="/contactUs", method=RequestMethod.POST)
+	public String contact(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String email = request.getParameter("email");
+		String message = request.getParameter("message");
+		UsersManager.getInstance().contactUs(email, message);
+		errorMsg = "Message successfully sent!";
+		model.addAttribute("errorMsg", errorMsg);
+		errorMsg=null;
+		removeCacheFromResponse(response);
+		return "contactUs";
+		
 	}
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String profile(Model model, HttpSession session, HttpServletResponse response) {
@@ -320,7 +335,8 @@ public class UsersController {
 			fileName = "indexx";
 			String password = generateNewPass();
 			UsersManager.getInstance().updatePass(password, u);
-			new MailSender(email, "Нова парола за Travelbook", "Вашата нова парола е " + password + " . Заповядайте отново!");
+			MailSender mailSender = new MailSender(email, "Нова парола за Travelbook", "Вашата нова парола е " + password + " . Заповядайте отново!");
+			mailSender.start();
 		}
 		model.addAttribute("errorMsg", errorMsg);
 		errorMsg=null;
