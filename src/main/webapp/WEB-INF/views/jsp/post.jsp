@@ -234,7 +234,7 @@
 			});
 			$("#btn1").click(function(e){
 				e.preventDefault();
-				
+				$.post("/MyTravelerProject/dislikePost");
 				
 				
 			    if($("#btn").hasClass('liked')){
