@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
@@ -314,6 +315,28 @@ public class PostsController {
 		}
 		model.addAttribute("posts",posts);
 		return "allPosts";
+	}
+	
+	@RequestMapping(value="/topPosts", method=RequestMethod.GET)
+	public String getTopPosts(Model model, HttpSession session) {
+		//TreeSet<Post> posts = new TreeSet<>((Post p1, Post p2)->p2.getLikes() - p1.getLikes());
+		List<Post> posts = new ArrayList<>();
+		for(Post p : PostManager.getInstance().getPosts().values()) {	
+			posts.add(p);
+		}
+		posts.sort(new Comparator<Post>() {
+
+			@Override
+			public int compare(Post o1, Post o2) {
+				if (o1.getLikes() == o2.getLikes()){
+					if (o1.getPostId() > o2.getPostId()) return 1;
+					else return -1;
+				}
+				return o2.getLikes() - o1.getLikes();
+			}
+		});
+		model.addAttribute("posts",posts);
+		return "topPosts";
 	}
 	
 	private  void validateData(String text) throws InvalidInputException{
