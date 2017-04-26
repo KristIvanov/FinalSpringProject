@@ -199,7 +199,7 @@ public class PostDAO {
 		PreparedStatement prepSt;
 		try {
 			prepSt = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO posts_has_likers (liked_post_id,liker_id) VALUES (?,?)");
-			prepSt.setLong(2, p.getPostId());
+			prepSt.setLong(1, p.getPostId());
 			prepSt.setLong(2, u.getUserId());
 			prepSt.executeUpdate();
 			prepSt.close();

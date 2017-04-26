@@ -54,10 +54,7 @@ public class UserDAO {
 	      		
 		    	String followersSQL = "SELECT follower_id FROM users_has_followers WHERE user_id=?";
 		    	String followingSQL = "SELECT user_id FROM users_has_followers WHERE follower_id=?";
-		    	
-		    	//TODO get users posts outside init
-		    	
-		    	
+
 		    	
 		    	//get user's followers
 		    	PreparedStatement followersPS = con.prepareStatement(followersSQL);
