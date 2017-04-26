@@ -213,7 +213,7 @@
 				e.preventDefault();
 				
 				
-				
+				alert("yoLiike");
 			    if($("#btn").hasClass('liked')){
 		
 			        //$.ajax(); Do Dislike
@@ -233,23 +233,22 @@
 			});
 			$("#btn1").click(function(e){
 				e.preventDefault();
-				$.post("/MyTravelerProject/dislikePost");
 				
+				$("#btn1").addClass('liked');
 				
-			    if($("#btn").hasClass('liked')){
-		
+			    if($("#btn1").hasClass('liked')){
+			    	alert("test");
 			        //$.ajax(); Do Dislike
 			        $.post("/MyTravelerProject/dislikePost");
-			        $("#btn").removeClass('liked');
-			        $("#btn").addClass('dislike');
-			        $("#btn").text('like');
+
+			        $("#btn1").text('like');
 			    } else {
-		
+			    	alert("test2");
 			        // $.ajax(); Do Like
 			        
-			        $.post("/MyTravelerProject/likePost");
-			        $("#btn").addClass('liked');
-			        $("#btn").text('liked');
+			        $.post("/MyTravelerProject/dislikePost");
+			        $("#btn1").addClass('liked');
+			        $("#btn1").text('liked');
 			    }
 			    
 			});
