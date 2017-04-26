@@ -77,8 +77,8 @@
 	                  </div>
 	               </c:if>
 	               <c:if test="${sessionScope.username !=null && isLiked}">
-	                  <div id="btn1" class="container">
-	                     <button class="btn likeButton" rel="6">Dislike</button>
+	                  <div  class="container">
+	                     <button id="btn1"  class="btn likeButton" rel="6">Dislike</button>
 	                  </div>
 	               </c:if>
 

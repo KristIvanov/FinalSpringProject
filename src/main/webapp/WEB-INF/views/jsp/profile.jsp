@@ -57,6 +57,28 @@ $(document).ready(function(){
 	    }
 	    
 	});
+	$("#btn1").click(function(e){
+		e.preventDefault();
+		$.post("/MyTravelerProject/unfollow");
+		
+		
+	    if($("#btn1").hasClass('liked')){
+
+	        //$.ajax(); Do Dislike
+	        $.post("/MyTravelerProject/dislikePost");
+	        $("#btn1").removeClass('liked');
+	        $("#btn1").addClass('dislike');
+	        $("#btn1").text('Unfollow');
+	    } else {
+
+	        // $.ajax(); Do Like
+	        
+	        $.post("/MyTravelerProject/likePost");
+	        $("#btn1").addClass('liked');
+	        $("#btn1").text('Follow');
+	    }
+	    
+	});
 	$( "div.container" )
 	  .mouseover(function() {
 		  if($("#btn").hasClass('following')){
@@ -81,13 +103,13 @@ $(document).ready(function(){
 
 	<h2 class="lead"><c:out value="${ usersprofile.username }"></c:out>
 	</h2>
-	<c:if test="${sessionScope.username != null && sessionScope.username != usersprofile.username && !isFollowing} ">
+	<c:if test="${sessionScope.username !=null && sessionScope.username != usersprofile.username && !isFollowing}">
 		<div id = "btn" >
 	   	 	<button class="btn followButton" rel="6">Follow</button>
 		</div>
 	</c:if>
-	<c:if test="${sessionScope.username != null && sessionScope.username != usersprofile.username && isFollowing} ">
-		<div id = "btn" >
+	<c:if test="${sessionScope.username !=null && sessionScope.username != usersprofile.username && isFollowing}">
+		<div id = "btn1" >
 	   	 	<button class="btn followButton" rel="6">Following</button>
 		</div>
 	</c:if>
