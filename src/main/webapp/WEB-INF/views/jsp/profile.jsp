@@ -99,55 +99,60 @@ $(document).ready(function(){
 
 
 <div id="wall" align="center"></div>
-<button class="btn-default" id="postShow">Posts</button>
-<button class="btn-default" id="followersShow">Followers</button>
-<button class = "btn-default" id="followingShow">Following</button>
-
+<button class="btn btn-action btn-lg" id="postShow">Posts</button>
+<button class="btn btn-action btn-lg" id="followersShow">Followers</button>
+<button class = "btn btn-action btn-lg" id="followingShow">Following</button>
+<!-- No posts/no followers !!!! -->
 
 <div hidden id="printedPosts" align="center">
+			<font style= "oblique" size="5" style="color:black;">
+		<u><c:out value="${usersprofile.username}' posts:"></c:out></u>
 		<c:forEach var="post" items="${usersprofile.posts}">
 		<div class="postlook" align="center">
-				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
-				<img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
-				
-				<c:out value="${ post.author.first_name }"></c:out>
-			    <c:out value="${ post.author.last_name }"></c:out>
-			    
+			 <a  style="color:blue" href = "post/<c:url value="${post.postId}"/> " >${ post.postName }</a>  posted on ${post.date} <br><br><br>
+                        <img src="picture/${post.postId}" height="100" ><br>
+                       ${ post.likes } likes
+			  
 	            
 		</div><br>
 	</c:forEach>
+	  </font>
 </div>
 
 <div hidden id="printedFollowers" align="center">
+<font style= "oblique" size="5" style="color:black;">
+		<u><c:out value="${usersprofile.username}'s followers:"></c:out></u>
 	<c:forEach var="string" items="${usersprofile.followers}">
 		<div class="postlook" align="center">
 				<!-- show small Picture -->
-				<img src="/MyTravelerProject/image/<c:url value="${ string }"></c:url>" height=30 width="30"/> <br>
+				<img class="img-circle-users" src="/MyTravelerProject/image/<c:url value="${ string }"></c:url>" height=30 width="30"/> <br>
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
 				<a href = "/MyTravelerProject/user/<c:out value="${string}"/> " >${ string }</a><br>
 				
 				
 		</div><br>
 	</c:forEach>
+	</font>
 </div>
 
 
 <div hidden id="printedFollowing" align="center">
+<font style= "oblique" size="5" style="color:black;">
+		<u><c:out value="${usersprofile.username} is following:"></c:out></u>
 	<c:forEach var="string" items="${usersprofile.following}">
 		<div class="postlook" align="center">
 				<!-- show small Picture -->
-				<img src="/MyTravelerProject/image/<c:url value="${ string }"></c:url>" height=30 width="30"/> <br>
+				<img class="img-circle-users" src="/MyTravelerProject/image/<c:url value="${ string }"></c:url>" height=30 width="30"/> <br>
 				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
 				<a href = "/MyTravelerProject/user/<c:out value="${string}"/> " >${ string }</a><br>
 				
 				
 		</div><br>
 	</c:forEach>
+	</font>
 	</div>
 	</div>
 	</div>
-</div>
  
 </body>
 </html>

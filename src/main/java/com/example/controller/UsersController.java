@@ -199,6 +199,7 @@ public class UsersController {
 		if(session.getAttribute("logged") != null) {
 			User u = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
 			model.addAttribute("usersprofile", u);
+			System.out.println("Users posts -" + u.getPosts().size());
 			fileName = "profile";
 		}
 		else {

@@ -2,6 +2,7 @@ package com.example.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -129,7 +130,9 @@ public class User {
 	}
 
 	public List<Post> getPosts() {
-		return Collections.unmodifiableList(posts);
+		List<Post> postove = posts;
+		Collections.sort(posts, (Post p1, Post p2) -> p2.getDate().compareTo(p1.getDate()));
+		return Collections.unmodifiableList(postove);
 	}
 
 	

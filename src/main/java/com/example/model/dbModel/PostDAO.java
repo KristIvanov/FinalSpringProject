@@ -76,6 +76,7 @@ public class PostDAO {
 				  								hashtags);
 				  		posts.add(post);
 				    	post.setPostId(post_id);
+				    	author.addPost(post);
 				  		
 				    	//get the likers
 				  		PreparedStatement likersST = con.prepareStatement("SELECT liker_id FROM posts_has_likers WHERE liked_post_id=?");
@@ -155,6 +156,7 @@ public class PostDAO {
 				ps.setString(2, s);
 				ps.executeUpdate();
 			}
+			
 			con.commit();
 			rs.close();
 			ps.close();
