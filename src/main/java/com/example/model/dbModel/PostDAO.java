@@ -211,7 +211,7 @@ public class PostDAO {
 		PreparedStatement prepSt;
 		try {
 			prepSt = DBManager.getInstance().getConnection().prepareStatement("DELETE FROM posts_has_likers WHERE liked_post_id=? and liker_id=? ");
-			prepSt.setLong(2, p.getPostId());
+			prepSt.setLong(1, p.getPostId());
 			prepSt.setLong(2, u.getUserId());
 			prepSt.executeUpdate();
 			prepSt.close();

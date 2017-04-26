@@ -282,23 +282,27 @@ public class PostsController {
 	
 	@RequestMapping(value="/likePost", method=RequestMethod.POST)
 	public String likePost(Model model, HttpSession session) {
-		System.out.println("ZDRASTI");
+		System.out.println("like-vame");
 		Post post = (Post) session.getAttribute("post");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
 		if (UsersManager.getInstance().getRegisteredUsers().containsKey(session.getAttribute("username"))){
-			post.like(user);
-			PostManager.getInstance().likePost(post, user);
+			if (!post.isLikedFrom(user.getUsername())){
+				post.like(user);
+				PostManager.getInstance().likePost(post, user);
+			}
+			
 		}
 		return "post";
 	}
 	
 	@RequestMapping(value="/dislikePost", method=RequestMethod.POST)
 	public String dislikePost(Model model, HttpSession session) {
+		System.out.println("dislike-vame");
 		Post post = (Post) session.getAttribute("post");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
 		if (UsersManager.getInstance().getRegisteredUsers().containsKey(session.getAttribute("username"))){
 			post.dislike(user);
-			PostManager.getInstance().likePost(post, user);
+			PostManager.getInstance().dislike(post, user);
 		}
 		return "post";
 	}

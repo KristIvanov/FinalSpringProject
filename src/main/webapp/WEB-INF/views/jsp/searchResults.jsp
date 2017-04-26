@@ -54,20 +54,9 @@
 		                     No posts found
 		                  </c:if>
 		                  </h1>
-		                  <script>
-		                     $("#btn11").click(function(){
-		                    	 	$.get("/MyTravelerProject/orderByDate");
-		                        	$("#test1").html(document.getElementById("results").innerHTML);
-		                        });
-		                        $("#btn12").click(function(){
-		                        	$.get("/MyTravelerProject/orderByLikes");
-		                        	$("#test1").html(document.getElementById("results").innerHTML);
-		                        });
-		                        
-						</script>
-						<button class="btn" id="btn11">Newest</button>
-						<button class="btn" id="btn12">Top</button>
-						
+
+						<form action="/MyTravelerProject/orderByDate"> <button class="btn" id="btn11">Newest</button></form>
+						<form action="/MyTravelerProject/orderByLikes"> <button class="btn" id="btn12">Top</button></form>
 	                   <c:forEach var="post" items="${sessionScope.results}">
 	                      <div >
 	                         <img class="img-circle-users" src="image/<c:url value="${post.author.username}"/>">

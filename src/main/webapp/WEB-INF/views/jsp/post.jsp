@@ -232,6 +232,28 @@
 			    }
 			    
 			});
+			$("#btn1").click(function(e){
+				e.preventDefault();
+				
+				
+				
+			    if($("#btn").hasClass('liked')){
+		
+			        //$.ajax(); Do Dislike
+			        $.post("/MyTravelerProject/dislikePost");
+			        $("#btn").removeClass('liked');
+			        $("#btn").addClass('dislike');
+			        $("#btn").text('like');
+			    } else {
+		
+			        // $.ajax(); Do Like
+			        
+			        $.post("/MyTravelerProject/likePost");
+			        $("#btn").addClass('liked');
+			        $("#btn").text('liked');
+			    }
+			    
+			});
 			$( "div.container" )
 			  .mouseover(function() {
 				  if($("#btn").hasClass('liked')){
