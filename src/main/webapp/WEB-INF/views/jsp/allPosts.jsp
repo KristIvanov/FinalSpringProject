@@ -29,6 +29,7 @@
       <header id="head4">
          <div class="container">
             <div class="row">
+            <h1 class="lead"> All posts:</h1> <br>
                <c:if test="${posts != null}">
                   <c:forEach var="post" items="${posts}">
                      <div >

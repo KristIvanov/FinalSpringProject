@@ -57,9 +57,15 @@
                <c:url value="${post.author.username}"/>">
                <a href = "/MyTravelerProject/user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
             </div>
-            <div > <img src="/MyTravelerProject/picture/${post.postId}" height="300" >
+            <div > <img src="/MyTravelerProject/picture/${post.postId}" height="250" >
             </div>
-            <div class="postDesc" >
+            <c:if test="${post.videoURL != null }">
+            <video width="520" height="440" controls="controls" >
+			<source src="/MyTravelerProject/video/${post.postId}" type="video/mp4">
+			<embed  src="/MyTravelerProject/video/${post.postId}">
+		</video>
+            </c:if>
+            <div class="lead" >
                <c:out value="${ post.description } "></c:out>
             </div>
             <!-- TODO like only if logged -->
@@ -91,10 +97,11 @@
                <c:if test="${post.commentssize>0}">
                   <p>Comments:</p>
                   <c:forEach var="Comment" items="${post.comments}">
-                     <a href = "/MyTravelerProject/user/
-                     <c:url value="${post.author.username}"/>" >${ post.author.username } </a>
+                     <a href = "/MyTravelerProject/user/ <c:url value="${post.author.username}"/>" >${ post.author.username } </a>
                      Commented on:<c:out value="${ Comment.date }"></c:out> <br>
                      <c:out value="${ Comment.text }"></c:out><br>
+                     **********
+                     <br>
                   </c:forEach>
                </c:if>
             </div>
@@ -135,10 +142,9 @@
                            <!-- show small Picture -->
                            <img src="/MyTravelerProject/image/<c:url value="${ User.username }"></c:url>" height=30 width="30"/> <br>
                            <!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-                           <a href = "<c:url value="/${User.username}"/>" >${ post.author.username }</a><br>
+                           <a href = "<c:url value="/${User.username}"/>" >${ User.username }</a><br>
                           
                         ********************
-                     
                         </div>
                      </c:forEach>
                   </div>

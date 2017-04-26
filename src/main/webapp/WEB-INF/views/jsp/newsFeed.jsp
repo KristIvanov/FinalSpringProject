@@ -19,6 +19,7 @@
       <header id="head4">
          <div class="container">
             <div class="row">
+            <h1 class="lead">News feed:</h1> <br>
             <c:if test="${sessionScope.username !=null }">
                <c:if test="${posts != null}">
                  <c:forEach var="post" items="${posts}">
@@ -36,7 +37,8 @@
                   </c:forEach>
                </c:if>
                </c:if>
-               <c:if test="${posts==null}"><h4>No posts to show!</h4></c:if>
+               <c:if test="${posts==null}"><h4>No posts to show. Follow somebody.</h4></c:if>
+               <a class="btn btn-action btn-lg" href="/MyTravelerProject/users" >View All Users</a></p>
                 <c:if test="${sessionScope.username ==null }">
                   <c:set var="url" scope="session" value="newsFeed"></c:set>
                   <jsp:forward page="login.jsp"></jsp:forward>

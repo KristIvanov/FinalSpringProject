@@ -31,19 +31,24 @@
              });
          });
       </script> 
+       <style>
+   .forms { display:inline-block;}</style>
    </head>
    <body>
+  
       <jsp:include page="header2.jsp" />
       <header id="head4">
          <div class="container">
             <div class="row">
-            	<div>
-            	<form action="/MyTravelerProject/searchByTag"><button class="btn" id="btn1">Posts by tags</button></form>
-            	<form action="/MyTravelerProject/searchByDest"> <button class="btn" id="btn2">Posts by destination</button></form>
-            	<form action="/MyTravelerProject/searchByAuthor"> <button class="btn" id="btn3">Posts by author</button></form>
-            	</div>
+            	<div class="forms" >
+            	<p>
+            	<form class="forms" action="/MyTravelerProject/searchByTag"><button class="btn btn-action btn-lg" id="btn1">Posts by tags</button></form>
+            	<form class="forms" action="/MyTravelerProject/searchByDest"> <button class="btn btn-action btn-lg" id="btn2">Posts by destination</button></form>
+            	<form class="forms" action="/MyTravelerProject/searchByAuthor"> <button class="btn btn-action btn-lg" id="btn3">Posts by author</button></form>
+            	 </p>
             	
-               <button class="btn" id="btn4">Users</button>
+            	</div>
+               <button class="btn btn-action btn-lg" id="btn4">Users</button>
                <div id="test1" align="center"></div>
                <div>
                		<div hidden id="results" align="center">
@@ -54,9 +59,11 @@
 		                     No posts found
 		                  </c:if>
 		                  </h1>
+		                  <c:if test="${sessionScope.results!=null && !sessionScope.results.isEmpty()}">
 
-						<form action="/MyTravelerProject/orderByDate"> <button class="btn" id="btn11">Newest</button></form>
-						<form action="/MyTravelerProject/orderByLikes"> <button class="btn" id="btn12">Top</button></form>
+						<form class="forms" action="/MyTravelerProject/orderByDate"> <button class="btn btn-action btn-lg"id="btn11">Newest</button></form>
+						<form class="forms" action="/MyTravelerProject/orderByLikes"> <button class="btn btn-action btn-lg" id="btn12">Top</button></form>
+	                   </c:if>
 	                   <c:forEach var="post" items="${sessionScope.results}">
 	                      <div >
 	                         <img class="img-circle-users" src="image/<c:url value="${post.author.username}"/>">
@@ -72,18 +79,17 @@
 	                  </c:forEach>
 				</div>
                 <div hidden id="printByUser" align="center">
-					<h1 class="lead"> Users countaining: 
+					<h1 class="lead"> Users containing: 
 						<c:out value="${sessionScope.searchFor}"></c:out>
 							<c:if test="${sessionScope.resultsByUser==null || sessionScope.resultsByUser.isEmpty()}">
 							<br><br>
-							No posts found
+							No results found
 						</c:if>
 					</h1>
                     <c:forEach var="user" items="${sessionScope.resultsByUser}">
                         <div class="postlook" align="center">
 			                   <!-- show small Picture -->
 			                   <img class="img-circle-users" src="image/<c:url value="${user.username}"/>">
-			                   <!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
 			                   <a href = "/MyTravelerProject/user/<c:url value="${user.username}"/>" >${ user.username }</a><br>
 			                   <c:out value="${ user.first_name }"></c:out>
 			                   <c:out value="${ user.last_name }"></c:out> <br>

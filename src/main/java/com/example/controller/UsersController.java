@@ -5,6 +5,7 @@ package com.example.controller;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -352,12 +353,11 @@ public class UsersController {
 	
 	@RequestMapping(value="/newsFeed",method = RequestMethod.GET)
 	public String newsFeed(Model model, HttpSession ses, HttpServletResponse response) {
-		ArrayList<Post> posts =new ArrayList<>();
+		TreeSet<Post> posts = new TreeSet<>((Post p1, Post p2)->p2.getDate().compareTo(p1.getDate()));
 		if(ses.getAttribute("logged")!= null){
 			fileName="newsFeed";
 			String username = (String) ses.getAttribute("username");
 			User u = UsersManager.getInstance().getRegisteredUsers().get(username);
-			System.out.println(PostManager.getInstance().getPosts().size());
 			if(!PostManager.getInstance().getPosts().values().isEmpty()) {
 				for (Post post : PostManager.getInstance().getPosts().values()) {
 					if (u.getFollowing().contains(post.getAuthor().getUsername())){
@@ -376,8 +376,17 @@ public class UsersController {
 		model.addAttribute("posts",posts);
 		return fileName;
 	}
-	
-	
+	@RequestMapping(value="/users",method = RequestMethod.GET)
+	public String users(Model model, HttpSession ses, HttpServletResponse response) {
+		TreeSet<User> users = new TreeSet<>((User u1, User u2)-> u2.getUsername().compareTo(u1.getUsername()));
+		for(User u : UsersManager.getInstance().getRegisteredUsers().values()) {
+			users.add(u);
+		}
+		
+		removeCacheFromResponse(response);
+		model.addAttribute("users",users);
+		return "users";
+	}
 	
 	
 	private  void validateData(String username, String password, String firstName, String lastName, String email) throws InvalidInputException{

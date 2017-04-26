@@ -111,6 +111,7 @@ public class PostsController {
 		else {
 			jspName = "login";
 		}
+		jspName = "allPosts";
 		model.addAttribute("errorMsg", errorMsg);
 		errorMsg=null;
 		removeCacheFromResponse(response);
@@ -275,10 +276,7 @@ public class PostsController {
 		return "post";
 	}
 	
-	@RequestMapping(value="/post", method=RequestMethod.GET)
-	public String post() {
-		return "post";
-	}
+	
 	
 	@RequestMapping(value="/likePost", method=RequestMethod.POST)
 	public String likePost(Model model, HttpSession session) {
