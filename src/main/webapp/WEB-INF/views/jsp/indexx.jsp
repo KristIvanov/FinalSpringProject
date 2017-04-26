@@ -23,7 +23,7 @@
 			<div class="row">
 				<h1 class="lead">Travelbook</h1>
 				
-				<p><a class="btn btn-action btn-lg" href="indexx">View Top Posts</a> 
+				<p><a class="btn btn-action btn-lg" href="topPosts">View Top Posts</a> 
 				<a class="btn btn-action btn-lg" href="allPosts" >View All Posts</a></p>
 
 			</div>
