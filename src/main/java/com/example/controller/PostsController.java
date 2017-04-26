@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -189,27 +191,76 @@ public class PostsController {
 		List<Post> resultsByTag = PostManager.getInstance().searchByTags(keywords);
 		List<Post> resultsByDestination = PostManager.getInstance().searchByDestination(words);
 		List<Post> allPostsByUser = PostManager.getInstance().searchByUser(words);
-		List<Post> tagsByDate = PostManager.getInstance().orderByDate(resultsByTag);
-		List<Post> tagsByLikes = PostManager.getInstance().orderByLikes(resultsByTag);
-		List<Post> destinationByDate = PostManager.getInstance().orderByDate(resultsByDestination);
-		List<Post> destinationByLikes = PostManager.getInstance().orderByLikes(resultsByDestination);
-		List<Post> usersByDate = PostManager.getInstance().orderByDate(allPostsByUser);
-		List<Post> usersByLikes = PostManager.getInstance().orderByDate(allPostsByUser);
 		List<User> resultsByUser = UsersManager.getInstance().searchUser(words);
-		session.setAttribute("resultsByTag", resultsByTag);
-		session.setAttribute("resultsByDestination", resultsByDestination);
+		HashSet<Post> allPosts = new HashSet<>();//to keep only unique posts
+		allPosts.addAll(resultsByTag);
+		allPosts.addAll(resultsByDestination);
+		allPosts.addAll(allPostsByUser);
+		List<Post> results = new ArrayList<>(allPosts);
+		session.setAttribute("results", results);
 		session.setAttribute("resultsByUser", resultsByUser);
-		session.setAttribute("tagsByDate", tagsByDate);
-		session.setAttribute("tagsByLikes", tagsByLikes);
-		session.setAttribute("destinationByDate", destinationByDate);
-		session.setAttribute("destinationByLikes", destinationByLikes);
-		session.setAttribute("postsByAuthor", allPostsByUser);
-		session.setAttribute("usersByDate", usersByDate);
-		session.setAttribute("usersByLikes", usersByLikes);
 		jspName="searchResults";
 		removeCacheFromResponse(response);
 		return jspName;
 	}
+	
+	@RequestMapping(value="/searchByTag",method = RequestMethod.GET)
+	public String productsTag(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String words = (String)session.getAttribute("searchFor");
+		String[] keywords = words.split(" ");
+		List<Post> resultsByTag = PostManager.getInstance().searchByTags(keywords);
+		List<Post> tagsByDate = PostManager.getInstance().orderByDate(resultsByTag);
+		session.setAttribute("results", tagsByDate);
+		jspName="searchResults";
+		removeCacheFromResponse(response);
+		return jspName;
+	}
+	
+	@RequestMapping(value="/searchByDest",method = RequestMethod.GET)
+	public String productsDest(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String words = (String)session.getAttribute("searchFor");
+		List<Post> resultsByDestination = PostManager.getInstance().searchByDestination(words);
+		List<Post> destinationByDate = PostManager.getInstance().orderByDate(resultsByDestination);
+		session.setAttribute("results", destinationByDate);
+		jspName="searchResults";
+		removeCacheFromResponse(response);
+		return jspName;
+	}
+	
+	@RequestMapping(value="/searchByAuthor",method = RequestMethod.GET)
+	public String productsAuthor(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String words = (String)session.getAttribute("searchFor");
+		List<Post> allPostsByUser = PostManager.getInstance().searchByUser(words);
+		List<Post> usersByDate = PostManager.getInstance().orderByDate(allPostsByUser);
+		session.setAttribute("results", usersByDate);
+		jspName="searchResults";
+		removeCacheFromResponse(response);
+		return jspName;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/orderByDate",method = RequestMethod.GET)
+	public String productsByDate(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		List<Post> results = (List<Post>) session.getAttribute("results");
+		List<Post> ByDate = PostManager.getInstance().orderByDate(results);
+		session.setAttribute("results", ByDate);
+		jspName="searchResults";
+		removeCacheFromResponse(response);
+		return jspName;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/orderByLikes",method = RequestMethod.GET)
+	public String productsByLikes(Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		List<Post> results = (List<Post>) session.getAttribute("results");
+		List<Post> ByLikes = PostManager.getInstance().orderByDate(results);
+		session.setAttribute("results", ByLikes);
+		jspName="searchResults";
+		removeCacheFromResponse(response);
+		return jspName;
+	}
+	
+	
 	
 	@RequestMapping(value="/post/{postId} ",method = RequestMethod.GET)
 	public String viewPost(Model model, @PathVariable("postId") String id,  HttpServletResponse response, HttpSession session) {
@@ -217,6 +268,7 @@ public class PostsController {
 		Post post = PostManager.getInstance().getPosts().get(postId);
 		model.addAttribute("post", post);
 		session.setAttribute("post", post);
+		model.addAttribute("isLiked", post.isLikedFrom((String)session.getAttribute("username")));
 		removeCacheFromResponse(response);
 		return "post";
 	}

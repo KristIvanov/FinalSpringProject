@@ -68,9 +68,14 @@
                   <!-- Open List With People Who Like This Post -->
                <c:if test=""></c:if>
                <button id="likesBtn">${ post.likes } likes</button>
-               <c:if test="${sessionScope.username !=null }">
+               <c:if test="${sessionScope.username !=null && !isLiked}">
                   <div class="container">
                      <button class="btn likeButton" rel="6">Like</button>
+                  </div>
+               </c:if>
+               <c:if test="${sessionScope.username !=null && isLiked}">
+                  <div class="container">
+                     <button class="btn likeButton" rel="6">Dislike</button>
                   </div>
                </c:if>
             </div>
@@ -136,10 +141,7 @@
                </div>
       </header>
       <c:set var="url" scope="session" value="post/"></c:set>
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
       <c:set var="postId" scope="session" value="${post.postId}"></c:set>
      <script>    // Get the modal
      var mapModal = document.getElementById('mapModal');

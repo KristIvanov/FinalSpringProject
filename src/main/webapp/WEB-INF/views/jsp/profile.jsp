@@ -81,11 +81,16 @@ $(document).ready(function(){
 
 	<h2 class="lead"><c:out value="${ usersprofile.username }"></c:out>
 	</h2>
-	<c:if test="${sessionScope.username != null && sessionScope.username != usersprofile.username}">
-	<div id = "btn" >
-    <button class="btn followButton" rel="6">Follow</button>
-</div>
-</c:if>
+	<c:if test="${sessionScope.username != null && sessionScope.username != usersprofile.username && !isFollowing} ">
+		<div id = "btn" >
+	   	 	<button class="btn followButton" rel="6">Follow</button>
+		</div>
+	</c:if>
+	<c:if test="${sessionScope.username != null && sessionScope.username != usersprofile.username && isFollowing} ">
+		<div id = "btn" >
+	   	 	<button class="btn followButton" rel="6">Following</button>
+		</div>
+	</c:if>
 	<p> <font size="5" face="Book Antiqua" color="black" > 
 		First name: 	
               
