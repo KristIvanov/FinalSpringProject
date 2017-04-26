@@ -7,8 +7,7 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import com.example.model.managers.PostManager;
-import com.example.model.managers.UsersManager;
+
 import com.example.model.InvalidInputException;
 import com.example.model.User;
 

@@ -4,7 +4,9 @@ package com.example.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
 import java.util.Random;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,12 +91,12 @@ public class UsersController {
 	
 	@RequestMapping(value="/unfollow", method=RequestMethod.POST)
 	public String unfollow(Model viewModel, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-		String username = request.getParameter("username");
-		String usersProfileName = request.getParameter("usersprofile");
+		String username = (String) session.getAttribute("username");
+		String usersProfileName = (String)session.getAttribute("usersprofile");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(username);
-		if (user.doesFollow(usersProfileName)){
-			user.unfollow(usersProfileName);
-		}
+		User userProfile = UsersManager.getInstance().getRegisteredUsers().get(usersProfileName);
+		UsersManager.getInstance().unFollow(user, userProfile);
+		
 		return "user/" + usersProfileName;
 	}
 	

@@ -24,6 +24,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
+	$("#wall").html(document.getElementById("printedPosts").innerHTML);
     $("#postShow").click(function(){
         $("#wall").html(document.getElementById("printedPosts").innerHTML);
     });
@@ -36,65 +37,67 @@ $(document).ready(function(){
 });
 </script>
 <script>
-$(document).ready(function(){
-	   
-	$("#btn").click(function(e){
-		e.preventDefault();
-	    
-	    if($("#btn").hasClass('following')){
-
-	        //$.ajax(); Do Unfollow
-	        $.post("/MyTravelerProject/unfollow");
-	        $("#btn").removeClass('following');
-	        $("#btn").removeClass('unfollow');
-	        $("#btn").text('Follow');
-	    } else {
-
-	        // $.ajax(); Do Follow
-	        $.post("/MyTravelerProject/follow");
-	        $("#btn").removeClass('following');
-	        $("#btn").text('Following');
-	    }
-	    
-	});
-	$("#btn1").click(function(e){
-		e.preventDefault();
-		$.post("/MyTravelerProject/unfollow");
 		
+		$(document).ready(function(){
+			   
+			$("#btn").click(function(e){
+				e.preventDefault();
+				
+				
+				alert("yoLiike");
+			    if($("#btn").hasClass('followed')){
 		
-	    if($("#btn1").hasClass('liked')){
+			        //$.ajax(); Do Unfollow
+			        $.post("/MyTravelerProject/unfollow");
+			        $("#btn").removeClass('followed');
+			        $("#btn").addClass('unfollow');
+			        $("#btn").text('Follow');
+			    } else {
+		
+			        // $.ajax(); Do Follow
+			        
+			        $.post("/MyTravelerProject/follow");
+			        $("#btn").addClass('followed');
+			        $("#btn").text('Followed');
+			    }
+			    
+			});
+			$("#btn1").click(function(e){
+				e.preventDefault();
+				
+				$("#btn1").addClass('followed');
+				
+			    if($("#btn1").hasClass('followed')){
+			    	alert("test");
+			        //$.ajax(); Do Dislike
+			        $.post("/MyTravelerProject/unfollow");
 
-	        //$.ajax(); Do Dislike
-	        $.post("/MyTravelerProject/dislikePost");
-	        $("#btn1").removeClass('liked');
-	        $("#btn1").addClass('dislike');
-	        $("#btn1").text('Unfollow');
-	    } else {
-
-	        // $.ajax(); Do Like
-	        
-	        $.post("/MyTravelerProject/likePost");
-	        $("#btn1").addClass('liked');
-	        $("#btn1").text('Follow');
-	    }
-	    
-	});
-	$( "div.container" )
-	  .mouseover(function() {
-		  if($("#btn").hasClass('following')){
-		  $("#btn").addClass('unfollow');
-			$("#btn").text('Unfollow');
-		  }
-	  })
-	  .mouseout(function() {
-		  if($("#btn").hasClass('following')){
-		  $("#btn").removeClass('unfollow');
-			$("#btn").text('Following');
-		  }
-	  });
-	
-});
-
+			        $("#btn1").text('Follow');
+			    } else {
+			    	alert("test2");
+			        // $.ajax(); Do Like
+			        
+			        $.post("/MyTravelerProject/unfollow");
+			        $("#btn1").addClass('followed');
+			        $("#btn1").text('Followed');
+			    }
+			    
+			});
+			$( "div.container" )
+			  .mouseover(function() {
+				  if($("#btn").hasClass('followed')){
+				  $("#btn").addClass('unfollow');
+					$("#btn").text('Unfollow');
+				  }
+			  })
+			  .mouseout(function() {
+				  if($("#btn").hasClass('followed')){
+				  $("#btn").removeClass('unfollow');
+					$("#btn").text('Followed');
+				  }
+			  });
+			
+		});
 </script>
 
 
@@ -104,13 +107,13 @@ $(document).ready(function(){
 	<h2 class="lead"><c:out value="${ usersprofile.username }"></c:out>
 	</h2>
 	<c:if test="${sessionScope.username !=null && sessionScope.username != usersprofile.username && !isFollowing}">
-		<div id = "btn" >
-	   	 	<button class="btn followButton" rel="6">Follow</button>
+		<div class="container">
+	   	 	<button id="btn" class="btn followButton" rel="6">Follow</button>
 		</div>
 	</c:if>
 	<c:if test="${sessionScope.username !=null && sessionScope.username != usersprofile.username && isFollowing}">
-		<div id = "btn1" >
-	   	 	<button class="btn followButton" rel="6">Following</button>
+		<div class="container">
+	   	 	<button id="btn1" class="btn followButton" rel="6">Following</button>
 		</div>
 	</c:if>
 	<p> <font size="5" face="Book Antiqua" color="black" > 
@@ -125,23 +128,26 @@ $(document).ready(function(){
 <!-- nqkyde vsqsno butoni POSTS FOLLOWING FOLLOWERS -->
 
 
-<div id="wall" align="center"></div>
+
 <button class="btn btn-action btn-lg" id="postShow">Posts</button>
 <button class="btn btn-action btn-lg" id="followersShow">Followers</button>
 <button class = "btn btn-action btn-lg" id="followingShow">Following</button>
 <!-- No posts/no followers !!!! -->
-
+<div id="wall" align="center"></div>
 <div hidden id="printedPosts" align="center">
 			<font style= "oblique" size="5" style="color:black;">
 		<u><c:out value="${usersprofile.username}' posts:"></c:out></u>
 		<c:forEach var="post" items="${usersprofile.posts}">
-		<div class="postlook" align="center">
-			 <a  style="color:blue" href = "post/<c:url value="${post.postId}"/> " >${ post.postName }</a>  posted on ${post.date} <br><br><br>
-                        <img src="picture/${post.postId}" height="100" ><br>
-                       ${ post.likes } likes
-			  
-	            
-		</div><br>
+			<div >
+				<img class="img-circle-users" src="image/<c:url value="${post.author.username}"/>">
+				<font style= "oblique" size="5" style="color:black;">
+				<a href = "user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
+				</font>
+				<a class="lead" style="color:blue" href = "post/<c:url value="${post.postId}"/> " >${ post.postName }</a> <br><br>
+				<img src="picture/${post.postId}" height="300" >
+				<h5>${ post.likes } likes</h5>
+			</div>
+			<br>
 	</c:forEach>
 	  </font>
 </div>
@@ -150,33 +156,39 @@ $(document).ready(function(){
 <font style= "oblique" size="5" style="color:black;">
 		<u><c:out value="${usersprofile.username}'s followers:"></c:out></u>
 	<c:forEach var="string" items="${usersprofile.followers}">
-		<div class="postlook" align="center">
-				<!-- show small Picture -->
-				<img class="img-circle-users" src="/MyTravelerProject/image/<c:url value="${ string }"></c:url>" height=30 width="30"/> <br>
-				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "/MyTravelerProject/user/<c:out value="${string}"/> " >${ string }</a><br>
-				
-				
+		<div class="userlook" align="center">
+
+			                   <!-- show small Picture -->
+			                   <img class="img-circle-users" src="image/<c:url value="${user.username}"/>">
+			                   <!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+			                   <a href = "/MyTravelerProject/user/<c:url value="${user.username}"/>" >${ user.username }</a><br>
+			                   <c:out value="${ user.first_name }"></c:out>
+			                   <c:out value="${ user.last_name }"></c:out> <br>
+			                   <c:out value="${ user.email }"></c:out>
+
 		</div><br>
 	</c:forEach>
 	</font>
 </div>
 
 
-<div hidden id="printedFollowing" align="center">
-<font style= "oblique" size="5" style="color:black;">
-		<u><c:out value="${usersprofile.username} is following:"></c:out></u>
-	<c:forEach var="string" items="${usersprofile.following}">
-		<div class="postlook" align="center">
-				<!-- show small Picture -->
-				<img class="img-circle-users" src="/MyTravelerProject/image/<c:url value="${ string }"></c:url>" height=30 width="30"/> <br>
-				<!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-				<a href = "/MyTravelerProject/user/<c:out value="${string}"/> " >${ string }</a><br>
-				
-				
-		</div><br>
-	</c:forEach>
-	</font>
+	<div hidden id="printedFollowing" align="center">
+		<font style= "oblique" size="5" style="color:black;">
+			<u><c:out value="${usersprofile.username} is following:"></c:out></u>
+				<c:forEach var="string" items="${usersprofile.following}">
+					<div class="userlook" align="center">
+
+			                   <!-- show small Picture -->
+			                   <img class="img-circle-users" src="image/<c:url value="${user.username}"/>">
+			                   <!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+			                   <a href = "/MyTravelerProject/user/<c:url value="${user.username}"/>" >${ user.username }</a><br>
+			                   <c:out value="${ user.first_name }"></c:out>
+			                   <c:out value="${ user.last_name }"></c:out> <br>
+			                   <c:out value="${ user.email }"></c:out>
+
+					</div><br>
+				</c:forEach>
+		</font>
 	</div>
 	</div>
 	</div>
