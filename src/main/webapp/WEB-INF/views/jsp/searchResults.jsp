@@ -37,7 +37,8 @@
                <button class="btn" id="btn2">Posts by destination</button>
                <button class="btn" id="btn3">Posts by author</button>
                <button class="btn" id="btn4">Users</button>
-               <div id="test1" align="center">
+               <div id="test1" align="center"></div>
+               <div>
                   <h1 class="lead"> Posts tagged with: 
                      <c:out value="${sessionScope.searchFor}"></c:out>
                   <c:if test="${sessionScope.results==null || sessionScope.results.isEmpty()}">
@@ -55,23 +56,38 @@
                         	$("#test1").html(document.getElementById("results").innerHTML);
                         });
                         
-                  </script>
-                  <button class="btn" id="btn11">Newest</button>
-                  <button class="btn" id="btn12">Top</button>
-                  <div id="results" align="center">
-                     <c:forEach var="post" items="${sessionScope.results}">
-                        <div >
-                           <img class="img-circle-users" src="image/<c:url value="${post.author.username}"/>">
-                           <font style= "oblique" size="5" style="color:black;">
-                              <a href = "user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
-                           </font>
-                           <a class="lead" style="color:blue" href = "post/<c:url value="${post.postId}"/>" >${ post.postName }</a> <br><br>
-                           <img src="picture/${post.postId}" height="300" >
-                           <h5>${ post.likes } likes</h5>
-                        </div>
-                        <br>
-                     </c:forEach>
-                  </div>
+				</script>
+				<button class="btn" id="btn11">Newest</button>
+				<button class="btn" id="btn12">Top</button>
+				<div hidden id="results" align="center">
+	                   <c:forEach var="post" items="${sessionScope.results}">
+	                      <div >
+	                         <img class="img-circle-users" src="image/<c:url value="${post.author.username}"/>">
+	                         <font style= "oblique" size="5" style="color:black;">
+	                            <a href = "user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
+	                         </font>
+	                         <a class="lead" style="color:blue" href = "post/
+	                         <c:url value="${post.postId}"/>" >${ post.postName }</a> <br><br>
+	                         <img src="picture/${post.postId}" height="300" >
+	                         <h5>${ post.likes } likes</h5>
+	                      </div>
+	                      <br>
+	                  </c:forEach>
+				</div>
+                <div hidden id="printByUser" align="center">
+                    <c:forEach var="user" items="${sessionScope.resultsByUser}">
+                        <div class="postlook" align="center">
+			                   <!-- show small Picture -->
+			                   <img class="img-circle-users" src="image/<c:url value="${user.username}"/>">
+			                   <!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
+			                   <a href = "/MyTravelerProject/user/<c:url value="${user.username}"/>" >${ user.username }</a><br>
+			                   <c:out value="${ user.first_name }"></c:out>
+			                   <c:out value="${ user.last_name }"></c:out> <br>
+			                   <c:out value="${ user.email }"></c:out>
+            			</div>
+                		<br>
+             		</c:forEach>
+				</div>
                   <br>
                </div>
                <br>
