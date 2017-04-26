@@ -133,14 +133,13 @@
                      <c:forEach var="User" items="${post.likers}">
                         <div class="userlook" align="center">
                            <!-- show small Picture -->
-                           <img src="image/<c:url value="${ user.username }"></c:url>" height=30 width="30"/> <br>
+                           <img src="/MyTravelerProject/image/<c:url value="${ User.username }"></c:url>" height=30 width="30"/> <br>
                            <!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-                           <a href = "<c:url value="/${user.username}"/>" >${ post.author.username }</a><br>
-                           <c:out value="${ user.first_name }"></c:out>
-                           <c:out value="${ user.last_name }"></c:out>
-                           <c:out value="${ user.email }"></c:out>
+                           <a href = "<c:url value="/${User.username}"/>" >${ post.author.username }</a><br>
+                          
+                        ********************
+                     
                         </div>
-                        <br>
                      </c:forEach>
                   </div>
                </div>
