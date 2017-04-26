@@ -6,10 +6,14 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
       <title>Search Results</title>
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
       <script>
+      
+      <!-- TODO REMOVE FORMS AND REFRESH CONTENT OF RESULTS THROUGH AJAX -->
          $(document).ready(function(){
          	    $("#test1").html(document.getElementById("results").innerHTML);
+         	    
              $("#btn1").click(function(){
             	 $.get("/MyTravelerProject/searchByTag");
             	 $("#test1").html(document.getElementById("results").innerHTML);
@@ -26,40 +30,44 @@
                  $("#test1").html(document.getElementById("printByUser").innerHTML);
              });
          });
-      </script>
+      </script> 
    </head>
    <body>
       <jsp:include page="header2.jsp" />
       <header id="head4">
          <div class="container">
             <div class="row">
-               <button class="btn" id="btn1">Posts by tags</button>
-               <button class="btn" id="btn2">Posts by destination</button>
-               <button class="btn" id="btn3">Posts by author</button>
+            	<div>
+            	<form action="/MyTravelerProject/searchByTag"><button class="btn" id="btn1">Posts by tags</button></form>
+            	<form action="/MyTravelerProject/searchByDest"> <button class="btn" id="btn2">Posts by destination</button></form>
+            	<form action="/MyTravelerProject/searchByAuthor"> <button class="btn" id="btn3">Posts by author</button></form>
+            	</div>
+            	
                <button class="btn" id="btn4">Users</button>
                <div id="test1" align="center"></div>
                <div>
-                  <h1 class="lead"> Posts tagged with: 
-                     <c:out value="${sessionScope.searchFor}"></c:out>
-                  <c:if test="${sessionScope.results==null || sessionScope.results.isEmpty()}">
-                     <br><br>
-                     No posts found
-                  </c:if>
-                  </h1>
-                  <script>
-                     $("#btn11").click(function(){
-                    	 	$.get("/MyTravelerProject/orderByDate");
-                        	$("#test1").html(document.getElementById("results").innerHTML);
-                        });
-                        $("#btn12").click(function(){
-                        	$.get("/MyTravelerProject/orderByLikes");
-                        	$("#test1").html(document.getElementById("results").innerHTML);
-                        });
-                        
-				</script>
-				<button class="btn" id="btn11">Newest</button>
-				<button class="btn" id="btn12">Top</button>
-				<div hidden id="results" align="center">
+               		<div hidden id="results" align="center">
+		                  <h1 class="lead"> Posts tagged with: 
+		                     <c:out value="${sessionScope.searchFor}"></c:out>
+		                  <c:if test="${sessionScope.results==null || sessionScope.results.isEmpty()}">
+		                     <br><br>
+		                     No posts found
+		                  </c:if>
+		                  </h1>
+		                  <script>
+		                     $("#btn11").click(function(){
+		                    	 	$.get("/MyTravelerProject/orderByDate");
+		                        	$("#test1").html(document.getElementById("results").innerHTML);
+		                        });
+		                        $("#btn12").click(function(){
+		                        	$.get("/MyTravelerProject/orderByLikes");
+		                        	$("#test1").html(document.getElementById("results").innerHTML);
+		                        });
+		                        
+						</script>
+						<button class="btn" id="btn11">Newest</button>
+						<button class="btn" id="btn12">Top</button>
+						
 	                   <c:forEach var="post" items="${sessionScope.results}">
 	                      <div >
 	                         <img class="img-circle-users" src="image/<c:url value="${post.author.username}"/>">
@@ -75,6 +83,13 @@
 	                  </c:forEach>
 				</div>
                 <div hidden id="printByUser" align="center">
+					<h1 class="lead"> Users countaining: 
+						<c:out value="${sessionScope.searchFor}"></c:out>
+							<c:if test="${sessionScope.resultsByUser==null || sessionScope.resultsByUser.isEmpty()}">
+							<br><br>
+							No posts found
+						</c:if>
+					</h1>
                     <c:forEach var="user" items="${sessionScope.resultsByUser}">
                         <div class="postlook" align="center">
 			                   <!-- show small Picture -->

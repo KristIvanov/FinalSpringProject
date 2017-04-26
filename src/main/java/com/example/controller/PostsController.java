@@ -268,7 +268,9 @@ public class PostsController {
 		Post post = PostManager.getInstance().getPosts().get(postId);
 		model.addAttribute("post", post);
 		session.setAttribute("post", post);
-		model.addAttribute("isLiked", post.isLikedFrom((String)session.getAttribute("username")));
+		if (session.getAttribute("username")!=null){
+			model.addAttribute("isLiked", post.isLikedFrom((String)session.getAttribute("username")));
+		}
 		removeCacheFromResponse(response);
 		return "post";
 	}
@@ -278,22 +280,25 @@ public class PostsController {
 		return "post";
 	}
 	
-	@RequestMapping(value="/likePost", method=RequestMethod.GET)
+	@RequestMapping(value="/likePost", method=RequestMethod.POST)
 	public String likePost(Model model, HttpSession session) {
+		System.out.println("ZDRASTI");
 		Post post = (Post) session.getAttribute("post");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
 		if (UsersManager.getInstance().getRegisteredUsers().containsKey(session.getAttribute("username"))){
 			post.like(user);
+			PostManager.getInstance().likePost(post, user);
 		}
 		return "post";
 	}
 	
-	@RequestMapping(value="/dislikePost", method=RequestMethod.GET)
+	@RequestMapping(value="/dislikePost", method=RequestMethod.POST)
 	public String dislikePost(Model model, HttpSession session) {
 		Post post = (Post) session.getAttribute("post");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
 		if (UsersManager.getInstance().getRegisteredUsers().containsKey(session.getAttribute("username"))){
 			post.dislike(user);
+			PostManager.getInstance().likePost(post, user);
 		}
 		return "post";
 	}
