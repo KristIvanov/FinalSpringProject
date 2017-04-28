@@ -29,34 +29,6 @@
    </head>
    <body class="home">
       <jsp:include page="header2.jsp" />
-     
-      <!-- OLD FORM IF NEEDED
-         <c:if test="${sessionScope.username !=null }">
-         <h2>Please add a new post</h2>
-         <h5 id = "error">${ errorMsg}</h5>
-         <form action="addPost" method="post" enctype="multipart/form-data">
-         Post name: <input type="text" value="${ postname }" name="postname" required></br>
-         Post description:<textarea name="postdescription" value="${postdescription }" cols="50" rows="8" placeholder="Add description"  required></textarea></br>
-         Destination name: <input type="text" value="${ destinationname }" name="destinationname" required></br>
-         Longitude: <input type="text" value="${ longitude }" name="longitude" required></br>
-         latitude: <input type="text" value="${latitude}" name="latitude" required></br>
-         Enter key words separated by spaces: <input type="text" value="${ hashtags }" name="hashtags" ></br>
-         Categories: 
-         <select name = "category">
-         <c:forEach var="category" items="${CategoryDAO.getInstance().categories}">
-                         <option value="${category.name}"><c:out value="${category.name}"></c:out></option>
-                         </c:forEach>
-                         </select> <br>
-           <label for="photo"> Select picture:  </label> <br>
-         <input type="file" name="picture" size="50" placeholder="Upload Your Image" ><br><br>
-          <label for="video"> Select video:  </label> <br>
-         <input type="file" name="video" size="50" placeholder="Upload Your Video" ><br><br>
-         <input type="submit" value = "Add post"></br>
-         </form>
-         </c:if>
-           !-->
-           
-           
     <div id="head6">
           <div class="container">
            <div class="row">
@@ -76,11 +48,11 @@
                <label style="color:lightgrey">Share your experience</label>
                </br>
                   <label for= "postname" >Post name:</label>
-                  <input type="text" value="${ postname }" name="postname" placeholder="Add name"  required></br>
+                  <input type="text" value="${ postname }" name="postname" placeholder="Add name"  maxlength="30" required></br>
                   <label for="postdescription">Post description:</label>
-                  <textarea onkeyup="auto_grow(this)" name="postdescription" value="${postdescription }" placeholder="Add description"  required></textarea>
+                  <textarea onkeyup="auto_grow(this)" name="postdescription" value="${postdescription }" placeholder="Add description" maxlength="1000" required></textarea>
                   
-                  <label for="destination">Destination name: </label> <input  type="text" value="${ destinationname }" name="destinationname" placeholder="Add destination"  required></br>
+                  <label for="destination">Destination name: </label> <input  type="text" value="${ destinationname }" name="destinationname" placeholder="Add destination" maxlength="30" required></br>
                 
                   <input id="longitude" hidden type="text" value="${ longitude }" name="longitude">
                   <input id="latitude" hidden type="text" value="${latitude}" name="latitude" >

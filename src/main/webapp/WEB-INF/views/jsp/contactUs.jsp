@@ -18,8 +18,8 @@
             <form action="contactUs" method="post" >
                <div>
                   <div>
-                     <h3 style="color:grey;"> Email: <br> <input id="input3" type="email" name="email" placeholder="Enter your email"  required></br></h3>
-                     <h3 style="color:grey;">Message: <br><textarea id="input3" onkeyup="auto_grow(this)" name="message" placeholder="Enter your message"  required></textarea></h3>
+                     <h3 style="color:grey;"> Email: <br> <input id="input3" type="email" name="email" placeholder="Enter your email"  maxlength="30" required></br></h3>
+                     <h3 style="color:grey;">Message: <br><textarea id="input3" onkeyup="auto_grow(this)" name="message" placeholder="Enter your message" maxlength="400"  required></textarea></h3>
                   </div>
                   <input class="btn" type="submit" value = "Send message"></br>
             </form>

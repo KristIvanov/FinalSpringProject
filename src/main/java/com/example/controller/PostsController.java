@@ -112,6 +112,7 @@ public class PostsController {
 		else {
 			jspName = "login";
 		}
+		getAllPosts(model, session);
 		jspName = "allPosts";
 		model.addAttribute("errorMsg", errorMsg);
 		errorMsg=null;

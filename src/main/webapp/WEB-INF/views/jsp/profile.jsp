@@ -113,7 +113,7 @@ $(document).ready(function(){
 	</c:if>
 	<c:if test="${sessionScope.username !=null && sessionScope.username != usersprofile.username && isFollowing}">
 		<div class="container">
-	   	 	<button id="btn1" class="btn followButton" rel="6">Following</button>
+	   	 	<button id="btn1" class="btn followButton btn-action " rel="6">Following</button>
 		</div>
 	</c:if>
 	<p> <font size="5" face="Book Antiqua" color="black" > 
@@ -137,12 +137,12 @@ $(document).ready(function(){
 		<c:if test="${usersprofile.posts.isEmpty()}">No posts!</c:if>
 		<c:forEach var="post" items="${usersprofile.posts}">
 			<div >
-				<img class="img-circle-users" src="image/<c:url value="${post.author.username}"/>">
+				<img class="img-circle-users" src="/MyTravelerProject/image/<c:url value="${post.author.username}"/>">
 				<font style= "oblique" size="5" style="color:black;">
-				<a href = "user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
+				<a href = "/MyTravelerProject/user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
 				</font>
-				<a class="lead" style="color:blue" href = "post/<c:url value="${post.postId}"/> " >${ post.postName }</a> <br><br>
-				<img src="picture/${post.postId}" height="300" >
+				<a class="lead" style="color:blue" href = "/MyTravelerProject/post/<c:url value="${post.postId}"/> " >${ post.postName }</a> <br><br>
+				<img src="/MyTravelerProject/picture/${post.postId}" height="300" >
 				<h5>${ post.likes } likes</h5>
 			</div>
 			<br>

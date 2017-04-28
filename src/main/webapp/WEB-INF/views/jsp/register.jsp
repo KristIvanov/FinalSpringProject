@@ -19,11 +19,11 @@
                         <form action="register" method="post">
                             <div>
                                 <p> <font size="4" face="Book Antiqua" color="black" > 
-                                	Username (5 symbols): <input id="input2" type="text" placeholder="enter username" value="${ username }" name="username" required><br>
-                                    Email: <input id="input2" type="email" placeholder="enter email" value="${ email }" name="email" required></br>
-                                    First Name: <input id="input2" type="text" placeholder="enter firstname" value="${ firstname }" name="firstname" required></br>
-                                    Family Name: <input id="input2" type="text" placeholder="enter lastname" value="${ lastname }" name="lastname" required></br>
-                                    Password: <input id="input2" type="password" placeholder="enter password" name="password" required> 
+                                	Username (5 symbols): <input id="input2" type="text" placeholder="enter username" value="${ username }" name="username" maxlength="45" required><br>
+                                    Email: <input id="input2" type="email" placeholder="enter email" value="${ email }" name="email" maxlength="45" required></br>
+                                    First Name: <input id="input2" type="text" placeholder="enter firstname" value="${ firstname }" name="firstname" maxlength="45" required></br>
+                                    Family Name: <input id="input2" type="text" placeholder="enter lastname" value="${ lastname }" name="lastname" maxlength="45" required></br>
+                                    Password: <input id="input2" type="password" placeholder="enter password" name="password" maxlength="45" required> 
                                     </font>
                                 </p>
                                 <p> <font size="2" face="verdana" color="white" >Should contain upper&lower case letter and digit. </font></p></br>

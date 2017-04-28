@@ -27,7 +27,7 @@
       margin: auto;
       padding: 20px;
       border: 1px solid #888;
-      width: 70%;
+      width: 60%;
       }
        .close1 {
       color: #aaaaaa;
@@ -39,6 +39,14 @@
          height: 40%;
          width:50%;
          }
+         .column {
+    width: 27%;
+    word-wrap: break-word;
+     margin-left: auto;
+margin-right: auto;
+width: xxxem;
+text-align: left;
+}
       </style>
    </head>
    <body>
@@ -47,16 +55,20 @@
             <div class="lead" >
                <c:out value="${ post.postName }"></c:out>
             </div>
-            <div class="postCategory" >
-               Category:<c:out value="${ post.category.name }"></c:out>, Place:<c:out value="${post.destination }"></c:out> <br>
-               <button id="mapBtn">Click to see on map</button>
+            <div class="hashtags" >
+               Category:<c:out value="${ post.category.name }"></c:out>, Place:<c:out value="${post.destination }"></c:out> <br><br>
+               <button class="btn-action " id="mapBtn" onclick="resize()">Click to see on map</button>
             </div>
-            <!-- TODO post pic and video! if no pic - default pic -->
             <div class="authorMoreInfo" >
-               <img class="img-circle-users" src="/MyTravelerProject/image/
-               <c:url value="${post.author.username}"/>">
+               <img class="img-circle-users" src="/MyTravelerProject/image/<c:url value="${post.author.username}"/>">
                <a href = "/MyTravelerProject/user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
             </div>
+            <div class="hashtags">
+            Hashtags:
+            <c:forEach var="hashtag" items="${post.hashtags}">
+        	 <a href = "/MyTravelerProject/quickSearch?searchFor=<c:url value="${hashtag}"/>" >${ hashtag }</a>
+			 </c:forEach>
+			  </div>
             <div > <img src="/MyTravelerProject/picture/${post.postId}" height="250" >
             </div>
             <c:if test="${post.videoURL != null }">
@@ -65,7 +77,7 @@
 			<embed  src="/MyTravelerProject/video/${post.postId}">
 		</video>
             </c:if>
-            <div class="lead" >
+            <div class="lead column" >
                <c:out value="${ post.description } "></c:out>
             </div>
             <!-- TODO like only if logged -->
@@ -73,24 +85,24 @@
                <!--<c:out value="${ post.likes } 5"></c:out>
                   <!-- Open List With People Who Like This Post -->
                <c:if test=""></c:if>
-               <button id="likesBtn">${ post.likes } likes</button><br>
+               <button class=" btn-action "id="likesBtn">${ post.likes } likes</button><br> <br>
                <c:if test="${ sessionScope.username != null }">
                
 	               <c:if test="${sessionScope.username !=null && !isLiked}">
 	               
 	                  <div class="container">
-	                     <button id="btn" class="btn likeButton" rel="6">Like</button>
+	                     <button id="btn" class="btn likeButton btn-action btn-lg" rel="6">Like</button>
 	                  </div>
 	               </c:if>
 	               <c:if test="${sessionScope.username !=null && isLiked}">
 	                  <div  class="container">
-	                     <button id="btn1"  class="btn likeButton" rel="6">Dislike</button>
+	                     <button id="btn1"  class="btn likeButton btn-action btn-lg" rel="6">Dislike</button>
 	                  </div>
 	               </c:if>
 
                </c:if>
             </div>
-            <div class="postComments">
+            <div class="comments">
                <c:if test="${post.commentssize==0}">
                   <p>No comments!</p>
                </c:if>
@@ -105,33 +117,32 @@
                   </c:forEach>
                </c:if>
             </div>
-            <div id="addComment">
+            <div id="addComment" class="comments">
                <c:if test="${ sessionScope.username == null }">
                   <p>to add comments and like, please log in first!<p>
-                     <a class="btn" href="/MyTravelerProject/login">Login</a>
+                     <a class="btn btn-action " href="/MyTravelerProject/login">Login</a>
+                     <c:set var ="url" scope="session" value="post/${post.postId }"></c:set>
+         
                </c:if>
                <c:if test="${ sessionScope.username != null }">
                <form action="/MyTravelerProject/addComment" method="post" >
                Add new comment: <br><textarea id="textarea"name="newComment" value="${newComment }" cols="50" rows="8" placeholder="Add comment"  required></textarea></br>
-               <input type="submit" value = "Add comment" name="text"></br>
+               <input class="btn btn-action btn-lg"type="submit" value = "Add comment" name="text"></br>
                </form>
                </c:if>
             </div>
-            <div id="map">
-                     <input id="longitude" hidden type="text" value="${ post.longitude }" name="longitude" >
-                     <input id="latitude" hidden type="text" value="${ post.latitude }" name="latitude" >
-                  </div>
+             <input id="longitude" hidden type="text" value="${post.longitude }" name="longitude" >
+             <input id="latitude" hidden type="text" value="${ post.latitude }" name="latitude" >
+                  
             <div id="mapModal" class="mapmodal">
                <!-- Modal content -->
                <div class="mapmodal-content">
                   <span class="close1">&times;</span>
                   <div id="map">
-                     <input id="longitude" hidden type="text" value="${ post.longitude }" name="longitude" >
-                     <input id="latitude" hidden type="text" value="${ post.latitude }" name="latitude" >
-                  </div>
+                    </div>
                </div>
                </div>
-               <!-- The Modal -->
+               <!-- The Likes Modal -->
                <div id="myModal" class="modal">
                   <!-- Modal content -->
                   <div class="modal-content">
@@ -141,8 +152,7 @@
                         <div class="userlook" align="center">
                            <!-- show small Picture -->
                            <img src="/MyTravelerProject/image/<c:url value="${ User.username }"></c:url>" height=30 width="30"/> <br>
-                           <!-- linka kym profile page na user-a nqmam ideq dali trqbva da e taka -->
-                           <a href = "<c:url value="/${User.username}"/>" >${ User.username }</a><br>
+                           <a href = "/MyTravelerProject/user/<c:url value="${User.username}"/>" >${ User.username }</a><br>
                           
                         ********************
                         </div>
@@ -161,11 +171,11 @@
      
      // Get the <span> element that closes the modal
      var mapSpan = document.getElementsByClassName("close1")[0];
-     $("#mapModal").on('shown.bs.modal', function () {initAutocomplete();});
+    
      // When the user clicks the button, open the modal 
      mapBtn.onclick = function() {
          mapModal.style.display = "block";
-         initAutocomplete();
+        
      }
      
      // When the user clicks on <span> (x), close the modal
@@ -178,7 +188,17 @@
          if (event.target == mapModal) {
              mapModal.style.display = "none";
          }
-     }</script>
+        
+     }
+     
+     </script>
+     <script type="text/javascript"> 
+     $(document).ready(function(){
+     $("#mapBtn").on('shown click', function(event){
+   	    google.maps.event.trigger(map, 'resize');
+   	 initAutocomplete();    	  });
+     });
+     </script>
       <script>
          // Get the modal
          var modal = document.getElementById('myModal');
@@ -219,7 +239,7 @@
 				e.preventDefault();
 				
 				
-				alert("yoLiike");
+				
 			    if($("#btn").hasClass('liked')){
 		
 			        //$.ajax(); Do Dislike
@@ -243,13 +263,13 @@
 				$("#btn1").addClass('liked');
 				
 			    if($("#btn1").hasClass('liked')){
-			    	alert("test");
+			    	
 			        //$.ajax(); Do Dislike
 			        $.post("/MyTravelerProject/dislikePost");
 
 			        $("#btn1").text('like');
 			    } else {
-			    	alert("test2");
+			    	
 			        // $.ajax(); Do Like
 			        
 			        $.post("/MyTravelerProject/dislikePost");
@@ -286,7 +306,7 @@
 	    var latLng = new google.maps.LatLng(lat, lng);
 	    var map = new google.maps.Map(document.getElementById('map'), {
 	      center: latLng,
-	      zoom: 10
+	      zoom: 13
 	    });
 	    var marker;
         var infoWindow = new google.maps.InfoWindow;
@@ -307,10 +327,9 @@
          element.style.height = (element.scrollHeight)+"px";
          }
       </script>
-      <script async defer
-         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0sPhqPEf8YKqPYO862QcMihJmO0xb5s&callback=initMap"></script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN0sPhqPEf8YKqPYO862QcMihJmO0xb5s&libraries=places&callback=initAutocomplete"
-         async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPcrepzagkfYLz3QfDGQ4yqkQDxuGgUZA&libraries=places&callback=initAutocomplete"
+        ></script>
+         
       </div>
    </body>
 </html>

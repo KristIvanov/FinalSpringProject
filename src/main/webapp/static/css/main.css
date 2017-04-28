@@ -5,10 +5,13 @@
 #head3 { background:#181015 url( ../img/pic3.jpg) no-repeat; background-size: 100% 100%;; min-height:820px; text-align: right; padding-top:150px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
 	#head3 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; font-size:40px; margin-bottom:6px; color:#083244; line-height:1.15em; } 
 #head4 { background:#e7eddc ;background-size: 100% 100%;; min-height:820px; text-align: center; padding-top:200px; color:black; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
-	#head4 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; text-align: center;font-size:25px; margin-bottom:1px; color:#083244; line-height:1.15em; } 
+	#head4 .lead { font-family:"Open sans", Helvetica, Arial;font-style: italic; text-align: center;font-size:25px; margin-bottom:1px; color:#083244; line-height:1.15em;
+	}
+		#head4 .column {width: 27%;word-wrap: break-word;margin-left: auto;margin-right: auto; width: xxxem;text-align: left; }
+		
 		#head4.secondary { height:100px; min-height: 100px; padding-top:0px; }
 		#head4 .img {float: left; position: relative; width: 250px; height: 250px; border-radius: 70%; }
-				#head4 .profilepic { width: 250px; height: 250px; border-radius: 70%; }
+		#head4 .profilepic { width: 250px; height: 250px; border-radius: 70%; }
 		
 		#head4 .settings {float: left; position: relative; left:20%;}
 		#head4 .input {width: 90%;   height: 30%; box-sizing: border-box;border: 1px solid #ccc; border-radius: 5px; font-size: 12px; background: rgba(0, 0, 0, 0);background-repeat: no-repeat; padding: 12px 20px 12px 40px;}
@@ -43,6 +46,18 @@
 @media (max-width: 767px) {
 	#head { min-height:420px; padding-top:160px; }
 	#head .lead { font-size: 50px; }
+}
+.comments {
+	font-family: "Times New Roman", Times, serif;
+	font-style: italic;
+	font-size: 17px;
+	font-weight: bold;
+	
+}
+.hashtags {
+	font-family: "Times New Roman", Times, serif;
+	font-style: italic;
+	font-size: 21px;
 }
 .img-circle {
 	 width: 300px;

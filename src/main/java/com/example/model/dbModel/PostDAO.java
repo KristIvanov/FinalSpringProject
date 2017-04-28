@@ -151,10 +151,12 @@ public class PostDAO {
 			p.setPostId(postId);
 			//insert posts hashtags 
 			for(String s: p.getHashtags()) {
+				if(!s.isEmpty()){
 				ps = con.prepareStatement("INSERT INTO posts_hash_tags (post_id, hash_tag) VALUES (?,?)");
 				ps.setLong(1, p.getPostId());
 				ps.setString(2, s);
 				ps.executeUpdate();
+				}
 			}
 			
 			con.commit();
