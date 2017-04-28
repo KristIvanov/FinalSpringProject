@@ -17,7 +17,25 @@
       <link rel="stylesheet" href="/MyTravelerProject/css/main.css">
        <link href="/MyTravelerProject/css/simple-sidebar.css" rel="stylesheet">
    </head>
-  
+  <style>
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+</style>
    <body>
    
    <jsp:include page="sidebar.jsp"></jsp:include>
@@ -31,6 +49,23 @@
             </div>
             <div class="navbar-collapse collapse">
                <ul class="nav navbar-nav pull-right">
+             	 <li>
+             	 	<div class="dropdown">
+  						<a class="btn btn-lg " style="color:white" >Posts</a>
+ 							 <div class="btn dropdown-content">
+   								 <a class="btn" href="/MyTravelerProject/allPosts">All</a> <br>
+   								 <a class="btn" href="/MyTravelerProject/posts?category=Beaches">Beaches</a><br>
+   								 <a class="btn" href="/MyTravelerProject/posts?category=Hills">Hills</a> <br>
+   								 <a class="btn" href="/MyTravelerProject/posts?category=Monuments">Monuments</a><br>
+   								 <a class="btn" href="/MyTravelerProject/posts?category=Museums">Museums</a><br>
+   								 <a class="btn" href="/MyTravelerProject/posts?category=Wildlife">Wildlife</a> <br>
+   								  <a class="btn" href="/MyTravelerProject/posts?category=Cities">Cities</a> <br>
+   								 <a class="btn" href="/MyTravelerProject/posts?category=Mountains">Mountains</a> <br>
+   								  <a class="btn" href="/MyTravelerProject/posts?category=Forests">Forests</a> <br>
+   								 
+  							</div>
+					</div>
+				  </li>
                   <li>
                      <form action="/MyTravelerProject/quickSearch" method="get">
                         <input id="input1" style="color:white" type="text" class="btn" placeholder="Search Travelbook" name="searchFor" required>

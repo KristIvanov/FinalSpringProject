@@ -318,6 +318,22 @@ public class PostsController {
 		model.addAttribute("posts",posts);
 		return "allPosts";
 	}
+	@RequestMapping(value="/posts", method=RequestMethod.GET)
+	public String getPostsByCategory(Model model, HttpSession session, HttpServletRequest request) {
+		String category = request.getParameter("category");
+		TreeSet<Post> posts = new TreeSet<>((Post p1, Post p2)->p2.getDate().compareTo(p1.getDate()));
+		for(Post p : PostManager.getInstance().getPosts().values()) {
+			if(p.getCategory().getName().equals(category)) {
+			posts.add(p);
+			}
+		}
+		if(posts.isEmpty()) {
+			posts=null;
+		}
+		model.addAttribute("posts",posts);
+		model.addAttribute("category",category);
+		return "postsByCategory";
+	}
 	
 	@RequestMapping(value="/topPosts", method=RequestMethod.GET)
 	public String getTopPosts(Model model, HttpSession session) {
