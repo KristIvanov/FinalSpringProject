@@ -45,10 +45,12 @@
                      New Password: <input class="input" type="password" placeholder="enter new password" name="newPassword" required="required"></br>
                      <input class="btn" type="submit" value = "Change Password"></br>
                   </form>
-                  </div>
+                  <br>
+                  <a class="btn btn-action" href="deleteAccount" >Delete profile</a></p>
+                   </div>
                </c:if>
                <c:if test="${sessionScope.username ==null }">
-                  <%session.setAttribute("url", "updateInfo"); %>
+               <c:set var="url" scope="session" value="updateInfo" ></c:set>
                   <jsp:forward page="login.jsp"></jsp:forward>
                </c:if>
             </div>

@@ -102,7 +102,7 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String register(Model viewModel,HttpSession session,HttpServletRequest req, HttpServletResponse response) {
+	public String register(Model model,HttpSession session,HttpServletRequest req, HttpServletResponse response) {
 		String username = req.getParameter("username").trim();
 		String password = req.getParameter("password").trim();
 		String firstname = req.getParameter("firstname").trim();
@@ -121,12 +121,27 @@ public class UsersController {
 		} catch (InvalidInputException e) {
 			fileName= "register";
 		}
-		viewModel.addAttribute("errorMsg", errorMsg);
+		model.addAttribute("errorMsg", errorMsg);
 		errorMsg=null;
 		removeCacheFromResponse(response);
 		return fileName;
 	}
-	
+	@RequestMapping(value="/deleteAccount", method=RequestMethod.POST)
+	public String deleteAccount(Model model,HttpSession session,HttpServletRequest req, HttpServletResponse response) {
+		String username = (String) session.getAttribute("username");
+		String password = req.getParameter("password").trim();
+		User u = UsersManager.getInstance().getRegisteredUsers().get((String )session.getAttribute("username"));
+		if (UsersManager.getInstance().hashPassword(password).equals(u.getPassword())){
+			UsersManager.getInstance().delete(u);
+		}
+		removeCacheFromResponse(response);
+		model.addAttribute("message", "Account successfully deleted!");
+		return "indexx";
+	}
+	@RequestMapping(value="/deleteAccount", method=RequestMethod.GET)
+	public String deleteAcc() {
+		return "deleteAccount";
+	}
 	@RequestMapping(value="/updateInfo", method=RequestMethod.GET)
 	public String prepareForUpdate() {
 		return "updateInfo";

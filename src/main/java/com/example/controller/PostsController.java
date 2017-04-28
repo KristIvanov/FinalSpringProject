@@ -270,6 +270,7 @@ public class PostsController {
 		Long postId = Long.parseLong(id);
 		Post post = PostManager.getInstance().getPosts().get(postId);
 		model.addAttribute("post", post);
+		model.addAttribute("hashtags", post.getHashtags().size());
 		session.setAttribute("post", post);
 		if (session.getAttribute("username")!=null){
 			model.addAttribute("isLiked", post.isLikedFrom((String)session.getAttribute("username")));

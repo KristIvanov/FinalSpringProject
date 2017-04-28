@@ -22,8 +22,8 @@
 		<div class="container">
 			<div class="row">
 				<h1 class="lead">Travelbook</h1>
-				
-				<p><a class="btn btn-action btn-lg" href="topPosts">View Top Posts</a> 
+				 <font face="Bradley Hand ITC" size="4" style="color:black;">${ message}</font>
+					<p><a class="btn btn-action btn-lg" href="topPosts">View Top Posts</a> 
 				<a class="btn btn-action btn-lg" href="allPosts" >View All Posts</a></p>
 
 			</div>

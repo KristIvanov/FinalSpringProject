@@ -64,10 +64,12 @@ text-align: left;
                <a href = "/MyTravelerProject/user/<c:url value="${post.author.username}"/>" >${ post.author.username }</a> posted on ${post.date} <br>
             </div>
             <div class="hashtags">
+            <c:if test="${hashtags>0}">
             Hashtags:
             <c:forEach var="hashtag" items="${post.hashtags}">
         	 <a href = "/MyTravelerProject/quickSearch?searchFor=<c:url value="${hashtag}"/>" >${ hashtag }</a>
 			 </c:forEach>
+			 </c:if>
 			  </div>
             <div > <img src="/MyTravelerProject/picture/${post.postId}" height="250" >
             </div>
