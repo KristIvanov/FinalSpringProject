@@ -77,7 +77,7 @@ public class UsersManager {
 		  return true;
 	  } 
 	  
-	  public void register(String username, String password, String firstName, String lastName, String email) {
+	  public void register(String username, String password, String firstName, String lastName, String email) throws SQLException {
 	    User user;
 		try {
 			user = new User(username, UsersManager.getInstance().hashPassword(password), firstName, lastName, email);
@@ -88,7 +88,7 @@ public class UsersManager {
 		}
 	  }
 	  
-	  public void delete(User u)  {
+	  public void delete(User u) throws Exception  {
 		  Connection con = DBManager.getInstance().getConnection();
 		  try {
 			con.setAutoCommit(false);
@@ -119,7 +119,7 @@ public class UsersManager {
 	  }
 	  
 	  //update user's information by given parameters.. 
-	  public void updateUser(User u) {
+	  public void updateUser(User u) throws SQLException {
 		  //some validations of values for the fields to be changed
 		  UserDAO.getInstance().updateUser(u);
 	  }
@@ -192,13 +192,13 @@ public class UsersManager {
 	      return m.matches();
 		}
 
-		public void updatePass(String newPass, User u) {
+		public void updatePass(String newPass, User u) throws SQLException {
 			UserDAO.getInstance().updatePass(hashPassword(newPass), u);
 			
 		}
 
 		
-		public void addProfilePic(String username,String photoUrl) {
+		public void addProfilePic(String username,String photoUrl) throws SQLException {
 			User u = registeredUsers.get(username);
 			u.setPhotoURL(photoUrl);
 			UserDAO.getInstance().addProfilePic(u);
@@ -235,11 +235,11 @@ public class UsersManager {
 		}
 	  
 		
-		public void follow(User follower, User following) {
+		public void follow(User follower, User following) throws SQLException {
 			follower.follow(following.getUsername());
 			UserDAO.getInstance().follow(follower, following);
 		}
-		public void unFollow(User follower, User following) {
+		public void unFollow(User follower, User following) throws SQLException {
 			follower.unfollow(following.getUsername());
 			UserDAO.getInstance().unFollow(follower, following);
 		}

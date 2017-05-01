@@ -116,6 +116,7 @@ public class PostDAO {
 				catch (SQLException e) {
 				    System.out.println("Something went wrong while trying to get all posts!");
 				    e.printStackTrace();
+					throw e;
 				    
 				} catch (InvalidInputException e) {
 					e.printStackTrace();
@@ -127,7 +128,7 @@ public class PostDAO {
 		}
 	}
 	
-	public synchronized void addNewPost(Post p) {
+	public synchronized void addNewPost(Post p) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = null;
 		
@@ -172,6 +173,8 @@ public class PostDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
+			throw e;
 		}
 		finally {
 			try {
@@ -184,7 +187,7 @@ public class PostDAO {
 	}
 	
 
-	public synchronized void deletePost(Post p){
+	public synchronized void deletePost(Post p) throws Exception{
 		PreparedStatement prepSt;
 		  try {
 			prepSt = DBManager.getInstance().getConnection().prepareStatement("DELETE FROM posts WHERE post_id=?");
@@ -194,10 +197,11 @@ public class PostDAO {
 			System.out.println("Post successfully deleted!");
 		  } catch (Exception e) {
 			 System.out.println(e.getMessage());
+			 throw e;
 		  }
 	}
 	
-	public synchronized void likePost(Post p,User u) {
+	public synchronized void likePost(Post p,User u) throws SQLException {
 		PreparedStatement prepSt;
 		try {
 			prepSt = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO posts_has_likers (liked_post_id,liker_id) VALUES (?,?)");
@@ -208,10 +212,11 @@ public class PostDAO {
 			System.out.println("Post liked successfully!");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	
-	public synchronized void dislikePost(Post p,User u) {
+	public synchronized void dislikePost(Post p,User u) throws SQLException {
 		PreparedStatement prepSt;
 		try {
 			prepSt = DBManager.getInstance().getConnection().prepareStatement("DELETE FROM posts_has_likers WHERE liked_post_id=? and liker_id=? ");
@@ -222,6 +227,7 @@ public class PostDAO {
 			System.out.println("Post disliked successfully!");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 }

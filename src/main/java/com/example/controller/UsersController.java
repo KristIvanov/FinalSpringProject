@@ -3,6 +3,7 @@ package com.example.controller;
 
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import java.util.Random;
@@ -87,7 +88,11 @@ public class UsersController {
 		User user = UsersManager.getInstance().getRegisteredUsers().get(username);
 		User userProfile = UsersManager.getInstance().getRegisteredUsers().get(usersProfileName);
 		System.out.println("follow method");
-		UsersManager.getInstance().follow(user, userProfile);
+		try {
+			UsersManager.getInstance().follow(user, userProfile);
+		} catch (SQLException e) {
+			errorMsg = "something went wrong, please try again later";
+		}
 		
 		return "user/" + usersProfileName;
 	}
@@ -98,7 +103,11 @@ public class UsersController {
 		String usersProfileName = (String)session.getAttribute("usersprofile");
 		User user = UsersManager.getInstance().getRegisteredUsers().get(username);
 		User userProfile = UsersManager.getInstance().getRegisteredUsers().get(usersProfileName);
-		UsersManager.getInstance().unFollow(user, userProfile);
+		try {
+			UsersManager.getInstance().unFollow(user, userProfile);
+		} catch (SQLException e) {
+			errorMsg = "something went wrong, please try again later";
+		}
 		
 		return "user/" + usersProfileName;
 	}
@@ -149,6 +158,9 @@ public class UsersController {
 			UsersManager.getInstance().register(username, password, firstname, lastname, email);
 		} catch (InvalidInputException e) {
 			fileName= "register";
+		} catch (SQLException e) {
+			fileName= "register";
+			errorMsg = "something went wrong, please try again later";
 		}
 		model.addAttribute("errorMsg", errorMsg);
 		errorMsg=null;
@@ -161,10 +173,16 @@ public class UsersController {
 		String password = req.getParameter("password").trim();
 		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		if (UsersManager.getInstance().hashPassword(password).equals(u.getPassword())){
-			UsersManager.getInstance().delete(u);
+			try {
+				UsersManager.getInstance().delete(u);
+				removeCacheFromResponse(response);
+				model.addAttribute("message", "Account successfully deleted!");
+			} catch (Exception e) {
+				removeCacheFromResponse(response);
+				model.addAttribute("something went wrong, please try again later!");
+			}
 		}
-		removeCacheFromResponse(response);
-		model.addAttribute("message", "Account successfully deleted!");
+		
 		return "indexx";
 	}
 	@RequestMapping(value="/fbLogin", method=RequestMethod.GET)
@@ -305,8 +323,12 @@ public class UsersController {
 					}
 				}
 				if (errorMsg == " "){
-					UsersManager.getInstance().updateUser(u);
-					errorMsg = "Update successful";
+					try {
+						UsersManager.getInstance().updateUser(u);
+						errorMsg = "Update successful";
+					} catch (SQLException e) {
+						errorMsg = "something went wrong, please try again later";
+					}
 				}
 			}
 			else {
@@ -356,8 +378,12 @@ public class UsersController {
 					errorMsg = "Password is not safe!";
 				}
 				else {
-					UsersManager.getInstance().updatePass(newPass, u);
-					errorMsg = "Password successfully changed!";
+					try {
+						UsersManager.getInstance().updatePass(newPass, u);
+						errorMsg = "Password successfully changed!";
+					} catch (SQLException e) {
+						errorMsg = "something went wrong, please try again later";
+					}
 				}
 			}
 			else{
@@ -391,9 +417,14 @@ public class UsersController {
 		else{
 			fileName = "indexx";
 			String password = generateNewPass();
-			UsersManager.getInstance().updatePass(password, u);
-			MailSender mailSender = new MailSender(email, "Нова парола за Travelbook", "Вашата нова парола е " + password + " . Заповядайте отново!");
-			mailSender.start();
+			try {
+				UsersManager.getInstance().updatePass(password, u);
+				MailSender mailSender = new MailSender(email, "Нова парола за Travelbook", "Вашата нова парола е " + password + " . Заповядайте отново!");
+				mailSender.start();
+			} catch (SQLException e) {
+				errorMsg = "something went wrong, please try again later";
+			}
+			
 		}
 		model.addAttribute("errorMsg", errorMsg);
 		errorMsg=null;

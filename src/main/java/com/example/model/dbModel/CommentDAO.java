@@ -89,7 +89,7 @@ private static CommentDAO instance;
 	}
 	
 
-	public synchronized void deleteComment(Comment com){
+	public synchronized void deleteComment(Comment com) throws SQLException{
 		PreparedStatement prepSt;
 		Connection con = DBManager.getInstance().getConnection();
 		  try {
@@ -100,12 +100,13 @@ private static CommentDAO instance;
 			this.comments.remove(com);
 			System.out.println("Comment successfully deleted!");
 			
-		  } catch (Exception e) {
+		  } catch (SQLException e) {
 			 System.out.println(e.getMessage());
+			 throw e;
 		  }
 	}
 	
-	public synchronized void addNewComment(Comment comment) {
+	public synchronized void addNewComment(Comment comment) throws SQLException {
 		Connection con = DBManager.getInstance().getConnection();
 		PreparedStatement ps = null;
 		
@@ -131,6 +132,7 @@ private static CommentDAO instance;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 				
 	}
