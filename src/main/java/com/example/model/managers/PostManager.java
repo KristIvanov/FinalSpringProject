@@ -64,7 +64,7 @@ public class PostManager {
 		return true;
 	}
 	
-	public void addNewPost(String postName, String userName, String postDescription, Category category, LocalDateTime date, String destinationName, double longitude, double latitude, String pictureURL, String[] keywords, String videoURL) {
+	public void addNewPost(String postName, String userName, String postDescription, Category category, LocalDateTime date, String destinationName, double longitude, double latitude, String pictureURL, String[] keywords, String videoURL) throws SQLException {
 		User u = UsersManager.getInstance().getRegisteredUsers().get(userName);
 		Post p;
 		try {
@@ -80,16 +80,16 @@ public class PostManager {
 		}
 		
 	}
-	public void likePost(Post p,User u) {
+	public void likePost(Post p,User u) throws SQLException {
 		p.like(u);
 		PostDAO.getInstance().likePost(p,u);
 	}
-	public void dislike(Post p, User u) {
+	public void dislike(Post p, User u) throws SQLException {
 		p.dislike(u);
 		PostDAO.getInstance().dislikePost(p, u);
 	}
 	
-	public void deletePost(Post p) {
+	public void deletePost(Post p) throws Exception {
 		Connection con = DBManager.getInstance().getConnection();
 		boolean newTransaction = false;
 

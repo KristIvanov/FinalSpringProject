@@ -91,6 +91,7 @@ public class UserDAO {
 	    }
 	    catch (SQLException e) {
 	    	System.out.println("Cannot make statement." + e.getMessage());
+	    	throw e;
 	    } catch (InvalidInputException e) {
 			e.printStackTrace();
 		} 
@@ -101,7 +102,7 @@ public class UserDAO {
 	}
   }
   
-  public void saveUser(User user) {
+  public void saveUser(User user) throws SQLException {
       PreparedStatement st;
 	try {
 		st = DBManager.getInstance().getConnection().prepareStatement("INSERT INTO users (username,password,first_name,last_name,email) VALUES (?,?,?,?,?);",Statement.RETURN_GENERATED_KEYS);
@@ -118,12 +119,13 @@ public class UserDAO {
 	    System.out.println("User added successfully");
 	    res.close();
 	    st.close();
-	} catch (Exception e) {
+	} catch (SQLException e) {
 		System.out.println(e.getMessage());
+		throw e;
 	}
   }
   
-  public  void deleteUser(User u) {
+  public  void deleteUser(User u) throws SQLException {
 	  PreparedStatement prepSt;
 	  try {
 		prepSt = DBManager.getInstance().getConnection().prepareStatement("DELETE FROM users WHERE user_id=?");
@@ -131,13 +133,14 @@ public class UserDAO {
 		prepSt.executeUpdate();
 		prepSt.close();
 		System.out.println("A user successfully deleted!");
-	  } catch (Exception e) {
+	  } catch (SQLException e) {
 		 System.out.println(e.getMessage());
+		 throw e;
 	  }
   }
   
   
-  public synchronized void updateUser(User u){
+  public synchronized void updateUser(User u) throws SQLException{
 	  
 	  Connection con = DBManager.getInstance().getConnection();
 	  try {
@@ -170,6 +173,7 @@ public class UserDAO {
 		} catch (SQLException e1) {
 			System.out.println("wtf");
 		}
+		throw e;
 	} finally {
 		try {
 			con.setAutoCommit(true);
@@ -179,7 +183,7 @@ public class UserDAO {
 	}
   }
 
-  public void updatePass(String hashPassword, User u) {
+  public void updatePass(String hashPassword, User u) throws SQLException {
 	  Connection con = DBManager.getInstance().getConnection();
 	  PreparedStatement prepSt = null;
 	  u.setPassword(hashPassword);
@@ -191,10 +195,11 @@ public class UserDAO {
 		prepSt.close();
 	  } catch (SQLException e) {
 		  System.out.println("sql pass change failed");
+		  throw e;
 	  }
 	}
   
-  public void addProfilePic(User u) {
+  public void addProfilePic(User u) throws SQLException {
 	  Connection con = DBManager.getInstance().getConnection();
 	  PreparedStatement prepSt = null;
 	  try {
@@ -205,11 +210,12 @@ public class UserDAO {
 		prepSt.close();
 	} catch (SQLException e) {
 		System.out.println("Adding picture url failed!" + e.getMessage());
+		throw e;
 	}
 	  
   }
   
-  public void follow(User follower, User following) {
+  public void follow(User follower, User following) throws SQLException {
 	  
 	  Connection con = DBManager.getInstance().getConnection();
 	  PreparedStatement prepSt = null;
@@ -220,10 +226,11 @@ public class UserDAO {
 		prepSt.executeUpdate();
 	  } catch (SQLException e) {
 		e.printStackTrace();
+		throw e;
 	}
 	  
   }
-public void unFollow(User follower, User following) {
+public void unFollow(User follower, User following) throws SQLException {
 	  
 	  Connection con = DBManager.getInstance().getConnection();
 	  PreparedStatement prepSt = null;
@@ -234,6 +241,7 @@ public void unFollow(User follower, User following) {
 		prepSt.executeUpdate();
 	  } catch (SQLException e) {
 		e.printStackTrace();
+		throw e;
 	}
 	  
   }

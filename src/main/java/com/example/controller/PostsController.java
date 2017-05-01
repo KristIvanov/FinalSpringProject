@@ -107,6 +107,7 @@ public class PostsController {
 				jspName= "addPost";
 				System.out.println(e.getMessage());
 				e.printStackTrace();
+				errorMsg = "something went wrong, please try again later";
 			}
 		}
 		else {
@@ -175,6 +176,9 @@ public class PostsController {
 				}
 			} catch (InvalidInputException e) {
 				jspName= "post";
+			} catch (SQLException e) {
+				jspName= "post";
+				errorMsg = "something went wrong, please try again later";
 			}
 		}
 	else {
@@ -289,7 +293,11 @@ public class PostsController {
 		if (UsersManager.getInstance().getRegisteredUsers().containsKey(session.getAttribute("username"))){
 			if (!post.isLikedFrom(user.getUsername())){
 				post.like(user);
-				PostManager.getInstance().likePost(post, user);
+				try {
+					PostManager.getInstance().likePost(post, user);
+				} catch (SQLException e) {
+					errorMsg = "something went wrong, please try again later";
+				}
 			}
 			
 		}
@@ -303,7 +311,11 @@ public class PostsController {
 		User user = UsersManager.getInstance().getRegisteredUsers().get(session.getAttribute("username"));
 		if (UsersManager.getInstance().getRegisteredUsers().containsKey(session.getAttribute("username"))){
 			post.dislike(user);
-			PostManager.getInstance().dislike(post, user);
+			try {
+				PostManager.getInstance().dislike(post, user);
+			} catch (SQLException e) {
+				errorMsg = "something went wrong, please try again later";
+			}
 		}
 		return "post";
 	}

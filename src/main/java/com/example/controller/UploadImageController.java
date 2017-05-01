@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -106,9 +107,14 @@ public class UploadImageController {
 		}
 		File fileOnDisk = new File(FILE_LOCATION + username+"-profile-pic."+multiPartFile.getContentType().split("/")[1]);
 		Files.copy(multiPartFile.getInputStream(), fileOnDisk.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		UsersManager.getInstance().addProfilePic(username, fileOnDisk.getAbsolutePath());
-		model.addAttribute("profilePic", fileOnDisk.getAbsolutePath());
-		errorMsg= "Picture successfully uploaded!";
+		try {
+			UsersManager.getInstance().addProfilePic(username, fileOnDisk.getAbsolutePath());
+			model.addAttribute("profilePic", fileOnDisk.getAbsolutePath());
+			errorMsg= "Picture successfully uploaded!";
+		} catch (SQLException e) {
+			errorMsg = "something went wrong, please try again later";
+		}
+		
 		/*response.setStatus(200);
 		response.getWriter().append("Picture successfully uploaded!");*/
 
