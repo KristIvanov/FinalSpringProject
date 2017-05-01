@@ -56,7 +56,8 @@ text-align: left;
                <c:out value="${ post.postName }"></c:out>
             </div>
             <div class="hashtags" >
-               Category:<c:out value="${ post.category.name }"></c:out>, Place:<c:out value="${post.destination }"></c:out> <br><br>
+               Category:<a href = "/MyTravelerProject/posts?category=<c:url value="${post.category.name}"/>" >${ post.category.name }</a>, 
+               Place:<c:out value="${post.destination }"></c:out> <br><br>
                <button class="btn-action " id="mapBtn" onclick="resize()">Click to see on map</button>
             </div>
             <div class="authorMoreInfo" >

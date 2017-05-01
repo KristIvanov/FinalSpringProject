@@ -108,7 +108,7 @@ $(document).ready(function(){
 	</h2>
 	<c:if test="${sessionScope.username !=null && sessionScope.username != usersprofile.username && !isFollowing}">
 		<div class="container">
-	   	 	<button id="btn" class="btn followButton" rel="6">Follow</button>
+	   	 	<button id="btn" class="btn followButton btn-action" rel="6">Follow</button>
 		</div>
 	</c:if>
 	<c:if test="${sessionScope.username !=null && sessionScope.username != usersprofile.username && isFollowing}">
@@ -133,7 +133,7 @@ $(document).ready(function(){
 <div id="wall" align="center"></div>
 <div hidden id="printedPosts" align="center">
 			<font style= "oblique" size="5" style="color:black;">
-		<u><c:out value="${usersprofile.username}' posts:"></c:out></u><br>
+		<u><c:out value="${usersprofile.username}'s posts:"></c:out></u><br>
 		<c:if test="${usersprofile.posts.isEmpty()}">No posts!</c:if>
 		<c:forEach var="post" items="${usersprofile.posts}">
 			<div >

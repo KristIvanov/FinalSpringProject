@@ -75,7 +75,8 @@
                   <c:if test="${sessionScope.logged==null}">
                   <li><a class="btn" href="/MyTravelerProject/login">Login</a></li>
                   <li><a class="btn" href="/MyTravelerProject/register">Register</a></li>
-                 </c:if>
+                
+          </c:if>
                  <c:if test="${sessionScope.logged!=null}">
                   <li><a class="btn" href="/MyTravelerProject/logout">Logout</a></li>
                   <li><a class="btn" href="/MyTravelerProject/addPost">Add new post</a></li>
@@ -86,6 +87,7 @@
          </div>
       </div>
    
+
 
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>

@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.model.InvalidInputException;
 import com.example.model.MailSender;
@@ -100,6 +102,33 @@ public class UsersController {
 		
 		return "user/" + usersProfileName;
 	}
+	@RequestMapping(value="/fblogin", method=RequestMethod.POST)
+	public void fbLogin(Model model,HttpSession session,@RequestParam String last_name,
+			@RequestParam String first_name,@RequestParam String email, HttpServletRequest request) {
+		if(UsersManager.getInstance().getRegisteredUsers().containsKey(email)) {
+			User u = UsersManager.getInstance().getRegisteredUsers().get(email);
+			session.setAttribute("username", email);
+			session.setAttribute("logged", true);
+			session.setAttribute("firstname", u.getFirst_name());
+			session.setAttribute("lastname", u.getLast_name());
+			session.setAttribute("email", u.getEmail());
+			
+		} else {
+			System.out.println("tuk li sme");
+
+			String password = generateNewPass();
+			session.setAttribute("email", email);
+			session.setAttribute("username", email);
+			session.setAttribute("firstanme" , first_name);
+			session.setAttribute("lastname" , last_name);
+			try {
+				this.validateData(email, password, first_name, last_name, email);
+				UsersManager.getInstance().register(email, password, first_name, last_name, email);
+			} catch (InvalidInputException e) {
+			}
+			errorMsg=null;
+		}
+	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public String register(Model model,HttpSession session,HttpServletRequest req, HttpServletResponse response) {
@@ -130,13 +159,17 @@ public class UsersController {
 	public String deleteAccount(Model model,HttpSession session,HttpServletRequest req, HttpServletResponse response) {
 		String username = (String) session.getAttribute("username");
 		String password = req.getParameter("password").trim();
-		User u = UsersManager.getInstance().getRegisteredUsers().get((String )session.getAttribute("username"));
+		User u = UsersManager.getInstance().getRegisteredUsers().get(username);
 		if (UsersManager.getInstance().hashPassword(password).equals(u.getPassword())){
 			UsersManager.getInstance().delete(u);
 		}
 		removeCacheFromResponse(response);
 		model.addAttribute("message", "Account successfully deleted!");
 		return "indexx";
+	}
+	@RequestMapping(value="/fbLogin", method=RequestMethod.GET)
+	public String fbLogin() {
+		return "fblogin";
 	}
 	@RequestMapping(value="/deleteAccount", method=RequestMethod.GET)
 	public String deleteAcc() {
