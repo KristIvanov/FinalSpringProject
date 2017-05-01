@@ -243,6 +243,11 @@ public class UsersManager {
 			follower.unfollow(following.getUsername());
 			UserDAO.getInstance().unFollow(follower, following);
 		}
+
+		public void updateAboutMe(User u, String aboutMe) throws SQLException {
+			UserDAO.getInstance().updateAboutMe(aboutMe, u);
+			
+		}
 	}
 
 

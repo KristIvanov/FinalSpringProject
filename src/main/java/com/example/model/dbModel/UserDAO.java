@@ -199,6 +199,23 @@ public class UserDAO {
 	  }
 	}
   
+  public void updateAboutMe(String aboutMe, User u) throws SQLException{
+	  Connection con = DBManager.getInstance().getConnection();
+	  PreparedStatement prepSt = null;
+	  u.setAboutMe(aboutMe);
+	  try {
+		prepSt = con.prepareStatement("UPDATE users SET aboutMe = ? WHERE user_id=?");
+		prepSt.setString(1, aboutMe);
+		prepSt.setLong(2, u.getUserId());
+		prepSt.executeUpdate();
+		prepSt.close();
+	} catch (SQLException e) {
+		System.out.println("sql pass change failed");
+		throw e;
+	}
+	  
+  }
+  
   public void addProfilePic(User u) throws SQLException {
 	  Connection con = DBManager.getInstance().getConnection();
 	  PreparedStatement prepSt = null;

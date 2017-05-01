@@ -22,6 +22,7 @@ public class User {
 	private HashSet<String> followers;
 	private HashSet<String> following;
 	private ArrayList<Post> posts;
+	private String aboutMe;
 	
 	
 	public User(String username, String password, String first_name, String last_name, String email) throws InvalidInputException {
@@ -136,9 +137,14 @@ public class User {
 	}
 
 	
+	public String getAboutMe() {
+		return aboutMe;
+	}
 	
-	
-	
+	public void setAboutMe(String aboutMe) {
+		if (aboutMe!=null && !aboutMe.isEmpty()){
+			this.aboutMe = aboutMe;		}
+	}
 	
 	public void addPost(Post p) {
 		this.posts.add(p);

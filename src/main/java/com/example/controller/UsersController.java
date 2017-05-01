@@ -111,6 +111,8 @@ public class UsersController {
 		
 		return "user/" + usersProfileName;
 	}
+	
+	
 	@RequestMapping(value="/fblogin", method=RequestMethod.POST)
 	public void fbLogin(Model model,HttpSession session,@RequestParam String last_name,
 			@RequestParam String first_name,@RequestParam String email, HttpServletRequest request) {
@@ -134,6 +136,8 @@ public class UsersController {
 				this.validateData(email, password, first_name, last_name, email);
 				UsersManager.getInstance().register(email, password, first_name, last_name, email);
 			} catch (InvalidInputException e) {
+			} catch (SQLException e) {
+				errorMsg = "something went wrong, please try again later";
 			}
 			errorMsg=null;
 		}
@@ -279,6 +283,8 @@ public class UsersController {
 		return fileName;
 	}
 	
+	
+	
 	@RequestMapping(value="/updateInfo", method=RequestMethod.POST)
 	public String update(Model viewModel, HttpSession session,HttpServletRequest req, HttpServletResponse response) {
 		if(session.getAttribute("logged")!= null){
@@ -364,6 +370,28 @@ public class UsersController {
 			return "profile";
 		}
 		return "indexx";
+	}
+	
+
+	@RequestMapping(value="/aboutMe", method=RequestMethod.POST)
+	public String aboutMe(Model viewModel, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		fileName= "updateInfo";
+		String aboutMe = request.getParameter("aboutMe");
+		if (session.getAttribute("username")!=null){
+			User u = UsersManager.getInstance().getRegisteredUsers().get((String )session.getAttribute("username"));
+			try {
+				UsersManager.getInstance().updateAboutMe(u, aboutMe);
+			} catch (SQLException e) {
+				errorMsg = "something went wrong, please try again later";
+			}
+		}
+		else{
+			fileName="login";
+		}
+		viewModel.addAttribute("errorMsg", errorMsg);
+		errorMsg=null;
+		removeCacheFromResponse(response);
+		return fileName;
 	}
 	
 	@RequestMapping(value="/changePass",method = RequestMethod.POST)

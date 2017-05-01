@@ -46,6 +46,11 @@
                      <input class="btn" type="submit" value = "Change Password"></br>
                   </form>
                   <br>
+                  <form  action="aboutMe" method="post">
+                  <h1 class="lead" >Add something about you</h1>
+                  <textarea class="input" onkeyup="auto_grow(this)" name="aboutMe" value="${aboutme }" placeholder="About me" maxlength="1000"></textarea>
+                  </form>
+                  <br>
                   <a class="btn btn-action" href="deleteAccount" >Delete profile</a></p>
                    </div>
                </c:if>
